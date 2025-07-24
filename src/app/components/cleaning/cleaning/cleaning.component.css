@@ -97,6 +97,85 @@
     font-weight: 400;
 }
 
+.two {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #f8f8f8;
+}
+
+.two h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.two-cards {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.two-card-left,
+.two-card-right {
+    flex: 1 1 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 2rem 2rem;
+    max-width: 400px;
+    transition: transform 0.3s ease;
+}
+
+.two-card-left:hover,
+.two-card-right:hover {
+    transform: translateY(-5px);
+}
+
+.two-card-headings h5 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.two-card-headings p {
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.two-card-list ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.two-card-list li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+.two-card-list i {
+    color: #BDA577;
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.two-card-left>p,
+.two-card-right>p {
+    color: #BDA577;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-align: end;
+}
+
+.two-card-left>p:hover,
+.two-card-right>p:hover {
+    color: #a88b55;
+}
+
 @media (max-width: 768px) {
 
     .headings h1 {
@@ -119,6 +198,17 @@
 
     .three-card {
         flex: 1 1 100%;
+    }
+
+    .two-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .two-card-left,
+    .two-card-right {
+        width: 100%;
+        max-width: 100%;
     }
 }
 
