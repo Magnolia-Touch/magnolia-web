@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 .headings {
-    background-image: url('https://via.placeholder.com/1600x900');
+    background-image: url('../../../../public/bg.png');
     background-size: cover;
     background-position: center;
     padding: 100px 20px;
@@ -219,6 +219,79 @@
     object-fit: cover;
 }
 
+.why {
+    padding: 80px 20px;
+    background-color: #fdfdfd;
+    font-family: 'Playfair Display', serif;
+}
+
+.why-headings {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.why-headings h4 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.why-headings p {
+    font-size: 1.2rem;
+    color: #000000b7;
+    font-weight: 500;
+}
+
+.why-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.why-cards-left,
+.why-cards-right {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.why-card {
+    border-radius: 10px;
+    padding: 30px 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.why-card-heading i {
+    font-size: 1.6rem;
+    color: #BDA577;
+}
+
+.why-card-heading h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.why-card p {
+    font-size: 1rem;
+    color: #818181;
+    line-height: 1.6;
+}
+
 @media (max-width: 992px) {
     .headings {
         padding: 80px 15px;
@@ -272,6 +345,29 @@
 
     .service-para-right img {
         max-width: 80%;
+    }
+
+    .why-cards {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .why-cards-left,
+    .why-cards-right {
+        flex: 1 1 100%;
+    }
+
+    .why-card-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .why-card-heading i {
+        font-size: 1.4rem;
+    }
+
+    .why-card-heading h4 {
+        font-size: 1.1rem;
     }
 }
 
