@@ -88,6 +88,73 @@
     height: auto;
 }
 
+.your {
+    padding: 20px 20px;
+    text-align: center;
+}
+
+.your-heading h4 {
+    font-size: 28px;
+    color: #BDA577;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.your-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.your-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    max-width: 300px;
+    flex: 1 1 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.your-card img {
+    width: auto;
+    height: 140px;
+    margin-bottom: 15px;
+}
+
+.your-card h5 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.your-card p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.your button {
+    background-color: #BDA577;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.your button:hover {
+    background-color: #a8925c;
+    transform: scale(1.05);
+}
+
 @media (max-width: 992px) {
     .headings h1 {
         font-size: 2.5rem;
@@ -115,6 +182,35 @@
     .quote-right img {
         width: 150px;
         margin-top: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .your-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .your-card {
+        max-width: 90%;
+    }
+
+    .your-heading h4 {
+        font-size: 22px;
+    }
+
+    .your-card h5 {
+        font-size: 18px;
+    }
+
+    .your-card p {
+        font-size: 14px;
+    }
+
+    .your button {
+        width: 100%;
+        padding: 0.75rem;
     }
 }
 
