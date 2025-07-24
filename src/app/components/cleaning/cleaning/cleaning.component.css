@@ -17,6 +17,7 @@
 
 .headings h1 {
     font-size: 3rem;
+    font-weight: 700;
     background: linear-gradient(to right, #BDA577, #81818181);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -27,9 +28,10 @@
 }
 
 .headings p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 500;
     color: #818181;
-    max-width: 600px;
+    max-width: 800px;
     margin-bottom: 2rem;
 }
 
@@ -47,4 +49,89 @@
 .headings button:hover {
     background-color: #a8925c;
     transform: scale(1.05);
+}
+
+.three {
+    padding: 1rem 2rem;
+    background-color: #fefefe;
+}
+
+.three-cards {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.three-card {
+    flex: 1 1 30%;
+    padding: 2rem;
+    border-bottom: 2px solid #BDA577;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    min-width: 280px;
+}
+
+.three-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.three-card h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #333;
+    font-family: 'Playfair Display', serif;
+}
+
+.three-card p {
+    font-size: 1rem;
+    color: #818181;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+@media (max-width: 768px) {
+
+    .headings h1 {
+        font-size: 2.2rem;
+    }
+
+    .headings p {
+        font-size: 1rem;
+    }
+
+    .headings button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .three-cards {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .three-card {
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .headings h1 {
+        font-size: 1.8rem;
+    }
+
+    .headings p {
+        font-size: 0.95rem;
+    }
+
+    .headings {
+        padding: 3rem 1.5rem;
+    }
 }
