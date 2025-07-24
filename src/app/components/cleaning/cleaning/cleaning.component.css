@@ -126,11 +126,6 @@
     transition: transform 0.3s ease;
 }
 
-.two-card-left:hover,
-.two-card-right:hover {
-    transform: translateY(-5px);
-}
-
 .two-card-headings h5 {
     font-size: 1.25rem;
     font-weight: 600;
@@ -174,6 +169,80 @@
 .two-card-left>p:hover,
 .two-card-right>p:hover {
     color: #a88b55;
+}
+
+.one {
+    padding: 60px 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.one-heading h4 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.one-heading p {
+    font-size: 16px;
+    margin: 0;
+    color: #666;
+}
+
+.one-card {
+    max-width: 400px;
+    margin: 40px auto 0;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.one-card-headings h5 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: #000;
+}
+
+.one-card-headings p {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.one-card-list ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.one-card-list li {
+    margin-bottom: 10px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.one-card-list i {
+    color: #BDA577;
+    font-size: 18px;
+}
+
+.one-card>p {
+    color: #BDA577;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    cursor: pointer;
+    margin: 0;
+    text-align: end;
+}
+
+.one-card>p i {
+    font-size: 14px;
 }
 
 @media (max-width: 768px) {
