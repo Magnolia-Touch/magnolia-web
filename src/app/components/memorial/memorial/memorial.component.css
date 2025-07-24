@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
 .container-fluid {
     margin: 0;
     padding: 0;
@@ -49,4 +51,100 @@
 .headings button:hover {
     background-color: #a8925c;
     transform: scale(1.05);
+}
+
+.quote {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 5rem;
+    flex-wrap: wrap;
+}
+
+.quote-left {
+    max-width: 600px;
+    flex: 1;
+}
+
+.quote-text {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.quote-author {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    color: #555;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.quote-right img {
+    width: 200px;
+    height: auto;
+}
+
+@media (max-width: 992px) {
+    .headings h1 {
+        font-size: 2.5rem;
+    }
+
+    .headings p {
+        font-size: 1.3rem;
+        padding: 0 1rem;
+    }
+
+    .quote {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .quote-left {
+        max-width: 100%;
+    }
+
+    .quote-author {
+        text-align: center;
+    }
+
+    .quote-right img {
+        width: 150px;
+        margin-top: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .headings {
+        padding: 4rem 1rem;
+    }
+
+    .headings h1 {
+        font-size: 2rem;
+    }
+
+    .headings p {
+        font-size: 1.1rem;
+    }
+
+    .headings button {
+        width: 100%;
+        padding: 0.75rem 1rem;
+    }
+
+    .quote-text {
+        font-size: 20px;
+    }
+
+    .quote-author {
+        font-size: 18px;
+    }
+
+    .quote-right img {
+        width: 120px;
+    }
 }
