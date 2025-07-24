@@ -172,7 +172,7 @@
 }
 
 .one {
-    padding: 60px 10px;
+    padding: 10px 10px;
     text-align: center;
     background-color: #f9f9f9;
 }
@@ -180,43 +180,56 @@
 .one-heading h4 {
     font-size: 28px;
     margin-bottom: 10px;
-    color: #333;
+    color: #BDA577;
 }
 
-.one-heading p {
-    font-size: 16px;
-    margin: 0;
-    color: #666;
+.one-first {
+    font-size: 1.2rem;
+    color: #999;
+    font-weight: 500;
+}
+
+.one-second {
+    font-size: 1.2rem;
+    color: #000;
+    font-weight: 500;
 }
 
 .one-card {
     max-width: 400px;
     margin: 40px auto 0;
-    padding: 25px;
+    padding: 2rem 2rem;
     border: 1px solid #ccc;
     border-radius: 10px;
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
 }
 
 .one-card-headings h5 {
-    font-size: 22px;
-    margin-bottom: 8px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
     color: #000;
 }
 
 .one-card-headings p {
-    color: #555;
-    margin-bottom: 15px;
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 1rem;
 }
 
 .one-card-list ul {
     list-style: none;
     padding: 0;
-    margin-bottom: 20px;
+    text-align: left;
+    margin-bottom: 1.5rem;
 }
 
 .one-card-list li {
-    margin-bottom: 10px;
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
     color: #333;
     display: flex;
     align-items: center;
@@ -225,7 +238,8 @@
 
 .one-card-list i {
     color: #BDA577;
-    font-size: 18px;
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
 }
 
 .one-card>p {
@@ -234,11 +248,13 @@
     font-size: 16px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 6px;
     cursor: pointer;
     margin: 0;
-    text-align: end;
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
+    text-align: right;
 }
 
 .one-card>p i {
