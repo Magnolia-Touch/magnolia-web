@@ -1,0 +1,50 @@
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+.headings {
+    background-image: url('../../../../../public/bg.png');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 6rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.headings h1 {
+    font-size: 3rem;
+    background: linear-gradient(to right, #BDA577, #81818181);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.headings p {
+    font-size: 1.2rem;
+    color: #818181;
+    max-width: 600px;
+    margin-bottom: 2rem;
+}
+
+.headings button {
+    background-color: #BDA577;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.headings button:hover {
+    background-color: #a8925c;
+    transform: scale(1.05);
+}
