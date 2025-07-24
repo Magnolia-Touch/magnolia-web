@@ -1,1 +1,45 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
+    <div class="container-fluid align-items-center">
+        <img src="/logo.png" alt="Logo" class="navbar-logo mobile-logo" />
+        <!-- <img src="/half.png" alt="Logo" class="navbar-logo d-block d-lg-none" /> -->
+
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarScroll">
+            <ul class="navbar-nav nav-center" style="--bs-scroll-height: 100px;">
+                <li class="nav-item"><a class="nav-link custom-link" href="#">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle custom-link dropdown-toggle-custom" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Service <i
+                            class="bi bi-chevron-down dropdown-icon"></i></a>
+                    <ul class="dropdown-menu custom-dropdown">
+                        <li><a class="dropdown-item" routerLink="/cleaning">Cleaning</a></li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li><a class="dropdown-item" routerLink="/memorial">Memorial</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link custom-link" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link custom-link" href="#">Contact Us</a></li>
+                <li class="nav-item d-none d-lg-block">
+                    <button class="btn login-btn">Login</button>
+                </li>
+            </ul>
+
+            <!-- Desktop Quote Button -->
+            <div class="quote-btn-container d-none d-lg-block">
+                <button class="btn quote-btn">Get a Quote</button>
+            </div>
+
+            <!-- Mobile Buttons -->
+            <div class="d-flex d-lg-none justify-content-center gap-2 w-100 mt-3">
+                <button class="btn login-btn w-50">Login</button>
+                <button class="btn quote-btn w-50">Get a Quote</button>
+            </div>
+        </div>
+    </div>
+</nav>

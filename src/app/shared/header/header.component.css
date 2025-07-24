@@ -1,0 +1,152 @@
+.custom-navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-logo {
+    height: 90px;
+    width: auto;
+}
+
+.nav-center {
+    flex: 1;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.nav-link.custom-link {
+    position: relative;
+    color: #000;
+    transition: color 0.3s;
+}
+
+.nav-link.custom-link:hover {
+    color: #998560;
+}
+
+.nav-link.custom-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: #998560;
+    transition: width 0.3s ease;
+}
+
+.nav-link.custom-link:hover::after {
+    width: 100%;
+}
+
+.login-btn,
+.quote-btn {
+    background-color: #998560;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover,
+.quote-btn:hover {
+    background-color: #7e6d4b;
+}
+
+.quote-btn-container {
+    margin-left: auto;
+}
+
+.dropdown-toggle-custom {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #000;
+    transition: color 0.3s ease;
+}
+
+.dropdown-toggle-custom:hover {
+    color: #998560;
+}
+
+.dropdown-toggle-custom::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: #998560;
+    transition: width 0.3s ease;
+}
+
+.dropdown-toggle-custom:hover::after {
+    width: 100%;
+}
+
+.dropdown-icon {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    content: "▼";
+    font-size: 0.6rem;
+    color: inherit;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.show>.dropdown-toggle .dropdown-icon {
+    transform: rotate(180deg);
+    color: #998560;
+}
+
+.custom-dropdown {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    min-width: 180px;
+    padding: 0.5rem 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+}
+
+.custom-dropdown .dropdown-item {
+    padding: 0.5rem 1rem;
+    color: #333;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.custom-dropdown .dropdown-item:hover {
+    background-color: #f9f5f0;
+    color: #998560;
+    cursor: pointer;
+}
+
+.custom-dropdown .dropdown-divider {
+    margin: 0.5rem 0;
+    border-top: 1px solid #ddd;
+}
+
+@media (max-width: 991.98px) {
+
+    .custom-navbar {
+        padding: 1rem 0;
+    }
+
+    .navbar-collapse .btn {
+        width: 100%;
+    }
+
+    .mobile-logo {
+        margin: 0;
+        padding: 0;
+        height: 80px;
+        width: auto;
+    }
+}
