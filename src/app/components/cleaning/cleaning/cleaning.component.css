@@ -261,6 +261,34 @@
     font-size: 14px;
 }
 
+.images {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #fff;
+}
+
+.images-heading h5 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.row-1,
+.row-2 {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.row-1 img,
+.row-2 img {
+    width: 450px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
 .ready {
     background-color: #BDA577;
     padding: 5rem 0;
