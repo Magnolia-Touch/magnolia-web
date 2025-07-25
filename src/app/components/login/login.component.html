@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div class="container-fluid login-container">
+    <div class="left">
+        <img src="/login2.png" alt="">
+        <img src="/login1.png" alt="">
+    </div>
+
+    <div class="right">
+        <div class="headings">
+            <h2><span>WELCOME</span> BACK</h2>
+        </div>
+
+        <div class="login">
+            <div class="buttons">
+                <button [class.active]="isLogin" (click)="isLogin = true">Login</button>
+                <button [class.active]="!isLogin" (click)="isLogin = false">Sign Up</button>
+            </div>
+
+            <form *ngIf="isLogin" [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form">
+                <input type="email" placeholder="Email" formControlName="email">
+
+                <div class="password-wrapper">
+                    <input [type]="showLoginPassword ? 'text' : 'password'" placeholder="Password"
+                        formControlName="password">
+                    <i class="bi bi-eye toggle-password" (click)="showLoginPassword = !showLoginPassword"></i>
+                </div>
+
+                <div class="forgot-password">
+                    <a href="#">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+
+            <form *ngIf="!isLogin" [formGroup]="signupForm" (ngSubmit)="onSignup()" class="form">
+                <input type="text" placeholder="Username" formControlName="username">
+                <input type="email" placeholder="Email" formControlName="email">
+                <input type="password" placeholder="Password" formControlName="password">
+                <input type="password" placeholder="Confirm Password" formControlName="confirmPassword">
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>
