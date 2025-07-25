@@ -61,6 +61,57 @@
     transform: scale(1.05);
 }
 
+.begin {
+    text-align: center;
+    padding: 1rem 1rem;
+}
+
+.begin h4 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    font-weight: 600;
+}
+
+.notes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.note-top,
+.note-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.note {
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    width: 220px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-sizing: border-box;
+}
+
+.note:hover {
+    transform: translateY(-5px);
+}
+
+.note i {
+    font-size: 5rem;
+    color: black;
+    margin-bottom: 1rem;
+}
+
+.note h5 {
+    font-size: 1.2rem;
+    color: #BDA577;
+    font-weight: 700;
+}
+
 @media (max-width: 768px) {
     .headings {
         flex-direction: column-reverse;
@@ -87,5 +138,49 @@
 
     .headings img {
         width: 90%;
+    }
+
+    .note-top,
+    .note-bottom {
+        gap: 0rem;
+    }
+
+    .note {
+        width: calc(50% - 1rem);
+    }
+
+    .note i {
+        font-size: 3.5rem;
+    }
+
+    .note h5 {
+        font-size: 1rem;
+    }
+
+    .begin h4 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .note {
+        width: calc(50% - 0.75rem);
+        padding: 1rem;
+    }
+
+    .note i {
+        font-size: 3rem;
+    }
+
+    .note h5 {
+        font-size: 0.95rem;
+    }
+
+    .begin {
+        padding: 2rem 1rem;
+    }
+
+    .begin h4 {
+        font-size: 1.25rem;
     }
 }
