@@ -1,0 +1,30 @@
+.modal-body {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+}
+
+.modal-header {
+    padding: 1rem 2rem 0.5rem;
+}
+
+.modal-footer {
+    padding: 0 2rem 1.5rem;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+}
+
+.btn {
+    min-width: 100px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.02);
+}
+
+.text-danger-emphasis {
+    color: #d9534f !important;
+}

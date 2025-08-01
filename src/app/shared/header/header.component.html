@@ -34,7 +34,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
-                                <li><button class="dropdown-item" (click)="authService.logout()">Logout</button></li>
+                                <li><button class="dropdown-item" (click)="logOut()">Logout</button></li>
                             </ul>
                         </div>
 
@@ -62,7 +62,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end w-100">
                             <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
-                            <li><button class="dropdown-item" (click)="authService.logout()">Logout</button></li>
+                            <li><button class="dropdown-item" (click)="logOut()">Logout</button></li>
                         </ul>
                     </div>
                 </ng-container>
