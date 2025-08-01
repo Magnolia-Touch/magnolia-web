@@ -4,7 +4,6 @@ import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environment/environment';
 
 interface LoginResponse {
-  success: boolean;
   message: string;
   data: {
     access_token: string;
@@ -30,7 +29,7 @@ export class AuthService {
   login(identifier: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.baseUrl}/login`, { identifier, password }).pipe(
       tap(response => {        
-        if (response.success && response.data.access_token) {
+        if (response.data.access_token) {
           localStorage.setItem(this.tokenKey, response.data.access_token);
           localStorage.setItem(this.userKey, JSON.stringify(response.data.user));
         }
