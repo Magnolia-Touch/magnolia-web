@@ -9,6 +9,7 @@ import { MemorialComponent } from './components/memorial/memorial/memorial.compo
 import { JourneyComponent } from './components/memorial/journey/journey.component';
 import { CreateComponent } from './components/memorial/create/create.component';
 import { SummaryComponent as MemorialSummaryComponent } from './components/memorial/summary/summary.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,5 +22,6 @@ export const routes: Routes = [
     { path: 'memorial', component: MemorialComponent },
     { path: 'memorial-about', component: JourneyComponent },
     { path: 'memorial-create', component: CreateComponent },
-    { path: 'memorial-summary', component: MemorialSummaryComponent }
+    { path: 'memorial-summary', component: MemorialSummaryComponent },
+    { path: 'profile', component: ProfileComponent }
 ];

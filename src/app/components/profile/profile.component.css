@@ -1,0 +1,84 @@
+.details {
+  background-image: url('../../../../public/bg.png');
+  background-size: cover;
+  background-position: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: #818181;
+}
+
+/* Profile Row */
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.profile .left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile .first {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #b8a262;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #000;
+}
+
+.profile .second h5 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 16px;
+  color: #000;
+}
+
+.profile .second p {
+  margin: 0;
+  font-size: 14px;
+  color: #888;
+}
+
+.edit-btn {
+  background: #b8a262;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.card {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 25px 30px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: transparent;
+  text-align: left;
+}
+
+.card .row {
+  display: flex;
+  margin: 12px 0;
+}
+
+.card .label {
+  flex: 0 0 150px;  /* fixed width for labels */
+  font-weight: 500;
+  color: #555;
+}
+
+.card .value {
+  flex: 1;
+  color: #000;
+}
