@@ -219,13 +219,13 @@ label {
 /* Step 4 Layout */
 .step4 {
     display: flex;
-    gap: 30px;
+    gap: 40px;
     align-items: stretch;
     margin-top: 30px;
     background: #fff;
     border-radius: 14px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    padding: 40px 20px;
 }
 
 .step4 .left {
@@ -233,13 +233,11 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 12px;
 }
 
 .step4 .left img {
     max-width: 100%;
-    max-height: 100%;
-    border-radius: 12px;
+    border-radius: 14px;
     object-fit: cover;
 }
 
@@ -247,59 +245,127 @@ label {
     flex: 2;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 10px;
 }
 
 .step4 h4 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #2b2b2b;
 }
 
-.step4 p {
-    color: #555;
-    margin-bottom: 8px;
+.step4 .subtitle {
+    font-size: 15px;
+    color: #777;
+    margin-bottom: 16px;
+}
+
+/* Plan card */
+.step4 .plan-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 16px 20px;
+}
+
+.step4 .plan-card h6 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #444;
 }
 
 .step4 .pre {
     display: flex;
     justify-content: space-between;
-    padding: 12px 16px;
-    border-radius: 10px;
-    margin-bottom: 16px;
+    align-items: center;
 }
 
+.step4 .pre p {
+    font-size: 14px;
+    margin: 0;
+    color: #555;
+}
+
+.step4 .pre h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #2b2b2b;
+}
+
+/* Included Services */
 .step4 .list h5 {
     font-size: 16px;
-    margin-bottom: 8px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
-.step4 .list p {
+.step4 .list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.step4 .list li {
     font-size: 14px;
-    margin: 3px 0;
+    margin: 6px 0;
+    color: #555;
 }
 
+.step4 .list i {
+    color: #28a745;
+    margin-right: 6px;
+    font-size: 16px;
+}
+
+/* Total Section */
 .step4 .total {
-    margin: 20px 0;
+    background: #fff9f0;
+    border: 1px solid #f3e0c7;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .step4 .total h2 {
-    color: #c0a36e;
+    color: #c09855;
     font-weight: 700;
+    margin: 0;
 }
 
+/* Payment method */
 .step4 .method label {
     font-weight: 500;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     display: block;
     font-size: 14px;
+    color: #444;
 }
 
-.step4 select.form-control {
+.step4 select.form-control,
+.step4 .email input {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 10px 14px;
     font-size: 14px;
+}
+
+/* Button */
+.step4 .submit-btn {
+    width: 100%;
+    background: #c09855;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 12px;
+    transition: background 0.3s ease;
+}
+
+.step4 .submit-btn:hover {
+    background: #a57c3e;
 }
 
 /* Responsive */
@@ -322,7 +388,6 @@ label {
     }
 
     .step4 .left img {
-        max-width: 100%;
         margin-bottom: 20px;
     }
 }
