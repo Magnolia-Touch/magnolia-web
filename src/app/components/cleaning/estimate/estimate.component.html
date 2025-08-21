@@ -1,1 +1,147 @@
-<p>estimate works!</p>
+<app-header></app-header>
+
+<div class="container-fluid estimate-form">
+    <h2 class="form-title">Estimate Cemetery Cleaning Cost</h2>
+
+    <!-- Progress Steps -->
+    <div class="progress-steps">
+        <div *ngFor="let s of [1,2,3]" [class.active]="s <= step">
+            {{s}}
+        </div>
+    </div>
+
+    <!-- FORM BORDER -->
+    <form [formGroup]="estimateForm" class="form-wrapper">
+
+        <!-- STEP 1 -->
+        <div *ngIf="step === 1" class="step">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Cemetery No *</label>
+                    <input type="text" class="form-control" formControlName="cemeteryNo">
+                    <div class="error" *ngIf="hasError('cemeteryNo','required')">Required</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Cemetery Name *</label>
+                    <input type="text" class="form-control" formControlName="cemeteryName">
+                    <div class="error" *ngIf="hasError('cemeteryName','required')">Required</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>City *</label>
+                    <input type="text" class="form-control" formControlName="city">
+                    <div class="error" *ngIf="hasError('city','required')">Required</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>State *</label>
+                    <input type="text" class="form-control" formControlName="state">
+                    <div class="error" *ngIf="hasError('state','required')">Required</div>
+                </div>
+            </div>
+
+            <h4 class="section-heading">Choose Plan *</h4>
+            <div class="row">
+                <div class="col-md-4" *ngFor="let plan of [
+            {name:'Half Yearly Plan', price:'$50', desc:'Twice a year'},
+            {name:'Yearly Plan', price:'$90', desc:'Once a year'},
+            {name:'One Time', price:'$40', desc:'Single cleaning'}]">
+                    <label class="plan-card">
+                        <input type="radio" formControlName="plan" [value]="plan.name">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>{{plan.name}}</h5>
+                                <span class="price">{{plan.price}}</span>
+                            </div>
+                            <p>{{plan.desc}}</p>
+                            <div class="tick"><i class="bi bi-check2"></i></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="error" *ngIf="hasError('plan','required')">Select a plan</div>
+
+            <div class="text-center mt-3">
+                <button type="button" class="btn next-btn" (click)="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div *ngIf="step === 2" class="step">
+            <h4 class="section-heading">Select your Cleaning Days *</h4>
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <label>First Cleaning Date *</label>
+                    <input class="form-control" ngbDatepicker #d1="ngbDatepicker" readonly (click)="d1.toggle()"
+                        formControlName="firstCleaningDate">
+                    <small class="note">Recommended: March-May (Spring)</small>
+                    <div class="error" *ngIf="hasError('firstCleaningDate','required')">Required</div>
+                </div>
+                <div class="col-md-6">
+                    <label>Second Cleaning Date *</label>
+                    <input class="form-control" ngbDatepicker #d2="ngbDatepicker" readonly (click)="d2.toggle()"
+                        formControlName="secondCleaningDate">
+                    <small class="note">Recommended: 6 months after first</small>
+                    <div class="error" *ngIf="hasError('secondCleaningDate','required')">Required</div>
+                </div>
+            </div>
+
+            <h5 class="section-heading">Need Anniversary flowers? *</h5>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" formControlName="anniversaryFlowers" value="Yes">
+                <label class="form-check-label">Yes</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" formControlName="anniversaryFlowers" value="No">
+                <label class="form-check-label">No</label>
+            </div>
+            <div class="error" *ngIf="hasError('anniversaryFlowers','required')">Select Yes or No</div>
+
+            <div class="text-center mt-3">
+                <button type="button" class="btn next-btn" (click)="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div *ngIf="step === 3" class="step">
+            <label>Anniversary Date *</label>
+            <input class="form-control mb-2" ngbDatepicker #ad="ngbDatepicker" readonly (click)="ad.toggle()"
+                formControlName="anniversaryDate">
+            <div class="error" *ngIf="hasError('anniversaryDate','required')">Required</div>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="section-heading">Choose the perfect bouquet</h4>
+                <a href="#" class="view-more">View more</a>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3" *ngFor="let flower of [
+            {img:'flower.png', name:'Roses', count:'12', price:'$20'},
+            {img:'flower.png', name:'Lilies', count:'8', price:'$25'},
+            {img:'flower.png', name:'Tulips', count:'10', price:'$22'},
+            {img:'flower.png', name:'Carnations', count:'15', price:'$18'}]">
+                    <div class="flower-card">
+                        <img [src]="flower.img" class="img-fluid">
+                        <h6>{{flower.name}}</h6>
+                        <div class="d-flex justify-content-between">
+                            <span>{{flower.count}} pcs</span>
+                            <span class="price">{{flower.price}}</span>
+                        </div>
+                        <button class="btn add-btn">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <label>Add note on the bouquet</label>
+                <textarea class="form-control" rows="3" formControlName="note"></textarea>
+            </div>
+
+            <div class="text-center mt-3">
+                <button type="button" class="btn submit-btn" (click)="submitForm()">Get Estimate Cost</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<app-footer></app-footer>
