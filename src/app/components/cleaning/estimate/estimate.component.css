@@ -9,23 +9,23 @@
 }
 
 .form-wrapper {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 20px;
-  background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background: #fff;
 }
 
 .next-btn,
 .submit-btn {
-  background: #BDA577;
-  color: #fff;
-  padding: 10px 30px;
+    background: #BDA577;
+    color: #fff;
+    padding: 10px 30px;
 }
 
 .error {
-  color: red;
-  font-size: 13px;
-  margin-top: 3px;
+    color: red;
+    font-size: 13px;
+    margin-top: 3px;
 }
 
 .progress-steps {
@@ -69,6 +69,13 @@
     padding: 15px;
     border-radius: 10px;
     background: rgba(189, 165, 119, 0.07);
+    border: 2px solid transparent;
+    transition: 0.2s ease;
+}
+
+.plan-card.selected {
+    border: 2px solid #BDA577;
+    background: rgba(189, 165, 119, 0.15);
 }
 
 .plan-card input {

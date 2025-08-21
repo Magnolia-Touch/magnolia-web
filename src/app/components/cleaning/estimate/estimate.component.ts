@@ -16,6 +16,19 @@ export class EstimateComponent {
   step: number = 1;
   estimateForm: FormGroup;
 
+  plans = [
+    { name: 'Half Yearly Plan', price: '$50', desc: 'Twice a year' },
+    { name: 'Yearly Plan', price: '$90', desc: 'Once a year' },
+    { name: 'One Time', price: '$40', desc: 'Single cleaning' }
+  ];
+
+  flowers = [
+    { img: 'flower.png', name: 'Roses', count: '12', price: '$20' },
+    { img: 'flower.png', name: 'Lilies', count: '8', price: '$25' },
+    { img: 'flower.png', name: 'Tulips', count: '10', price: '$22' },
+    { img: 'flower.png', name: 'Carnations', count: '15', price: '$18' }
+  ];
+
   constructor(private fb: FormBuilder) {
     this.estimateForm = this.fb.group({
       // Step 1
@@ -34,31 +47,33 @@ export class EstimateComponent {
       anniversaryDate: [null, Validators.required],
       note: ['']
     });
+
+    this.watchValidation();
   }
 
-  nextStep() {
-    if (this.step === 1) {
-      const group = ['cemeteryNo', 'cemeteryName', 'city', 'state', 'plan'];
-      this.markTouched(group);
-      if (group.every(c => this.estimateForm.get(c)?.valid)) {
+  watchValidation() {
+    // auto-advance logic
+    this.estimateForm.valueChanges.subscribe(() => {
+      if (this.step === 1 && this.isGroupValid(['cemeteryNo', 'cemeteryName', 'city', 'state', 'plan'])) {
         this.step = 2;
       }
-    } else if (this.step === 2) {
-      const group = ['firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers'];
-      this.markTouched(group);
-      if (group.every(c => this.estimateForm.get(c)?.valid)) {
+      if (this.step === 2 && this.isGroupValid(['firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers'])) {
         this.step = 3;
       }
-    }
+    });
   }
 
   submitForm() {
-    const group = ['anniversaryDate'];
-    this.markTouched(group);
     if (this.estimateForm.valid) {
       console.log("Form Data:", this.estimateForm.value);
-      // Navigate to Step 4 component
+      this.step = 4; // move to next component flow
+    } else {
+      this.markTouched(Object.keys(this.estimateForm.controls));
     }
+  }
+
+  private isGroupValid(fields: string[]): boolean {
+    return fields.every(f => this.estimateForm.get(f)?.valid);
   }
 
   hasError(controlName: string, error: string): boolean {

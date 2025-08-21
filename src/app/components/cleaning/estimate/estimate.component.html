@@ -5,16 +5,14 @@
 
     <!-- Progress Steps -->
     <div class="progress-steps">
-        <div *ngFor="let s of [1,2,3]" [class.active]="s <= step">
-            {{s}}
-        </div>
+        <div *ngFor="let s of [1,2,3,4,5]" [class.active]="s <= step">{{ s }}</div>
     </div>
 
     <!-- FORM BORDER -->
     <form [formGroup]="estimateForm" class="form-wrapper">
 
         <!-- STEP 1 -->
-        <div *ngIf="step === 1" class="step">
+        <div class="step">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label>Cemetery No *</label>
@@ -42,11 +40,8 @@
 
             <h4 class="section-heading">Choose Plan *</h4>
             <div class="row">
-                <div class="col-md-4" *ngFor="let plan of [
-            {name:'Half Yearly Plan', price:'$50', desc:'Twice a year'},
-            {name:'Yearly Plan', price:'$90', desc:'Once a year'},
-            {name:'One Time', price:'$40', desc:'Single cleaning'}]">
-                    <label class="plan-card">
+                <div class="col-md-4" *ngFor="let plan of plans">
+                    <label class="plan-card" [class.selected]="estimateForm.get('plan')?.value === plan.name">
                         <input type="radio" formControlName="plan" [value]="plan.name">
                         <div>
                             <div class="d-flex justify-content-between align-items-center">
@@ -60,14 +55,10 @@
                 </div>
             </div>
             <div class="error" *ngIf="hasError('plan','required')">Select a plan</div>
-
-            <div class="text-center mt-3">
-                <button type="button" class="btn next-btn" (click)="nextStep()">Next</button>
-            </div>
         </div>
 
-        <!-- STEP 2 -->
-        <div *ngIf="step === 2" class="step">
+        <!-- STEP 2 (Visible only when Step 1 valid) -->
+        <div *ngIf="step >= 2" class="step">
             <h4 class="section-heading">Select your Cleaning Days *</h4>
             <div class="row mb-2">
                 <div class="col-md-6">
@@ -96,14 +87,10 @@
                 <label class="form-check-label">No</label>
             </div>
             <div class="error" *ngIf="hasError('anniversaryFlowers','required')">Select Yes or No</div>
-
-            <div class="text-center mt-3">
-                <button type="button" class="btn next-btn" (click)="nextStep()">Next</button>
-            </div>
         </div>
 
-        <!-- STEP 3 -->
-        <div *ngIf="step === 3" class="step">
+        <!-- STEP 3 (Visible only when Step 2 valid) -->
+        <div *ngIf="step >= 3" class="step">
             <label>Anniversary Date *</label>
             <input class="form-control mb-2" ngbDatepicker #ad="ngbDatepicker" readonly (click)="ad.toggle()"
                 formControlName="anniversaryDate">
@@ -115,11 +102,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-3" *ngFor="let flower of [
-            {img:'flower.png', name:'Roses', count:'12', price:'$20'},
-            {img:'flower.png', name:'Lilies', count:'8', price:'$25'},
-            {img:'flower.png', name:'Tulips', count:'10', price:'$22'},
-            {img:'flower.png', name:'Carnations', count:'15', price:'$18'}]">
+                <div class="col-md-3" *ngFor="let flower of flowers">
                     <div class="flower-card">
                         <img [src]="flower.img" class="img-fluid">
                         <h6>{{flower.name}}</h6>
@@ -136,10 +119,11 @@
                 <label>Add note on the bouquet</label>
                 <textarea class="form-control" rows="3" formControlName="note"></textarea>
             </div>
+        </div>
 
-            <div class="text-center mt-3">
-                <button type="button" class="btn submit-btn" (click)="submitForm()">Get Estimate Cost</button>
-            </div>
+        <!-- FINAL BUTTON -->
+        <div class="text-center mt-4">
+            <button type="button" class="btn submit-btn" (click)="submitForm()">Get Estimate Cost</button>
         </div>
     </form>
 </div>
