@@ -67,6 +67,7 @@ export class EstimateComponent {
     if (this.estimateForm.valid) {
       console.log("Form Data:", this.estimateForm.value);
       this.step = 4; // move to next component flow
+      this.scrollToTop();
     } else {
       this.markTouched(Object.keys(this.estimateForm.controls));
     }
@@ -83,6 +84,10 @@ export class EstimateComponent {
 
   private markTouched(controls: string[]) {
     controls.forEach(c => this.estimateForm.get(c)?.markAsTouched());
+  }
+
+    private scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
 }
