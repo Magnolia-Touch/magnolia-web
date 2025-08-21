@@ -8,123 +8,183 @@
         <div *ngFor="let s of [1,2,3,4,5]" [class.active]="s <= step">{{ s }}</div>
     </div>
 
-    <!-- FORM BORDER -->
-    <form [formGroup]="estimateForm" class="form-wrapper">
+    <div *ngIf="step < 4">
 
-        <!-- STEP 1 -->
-        <div class="step">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label>Cemetery No *</label>
-                    <input type="text" class="form-control" formControlName="cemeteryNo" placeholder="Enter Cemetery No">
-                    <div class="error" *ngIf="hasError('cemeteryNo','required')">Required</div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label>Cemetery Name *</label>
-                    <input type="text" class="form-control" formControlName="cemeteryName" placeholder="Enter Cemetery Name">
-                    <div class="error" *ngIf="hasError('cemeteryName','required')">Required</div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label>City *</label>
-                    <input type="text" class="form-control" formControlName="city" placeholder="Enter City">
-                    <div class="error" *ngIf="hasError('city','required')">Required</div>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label>State *</label>
-                    <input type="text" class="form-control" formControlName="state" placeholder="Enter State">
-                    <div class="error" *ngIf="hasError('state','required')">Required</div>
-                </div>
-            </div>
+        <!-- FORM BORDER -->
+        <form [formGroup]="estimateForm" class="form-wrapper">
 
-            <h4 class="section-heading">Choose Plan *</h4>
-            <div class="row">
-                <div class="col-md-4" *ngFor="let plan of plans">
-                    <label class="plan-card" [class.selected]="estimateForm.get('plan')?.value === plan.name">
-                        <input type="radio" formControlName="plan" [value]="plan.name">
-                        <div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5>{{plan.name}}</h5>
-                                <span class="price">{{plan.price}}</span>
-                            </div>
-                            <p>{{plan.desc}}</p>
-                        </div>
-                    </label>
-                </div>
-            </div>
-            <div class="error" *ngIf="hasError('plan','required')">Select a plan</div>
-        </div>
-
-        <!-- STEP 2 (Visible only when Step 1 valid) -->
-        <div *ngIf="step >= 2" class="step">
-            <h4 class="section-heading">Select your Cleaning Days *</h4>
-            <div class="row mb-2">
-                <div class="col-md-6">
-                    <label>First Cleaning Date *</label>
-                    <input class="form-control" ngbDatepicker #d1="ngbDatepicker" readonly (click)="d1.toggle()"
-                        formControlName="firstCleaningDate" placeholder="YYYY-MM-DD">
-                    <small class="note">Recommended: March-May (Spring)</small>
-                    <div class="error" *ngIf="hasError('firstCleaningDate','required')">Required</div>
-                </div>
-                <div class="col-md-6">
-                    <label>Second Cleaning Date *</label>
-                    <input class="form-control" ngbDatepicker #d2="ngbDatepicker" readonly (click)="d2.toggle()"
-                        formControlName="secondCleaningDate" placeholder="YYYY-MM-DD">
-                    <small class="note">Recommended: 6 months after first</small>
-                    <div class="error" *ngIf="hasError('secondCleaningDate','required')">Required</div>
-                </div>
-            </div>
-
-            <h5 class="section-heading">Need Anniversary flowers? *</h5>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" formControlName="anniversaryFlowers" value="Yes">
-                <label class="form-check-label">Yes</label>
-            </div>
-            <div class="form-check">
-                <input type="radio" class="form-check-input" formControlName="anniversaryFlowers" value="No">
-                <label class="form-check-label">No</label>
-            </div>
-            <div class="error" *ngIf="hasError('anniversaryFlowers','required')">Select Yes or No</div>
-        </div>
-
-        <!-- STEP 3 (Visible only when Step 2 valid) -->
-        <div *ngIf="step >= 3" class="step">
-            <label>Anniversary Date *</label>
-            <input class="form-control mb-2" ngbDatepicker #ad="ngbDatepicker" readonly (click)="ad.toggle()"
-                formControlName="anniversaryDate" placeholder="YYYY-MM-DD">
-            <div class="error" *ngIf="hasError('anniversaryDate','required')">Required</div>
-
-            <div class="d-flex justify-content-between align-items-center">
-                <h4 class="section-heading">Choose the perfect bouquet</h4>
-                <a href="#" class="view-more">View more</a>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3" *ngFor="let flower of flowers">
-                    <div class="flower-card">
-                        <img [src]="flower.img" class="img-fluid">
-                        <h6>{{flower.name}}</h6>
-                        <div class="d-flex justify-content-between">
-                            <span>{{flower.count}} pcs</span>
-                            <span class="price">{{flower.price}}</span>
-                        </div>
-                        <button class="btn add-btn">Add</button>
+            <!-- STEP 1 -->
+            <div class="step">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Cemetery No *</label>
+                        <input type="text" class="form-control" formControlName="cemeteryNo"
+                            placeholder="Enter Cemetery No">
+                        <div class="error" *ngIf="hasError('cemeteryNo','required')">Required</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Cemetery Name *</label>
+                        <input type="text" class="form-control" formControlName="cemeteryName"
+                            placeholder="Enter Cemetery Name">
+                        <div class="error" *ngIf="hasError('cemeteryName','required')">Required</div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>City *</label>
+                        <input type="text" class="form-control" formControlName="city" placeholder="Enter City">
+                        <div class="error" *ngIf="hasError('city','required')">Required</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>State *</label>
+                        <input type="text" class="form-control" formControlName="state" placeholder="Enter State">
+                        <div class="error" *ngIf="hasError('state','required')">Required</div>
+                    </div>
+                </div>
+
+                <h4 class="section-heading">Choose Plan *</h4>
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let plan of plans">
+                        <label class="plan-card" [class.selected]="estimateForm.get('plan')?.value === plan.name">
+                            <input type="radio" formControlName="plan" [value]="plan.name">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5>{{plan.name}}</h5>
+                                    <span class="price">{{plan.price}}</span>
+                                </div>
+                                <p>{{plan.desc}}</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="error" *ngIf="hasError('plan','required')">Select a plan</div>
             </div>
 
-            <div class="mt-3">
-                <label>Add note on the bouquet</label>
-                <textarea class="form-control" rows="3" formControlName="note" placeholder="Enter a message ....."></textarea>
-            </div>
-        </div>
+            <!-- STEP 2 (Visible only when Step 1 valid) -->
+            <div *ngIf="step >= 2" class="step">
+                <h4 class="section-heading">Select your Cleaning Days *</h4>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <label>First Cleaning Date *</label>
+                        <input class="form-control" ngbDatepicker #d1="ngbDatepicker" readonly (click)="d1.toggle()"
+                            formControlName="firstCleaningDate" placeholder="YYYY-MM-DD">
+                        <small class="note">Recommended: March-May (Spring)</small>
+                        <div class="error" *ngIf="hasError('firstCleaningDate','required')">Required</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Second Cleaning Date *</label>
+                        <input class="form-control" ngbDatepicker #d2="ngbDatepicker" readonly (click)="d2.toggle()"
+                            formControlName="secondCleaningDate" placeholder="YYYY-MM-DD">
+                        <small class="note">Recommended: 6 months after first</small>
+                        <div class="error" *ngIf="hasError('secondCleaningDate','required')">Required</div>
+                    </div>
+                </div>
 
-        <!-- FINAL BUTTON -->
-        <div class="text-center mt-4">
-            <button type="button" class="btn submit-btn" (click)="submitForm()">Get Estimate Cost</button>
+                <h5 class="section-heading">Need Anniversary flowers? *</h5>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" formControlName="anniversaryFlowers" value="Yes">
+                    <label class="form-check-label">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" formControlName="anniversaryFlowers" value="No">
+                    <label class="form-check-label">No</label>
+                </div>
+                <div class="error" *ngIf="hasError('anniversaryFlowers','required')">Select Yes or No</div>
+            </div>
+
+            <!-- STEP 3 (Visible only when Step 2 valid) -->
+            <div *ngIf="step >= 3" class="step">
+                <label>Anniversary Date *</label>
+                <input class="form-control mb-2" ngbDatepicker #ad="ngbDatepicker" readonly (click)="ad.toggle()"
+                    formControlName="anniversaryDate" placeholder="YYYY-MM-DD">
+                <div class="error" *ngIf="hasError('anniversaryDate','required')">Required</div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="section-heading">Choose the perfect bouquet</h4>
+                    <a href="#" class="view-more">View more</a>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3" *ngFor="let flower of flowers">
+                        <div class="flower-card">
+                            <img [src]="flower.img" class="img-fluid">
+                            <h6>{{flower.name}}</h6>
+                            <div class="d-flex justify-content-between">
+                                <span>{{flower.count}} pcs</span>
+                                <span class="price">{{flower.price}}</span>
+                            </div>
+                            <button class="btn add-btn">Add</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <label>Add note on the bouquet</label>
+                    <textarea class="form-control" rows="3" formControlName="note"
+                        placeholder="Enter a message ....."></textarea>
+                </div>
+            </div>
+
+            <!-- FINAL BUTTON -->
+            <div class="text-center mt-4">
+                <button type="button" class="btn submit-btn" (click)="submitForm()">Get Estimate Cost</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="step4" *ngIf="step === 4">
+        <div class="left">
+            <img src="/step4.png" alt="Summary Image">
         </div>
-    </form>
+        <div class="right">
+            <h4>Cost Summary</h4>
+            <p>Your estimated Service Cost</p>
+
+            <h6>Twice Yearly Plan</h6>
+            <div class="pre">
+                <p>Complete Seasonal Grave Care (2x/Year)</p>
+                <h5>$299</h5>
+            </div>
+
+            <hr>
+
+            <div class="list">
+                <h5>Included Services</h5>
+                <p><i class="bi bi-check2"></i> Professional headstone cleaning</p>
+                <p><i class="bi bi-check2"></i> Debris and weed removal</p>
+                <p><i class="bi bi-check2"></i> Grave site maintenance</p>
+                <p><i class="bi bi-check2"></i> Email updates after each visit</p>
+            </div>
+
+            <h6>Anniversary Floral Tribute</h6>
+            <div class="pre">
+                <p>Note: “You are remembered, always.”</p>
+                <h5>$199</h5>
+            </div>
+
+            <hr>
+
+            <div class="total">
+                <h2>Total Cost: $498</h2>
+            </div>
+
+            <div class="method">
+                <label for="paymentMethod">Payment Method</label>
+                <select id="paymentMethod" class="form-control">
+                    <option value="">-- Select Payment Method --</option>
+                    <option value="card">Credit/Debit Card</option>
+                    <option value="upi">UPI</option>
+                    <option value="netbanking">Net Banking</option>
+                </select>
+            </div>
+
+            <div class="email mt-3">
+                <input type="text" class="form-control" placeholder="Enter Email">
+            </div>
+
+            <button class="btn submit-btn mt-3">Send OTP</button>
+        </div>
+    </div>
 </div>
 
 <app-footer></app-footer>
