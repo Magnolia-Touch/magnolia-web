@@ -364,6 +364,11 @@ label {
 }
 
 /* Button */
+.buttons{
+    display: flex;
+    gap: 1rem;
+}
+
 .step4 .submit-btn {
     width: 100%;
     background: #c09855;
