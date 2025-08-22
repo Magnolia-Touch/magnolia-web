@@ -86,8 +86,26 @@ export class EstimateComponent {
     controls.forEach(c => this.estimateForm.get(c)?.markAsTouched());
   }
 
-    private scrollToTop() {
+  private scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  goBackToForm() {
+    if (this.isGroupValid(['cemeteryNo', 'cemeteryName', 'city', 'state', 'plan']) &&
+      this.isGroupValid(['firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers']) &&
+      this.isGroupValid(['anniversaryDate'])) {
+      this.step = 3;
+      this.scrollToTop();
+    }
+  }
+
+  goToSummary() {
+    if (this.estimateForm.valid) {
+      this.step = 4;
+      this.scrollToTop();
+    } else {
+      this.markTouched(Object.keys(this.estimateForm.controls));
+    }
   }
 
 }

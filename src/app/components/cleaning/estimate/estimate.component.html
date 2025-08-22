@@ -127,7 +127,7 @@
 
             <!-- FINAL BUTTON -->
             <div class="text-center mt-4">
-                <button type="button" class="btn submit-btn" (click)="submitForm()">Get Estimate Cost</button>
+                <button type="button" class="btn submit-btn" (click)="goToSummary()">Get Estimate Cost</button>
             </div>
         </form>
     </div>
@@ -184,6 +184,8 @@
             <div class="email mt-3">
                 <input type="text" class="form-control" placeholder="Enter Email">
             </div>
+
+            <button type="button" class="btn btn-secondary mt-3" (click)="goBackToForm()">Back to Edit</button>
 
             <button class="btn submit-btn mt-3">Send OTP</button>
         </div>
