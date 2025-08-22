@@ -327,11 +327,12 @@ label {
     border-radius: 12px;
     padding: 16px 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
+    gap: 2rem;
 }
 
 .step4 .total h2 {
-    color: #c09855;
+    color: black;
     font-weight: 700;
     margin: 0;
 }
@@ -389,5 +390,9 @@ label {
 
     .step4 .left img {
         margin-bottom: 20px;
+    }
+
+    .step4 .total{
+        justify-content: space-between;
     }
 }
