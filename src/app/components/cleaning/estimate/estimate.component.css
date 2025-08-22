@@ -146,6 +146,15 @@ label {
 }
 
 /* Flowers */
+.view-more{
+    text-decoration: none;
+    color: #c0a36e;
+}
+
+.view-more:hover{
+    text-decoration: underline;
+}
+
 .flower-card {
     border: 1px solid #eee;
     border-radius: 10px;
