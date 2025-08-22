@@ -1,5 +1,5 @@
-.container-fluid{
-    padding: 1.5rem;
+.container-fluid {
+  padding: 1.5rem;
 }
 
 /* Buttons Row */
@@ -51,6 +51,8 @@
   border-radius: 8px;
   margin-bottom: 10px;
   max-height: 100px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .flower-card h6 {
@@ -78,4 +80,34 @@
 
 .add-btn:hover {
   background-color: #a78f64;
+}
+
+@media (max-width: 768px) {
+  .flower-card h6 {
+    font-size: 14px;
+  }
+
+  .flower-card .price {
+    font-size: 13px;
+  }
+
+  .add-btn {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    gap: 8px;
+  }
+
+  .buttons button {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  .flower-card {
+    padding: 10px;
+  }
 }

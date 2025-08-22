@@ -173,7 +173,9 @@ label {
 .flower-card img {
     border-radius: 8px;
     margin-bottom: 10px;
-    max-height: 100px;
+    max-height: 200px;
+    width: 100%;
+    object-fit: cover;
 }
 
 .flower-card h6 {
@@ -411,7 +413,7 @@ label {
     }
 
     .flower-card img {
-        max-height: 80px;
+        max-height: 130px;
     }
 
     .step4 {
