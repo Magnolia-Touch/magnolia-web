@@ -3,7 +3,8 @@ import { HeaderComponent } from "../../../shared/header/header.component";
 import { FooterComponent } from "../../../shared/footer/footer.component";
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FlowersComponent } from '../flowers/flowers.component';
 
 @Component({
   selector: 'app-estimate',
@@ -29,7 +30,10 @@ export class EstimateComponent {
     { img: 'flower.png', name: 'Carnations', count: '15', price: '$18' }
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private modalService: NgbModal
+  ) {
     this.estimateForm = this.fb.group({
       // Step 1
       cemeteryNo: ['', Validators.required],
@@ -106,6 +110,13 @@ export class EstimateComponent {
     } else {
       this.markTouched(Object.keys(this.estimateForm.controls));
     }
+  }
+
+  openFlowerModal() {
+    const buttonElement = document.activeElement as HTMLElement
+    buttonElement.blur();
+
+    this.modalService.open(FlowersComponent, { size: 'lg', scrollable: true  })
   }
 
 }

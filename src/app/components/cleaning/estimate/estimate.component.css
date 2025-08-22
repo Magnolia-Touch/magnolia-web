@@ -149,6 +149,7 @@ label {
 .view-more{
     text-decoration: none;
     color: #c0a36e;
+    cursor: pointer;
 }
 
 .view-more:hover{

@@ -1,0 +1,81 @@
+.container-fluid{
+    padding: 1.5rem;
+}
+
+/* Buttons Row */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.buttons button {
+  background: #fff;
+  color: #2b2b2b;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.buttons button:hover,
+.buttons button:focus,
+.buttons button.active {
+  background-color: #BDA577;
+  color: #fff;
+  border-color: #BDA577;
+}
+
+/* Flower Card */
+.flower-card {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  background: #fff;
+  margin-bottom: 20px;
+}
+
+.flower-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.flower-card img {
+  border-radius: 8px;
+  margin-bottom: 10px;
+  max-height: 100px;
+}
+
+.flower-card h6 {
+  margin: 6px 0;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: start;
+}
+
+.flower-card .price {
+  color: #c0a36e;
+  font-weight: 600;
+}
+
+/* Add Button inside Flower Card */
+.add-btn {
+  margin-top: 10px;
+  background-color: #BDA577;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 13px;
+  padding: 6px 14px;
+  transition: background 0.25s ease;
+}
+
+.add-btn:hover {
+  background-color: #a78f64;
+}

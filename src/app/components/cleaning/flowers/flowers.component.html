@@ -1,1 +1,31 @@
-<p>flowers works!</p>
+<div class="modal-header">
+    <h5 class="modal-title">Choose Flowers</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+    <div class="container-fluid">
+
+        <div class="buttons">
+            <button>Most Popular</button>
+            <button>White Roses</button>
+            <button>Red Roses</button>
+            <button>White Lilly</button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3" *ngFor="let flower of flowers">
+                <div class="flower-card">
+                    <img [src]="flower.img" class="img-fluid">
+                    <h6>{{flower.name}}</h6>
+                    <div class="d-flex justify-content-between">
+                        <span>{{flower.count}} pcs</span>
+                        <span class="price">{{flower.price}}</span>
+                    </div>
+                    <button class="btn add-btn">Add</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
