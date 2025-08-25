@@ -17,6 +17,8 @@ export class LoginComponent {
 
   loginForm: FormGroup;
   signupForm: FormGroup;
+  isLoadingLogin = false;
+isLoadingSignup = false;
 
   constructor(
     private fb: FormBuilder,
@@ -47,12 +49,13 @@ export class LoginComponent {
 
   onLogin() {
     if (this.loginForm.valid) {
+      this.isLoadingLogin = true;
       const identifier = this.loginForm.value.email
       const password = this.loginForm.value.password
 
       this.authService.login(identifier, password).subscribe({
         next: (response: any) => {
-          console.log('Login successful:', response);
+          this.isLoadingLogin = false;
           this.alertService.showAlert({
             message: 'Login Successfull',
             type: 'success',
@@ -62,6 +65,7 @@ export class LoginComponent {
           this.router.navigate(['/home']);
         },
         error: (error: any) => {
+          this.isLoadingLogin = false;
           console.error('Login failed:', error);
           this.alertService.showAlert({
             message: error.error.message || 'Login failed. Try again.',
@@ -78,12 +82,14 @@ export class LoginComponent {
 
   onSignup() {
     if (this.signupForm.valid) {
+      this.isLoadingSignup = true;
       const { customer_name, email, Phone, password } = this.signupForm.value;
 
       const payload = { customer_name, email, Phone, password };
 
       this.authService.signup(payload).subscribe({
         next: (response: any) => {
+          this.isLoadingSignup = false;
           this.alertService.showAlert({
             message: 'Signup Successful! Please login.',
             type: 'success',
@@ -94,6 +100,7 @@ export class LoginComponent {
           this.signupForm.reset();
         },
         error: (error: any) => {
+          this.isLoadingSignup = false;
           this.alertService.showAlert({
             message: error.error.message || 'Signup failed. Try again.',
             type: 'error',

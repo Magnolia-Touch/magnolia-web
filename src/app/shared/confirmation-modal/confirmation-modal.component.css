@@ -1,6 +1,7 @@
 .modal-body {
     font-size: 1rem;
     padding: 1rem 2rem;
+    color: #555; /* softer text */
 }
 
 .modal-header {
@@ -13,18 +14,41 @@
 
 .modal-title {
     font-size: 1.25rem;
+    color: #BDA577; /* brand color */
+    font-weight: 600;
 }
 
 .btn {
-    min-width: 100px;
+    min-width: 110px;
     font-weight: 500;
     transition: all 0.2s ease-in-out;
+    border-radius: 6px;
 }
 
 .btn:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
 }
 
-.text-danger-emphasis {
-    color: #d9534f !important;
+/* Primary brand button */
+.btn-brand {
+    background-color: #BDA577;
+    border: none;
+    color: #fff;
+}
+
+.btn-brand:hover {
+    background-color: #a89060; /* darker gold */
+    color: #fff;
+}
+
+/* Outline brand button */
+.btn-outline-brand {
+    border: 2px solid #BDA577;
+    color: #BDA577;
+    background: transparent;
+}
+
+.btn-outline-brand:hover {
+    background-color: #BDA577;
+    color: #fff;
 }
