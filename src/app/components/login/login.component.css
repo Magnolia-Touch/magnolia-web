@@ -177,6 +177,12 @@ input {
     background-color: #a98f5f;
 }
 
+.error {
+  color: red;
+  font-size: 12px;
+  margin: 2px 0 8px 0;
+}
+
 @media (max-width: 992px) {
     .headings h2 {
         font-size: 1.6rem;

@@ -28,7 +28,7 @@ export class AuthService {
 
   login(identifier: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.baseUrl}/login`, { identifier, password }).pipe(
-      tap(response => {        
+      tap(response => {
         if (response.data.access_token) {
           localStorage.setItem(this.tokenKey, response.data.access_token);
           localStorage.setItem(this.userKey, JSON.stringify(response.data.user));
@@ -67,5 +67,9 @@ export class AuthService {
     } catch {
       return true;
     }
+  }
+
+  signup(data: { customer_name: string; email: string; Phone: string; password: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, data);
   }
 }

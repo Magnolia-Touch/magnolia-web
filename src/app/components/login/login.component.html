@@ -10,22 +10,34 @@
         </div>
 
         <div class="login">
-
             <div class="buttons">
                 <button [class.active]="isLogin" (click)="isLogin = true">Login</button>
                 <button [class.active]="!isLogin" (click)="isLogin = false">Sign Up</button>
             </div>
 
             <div class="form-container">
+                <!-- Login Form -->
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form animated-form"
+                    [ngClass]="{ 'active': isLogin, 'inactive-left': !isLogin }">
 
-
-                <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form animated-form"  [ngClass]="{ 'active': isLogin, 'inactive-left': !isLogin }">
                     <input type="email" placeholder="Email" formControlName="email">
+                    <div class="error"
+                        *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')">
+                        Email is required
+                    </div>
+                    <div class="error"
+                        *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('email')">
+                        Invalid email format
+                    </div>
 
                     <div class="password-wrapper">
                         <input [type]="showLoginPassword ? 'text' : 'password'" placeholder="Password"
                             formControlName="password">
                         <i class="bi bi-eye toggle-password" (click)="showLoginPassword = !showLoginPassword"></i>
+                    </div>
+                    <div class="error"
+                        *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">
+                        Password is required
                     </div>
 
                     <div class="forgot-password">
@@ -35,16 +47,56 @@
                     <button type="submit" class="submit-btn">Login</button>
                 </form>
 
-                <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="form animated-form" [ngClass]="{ 'active': !isLogin, 'inactive-right': isLogin }">
-                    <input type="text" placeholder="Username" formControlName="username">
+                <!-- Signup Form -->
+                <form [formGroup]="signupForm" (ngSubmit)="onSignup()" class="form animated-form"
+                    [ngClass]="{ 'active': !isLogin, 'inactive-right': isLogin }">
+
+                    <input type="text" placeholder="Full Name" formControlName="customer_name">
+                    <div class="error"
+                        *ngIf="signupForm.get('customer_name')?.touched && signupForm.get('customer_name')?.hasError('required')">
+                        Name is required
+                    </div>
+
                     <input type="email" placeholder="Email" formControlName="email">
+                    <div class="error"
+                        *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.hasError('required')">
+                        Email is required
+                    </div>
+                    <div class="error"
+                        *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.hasError('email')">
+                        Invalid email format
+                    </div>
+
+                    <input type="text" placeholder="Phone Number" formControlName="Phone">
+                    <div class="error"
+                        *ngIf="signupForm.get('Phone')?.touched && signupForm.get('Phone')?.hasError('required')">
+                        Phone number is required
+                    </div>
+                    <div class="error"
+                        *ngIf="signupForm.get('Phone')?.touched && signupForm.get('Phone')?.hasError('pattern')">
+                        Phone must be 10 digits
+                    </div>
+
                     <input type="password" placeholder="Password" formControlName="password">
+                    <div class="error"
+                        *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.hasError('required')">
+                        Password is required
+                    </div>
+                    <div class="error"
+                        *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.hasError('minlength')">
+                        Password must be at least 6 characters
+                    </div>
+
                     <input type="password" placeholder="Confirm Password" formControlName="confirmPassword">
+                    <div class="error"
+                        *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.hasError('mismatch')">
+                        Passwords do not match
+                    </div>
+
                     <button type="submit" class="submit-btn">Sign Up</button>
                 </form>
 
             </div>
-
         </div>
     </div>
 </div>

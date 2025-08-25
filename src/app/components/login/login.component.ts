@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/interceptor/auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../../shared/alert/service/alert.service';
@@ -30,11 +30,19 @@ export class LoginComponent {
     });
 
     this.signupForm = this.fb.group({
-      username: ['', Validators.required],
+      customer_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      Phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
-    });
+    }, { validators: this.passwordMatchValidator });
+
+  }
+
+  passwordMatchValidator(group: AbstractControl) {
+    const password = group.get('password')?.value;
+    const confirm = group.get('confirmPassword')?.value;
+    return password === confirm ? null : { mismatch: true };
   }
 
   onLogin() {
@@ -55,12 +63,48 @@ export class LoginComponent {
         },
         error: (error: any) => {
           console.error('Login failed:', error);
+          this.alertService.showAlert({
+            message: error.error.message || 'Login failed. Try again.',
+            type: 'error',
+            autoDismiss: true,
+            duration: 4000
+          });
         }
       });
+    } else {
+      this.loginForm.markAllAsTouched();
     }
   }
 
   onSignup() {
-    console.log(this.signupForm.value);
+    if (this.signupForm.valid) {
+      const { customer_name, email, Phone, password } = this.signupForm.value;
+
+      const payload = { customer_name, email, Phone, password };
+
+      this.authService.signup(payload).subscribe({
+        next: (response: any) => {
+          this.alertService.showAlert({
+            message: 'Signup Successful! Please login.',
+            type: 'success',
+            autoDismiss: true,
+            duration: 4000
+          });
+          this.isLogin = true; // switch to login tab
+          this.signupForm.reset();
+        },
+        error: (error: any) => {
+          this.alertService.showAlert({
+            message: error.error.message || 'Signup failed. Try again.',
+            type: 'error',
+            autoDismiss: true,
+            duration: 4000
+          });
+        }
+      });
+    } else {
+      this.signupForm.markAllAsTouched();
+    }
   }
+
 }
