@@ -82,3 +82,7 @@
   flex: 1;
   color: #000;
 }
+
+.custom-spinner {
+  color: #b8a262 !important;
+}

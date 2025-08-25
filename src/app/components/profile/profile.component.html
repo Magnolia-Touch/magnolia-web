@@ -2,15 +2,22 @@
 
 <div class="container-fluid">
     <div class="details">
+
+        <div *ngIf="loading" class="text-center my-5">
+            <div class="spinner-border custom-spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
         <!-- Profile Section -->
-        <div class="profile">
+        <div *ngIf="!loading && profile" class="profile">
             <div class="left">
                 <div class="first">
                     <i class="bi bi-person"></i>
                 </div>
                 <div class="second">
-                    <h5>Amanda Zachrah</h5>
-                    <p>alexarawles&#64;gmail.com</p>
+                    <h5>{{profile?.customer_name || ''}}</h5>
+                    <p>{{profile?.email || ''}}</p>
                 </div>
             </div>
             <div class="right">
@@ -19,25 +26,20 @@
         </div>
 
         <!-- Card Section -->
-        <div class="card">
+        <div *ngIf="!loading && profile" class="card">
             <div class="row">
                 <p class="label">Full Name</p>
-                <p class="value">: Amanya anda zera</p>
+                <p *ngIf="profile.customer_name" class="value">: {{profile?.customer_name || ''}}</p>
             </div>
 
             <div class="row">
                 <p class="label">Email</p>
-                <p class="value">: nandndjnerj&#64;gmail.com</p>
+                <p *ngIf="profile.email" class="value">: {{profile?.email || ''}}</p>
             </div>
 
             <div class="row">
                 <p class="label">Phone number</p>
-                <p class="value">: 56456456465</p>
-            </div>
-
-            <div class="row">
-                <p class="label">Address</p>
-                <p class="value">: 56456456465</p>
+                <p *ngIf="profile.Phone" class="value">: {{profile?.Phone || ''}}</p>
             </div>
         </div>
     </div>
