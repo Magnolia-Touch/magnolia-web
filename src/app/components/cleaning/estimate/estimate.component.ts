@@ -7,6 +7,7 @@ import { NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlowersComponent } from '../flowers/flowers.component';
 import { CleaningService } from '../service/cleaning.service';
 import { environment } from '../../../../environment/environment';
+import { AlertService } from '../../../shared/alert/service/alert.service';
 
 @Component({
   selector: 'app-estimate',
@@ -34,7 +35,8 @@ export class EstimateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private service: CleaningService
+    private service: CleaningService,
+    private alertService: AlertService
   ) {
     this.estimateForm = this.fb.group({
       // Step 1
@@ -131,7 +133,6 @@ export class EstimateComponent implements OnInit {
 
   submitForm() {
     if (this.estimateForm.valid) {
-      console.log("Form Data:", this.estimateForm.value);
       this.step = 4; // move to next component flow
       this.scrollToTop();
     } else {
@@ -176,8 +177,12 @@ export class EstimateComponent implements OnInit {
 
   addFlower(id: any) {
     this.selectedFlowerID = id;
-    console.log('from main', id);
-
+    this.alertService.showAlert({
+      message: 'Flower has been added;',
+      type: 'success',
+      autoDismiss: true,
+      duration: 4000
+    });
   }
 
   openFlowerModal() {
@@ -192,5 +197,72 @@ export class EstimateComponent implements OnInit {
       }
     }).catch(() => { });
   }
+
+  createService() {
+    if (!this.estimateForm.valid) {
+      this.markTouched(Object.keys(this.estimateForm.controls));
+      return;
+    }
+
+    const formValue = this.estimateForm.value;
+
+    const payload = {
+      name_on_memorial: formValue.memorialName,
+      church_name: formValue.cemeteryName,
+      plot_no: formValue.cemeteryNo,
+      city: formValue.city,
+      state: formValue.state,
+      subscription_id: formValue.plan,
+      first_cleaning_date: this.formatDate(formValue.firstCleaningDate),
+      second_cleaning_date: this.formatDate(formValue.secondCleaningDate),
+      anniversary_date: this.formatDate(formValue.anniversaryDate),
+      no_of_subsribe_years: formValue.subscriptionYears,
+      status: "pending",
+      flower_id: this.selectedFlowerID || null,
+      note: formValue.note || null
+    };
+
+    console.log("Final Payload:", payload);
+
+    this.service.newService(payload).subscribe({
+      next: (res: any) => {
+        console.log("Service booked successfully", res);
+        this.alertService.showAlert({
+          message: 'Flower has been added;',
+          type: 'success',
+          autoDismiss: true,
+          duration: 4000
+        });
+        this.step = 5;
+      },
+      error: (err: any) => {
+        console.error("Booking failed", err);
+        this.alertService.showAlert({
+          message: err.error.message,
+          type: 'error',
+          autoDismiss: true,
+          duration: 4000
+        });
+      }
+    });
+  }
+
+private formatDate(date: any): string | null {
+  if (!date) return null;
+
+  if (typeof date === 'object' && date.year && date.month && date.day) {
+    const year = date.year;
+    const month = String(date.month).padStart(2, '0');
+    const day = String(date.day).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 
 }

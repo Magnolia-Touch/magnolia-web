@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CleaningService } from '../service/cleaning.service';
 import { environment } from '../../../../environment/environment';
+import { AlertService } from '../../../shared/alert/service/alert.service';
 
 @Component({
   selector: 'app-flowers',
@@ -31,7 +32,8 @@ export class FlowersComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private service: CleaningService
+    private service: CleaningService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -56,8 +58,14 @@ export class FlowersComponent implements OnInit {
     });
   }
 
-  addFlower(id: any) {     
-    this.activeModal.close({id: id})
+  addFlower(id: any) {
+    this.alertService.showAlert({
+      message: 'Flower has been added;',
+      type: 'success',
+      autoDismiss: true,
+      duration: 4000
+    });
+    this.activeModal.close({ id: id })
   }
 
 }

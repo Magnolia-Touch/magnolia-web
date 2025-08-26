@@ -10,10 +10,15 @@ export class CleaningService {
   private ChurchUrl = `${environment.apiUrl}/church`
   private FlowerUrl = `${environment.apiUrl}/flowers`
   private SubUrl = `${environment.apiUrl}/subscription`
+  private BookUrl = `${environment.apiUrl}/booking`
 
   constructor(
     private http: HttpClient
   ) { }
+
+  newService(itm:any){
+    return this.http.post(`${this.BookUrl}/book-cleaning-service`, itm)
+  }
 
   getAllCemetry(){
     return this.http.get(`${this.ChurchUrl}/get-church`)
