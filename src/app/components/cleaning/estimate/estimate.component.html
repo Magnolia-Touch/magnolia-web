@@ -35,7 +35,7 @@
                         <div class="error" *ngIf="hasError('memorialName','required')">Required</div>
                     </div>
                 </div>
- 
+
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label>City *</label>
@@ -51,15 +51,16 @@
 
                 <h4 class="section-heading">Choose Plan *</h4>
                 <div class="row">
-                    <div class="col-md-4" *ngFor="let plan of plans">
-                        <label class="plan-card" [class.selected]="estimateForm.get('plan')?.value === plan.name">
-                            <input type="radio" formControlName="plan" [value]="plan.name">
+                    <div class="col-md-4" *ngFor="let plan of allPlans">
+                        <label class="plan-card"
+                            [class.selected]="estimateForm.get('plan')?.value === plan.Subscription_id">
+                            <input type="radio" formControlName="plan" [value]="plan.Subscription_id">
                             <div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h5>{{plan.name}}</h5>
-                                    <span class="price">{{plan.price}}</span>
+                                    <h5>{{plan.Subscription_name}}</h5>
+                                    <span class="price">${{plan.Price}}</span>
                                 </div>
-                                <p>{{plan.desc}}</p>
+                                <p>{{plan.discription}}</p>
                             </div>
                         </label>
                     </div>

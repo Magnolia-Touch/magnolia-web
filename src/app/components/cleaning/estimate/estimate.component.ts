@@ -19,12 +19,6 @@ export class EstimateComponent implements OnInit {
   estimateForm: FormGroup;
   allPlans!: any[];
 
-  plans = [
-    { name: 'Half Yearly Plan', price: '$50', desc: 'Twice a year' },
-    { name: 'Yearly Plan', price: '$90', desc: 'Once a year' },
-    { name: 'One Time', price: '$40', desc: 'Single cleaning' }
-  ];
-
   flowers = [
     { img: 'flower.png', name: 'Roses', count: '12', price: '$20' },
     { img: 'flower.png', name: 'Lilies', count: '8', price: '$25' },
