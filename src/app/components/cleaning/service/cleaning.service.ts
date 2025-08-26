@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class CleaningService {
 
   private ChurchUrl = `${environment.apiUrl}/church`
-  private FlowerIrl = `${environment.apiUrl}/flowers`
+  private FlowerUrl = `${environment.apiUrl}/flowers`
   private SubUrl = `${environment.apiUrl}/subscription`
 
   constructor(
@@ -21,5 +21,9 @@ export class CleaningService {
 
   getAllPlans(){
     return this.http.get(`${this.SubUrl}/get-subscription-plans`)
+  }
+
+  getFlowers(){
+    return this.http.get(`${this.FlowerUrl}/get-all-flower`)
   }
 }

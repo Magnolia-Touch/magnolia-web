@@ -14,18 +14,26 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let flower of flowers">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let flower of allFlowers">
                 <div class="flower-card">
-                    <img [src]="flower.img" class="img-fluid">
-                    <h6>{{flower.name}}</h6>
-                    <div class="d-flex justify-content-between">
-                        <span>{{flower.count}} pcs</span>
-                        <span class="price">{{flower.price}}</span>
+                    <img [src]="flower.img" class="img-fluid" alt="{{ flower.name }}">
+                    <h6>{{ flower.name }}</h6>
+                    <p class="small text-muted">{{ flower.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span *ngIf="flower.inStock; else outOfStock">
+                            <span class="badge bg-success">In Stock</span>
+                        </span>
+                        <ng-template #outOfStock>
+                            <span class="badge bg-danger">Out of Stock</span>
+                        </ng-template>
+
+                        <span class="price">₹{{ flower.price }}</span>
                     </div>
-                    <button class="btn add-btn">Add</button>
+                    <button class="btn add-btn mt-2" (click)="addFlower(flower.id)" [disabled]="!flower.inStock">
+                        Add
+                    </button>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

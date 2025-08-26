@@ -123,15 +123,19 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3" *ngFor="let flower of flowers">
+                    <div class="col-md-3" *ngFor="let flower of allFlowers | slice:0:4">
                         <div class="flower-card">
-                            <img [src]="flower.img" class="img-fluid">
-                            <h6>{{flower.name}}</h6>
+                            <img [src]="url + '/' + flower.image" class="img-fluid">
+                            <h6>{{flower.Name}}</h6>
+                            <p>{{flower.Description}}</p>
                             <div class="d-flex justify-content-between">
-                                <span>{{flower.count}} pcs</span>
-                                <span class="price">{{flower.price}}</span>
+                                <span *ngIf="flower.in_stock; else outOfStock">In Stock</span>
+                                <ng-template #outOfStock>
+                                    <span class="text-danger">Out of Stock</span>
+                                </ng-template>
+                                <span class="price">${{flower.Price}}</span>
                             </div>
-                            <button class="btn add-btn">Add</button>
+                            <button class="btn add-btn" (click)="addFlower(flower.flower_id)" [disabled]="!flower.in_stock">Add</button>
                         </div>
                     </div>
                 </div>

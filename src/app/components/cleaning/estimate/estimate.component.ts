@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlowersComponent } from '../flowers/flowers.component';
 import { CleaningService } from '../service/cleaning.service';
+import { environment } from '../../../../environment/environment';
 
 @Component({
   selector: 'app-estimate',
@@ -19,6 +20,9 @@ export class EstimateComponent implements OnInit {
   estimateForm: FormGroup;
   allPlans!: any[];
   selectedPlan: any = null;
+  allFlowers!: any[];
+  selectedFlowerID: any = null;
+  url = environment.apiUrl
 
   flowers = [
     { img: 'flower.png', name: 'Roses', count: '12', price: '$20' },
@@ -57,6 +61,7 @@ export class EstimateComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPlans()
+    this.loadFlowers()
 
     this.estimateForm.get('plan')?.valueChanges.subscribe(planId => {
       this.selectedPlan = this.allPlans.find(p => p.Subscription_id === planId) || null;
@@ -70,7 +75,18 @@ export class EstimateComponent implements OnInit {
         this.allPlans = res.data || [];
       },
       error: (err: any) => {
-        console.log(err);
+        console.error(err);
+      }
+    })
+  }
+
+  loadFlowers() {
+    this.service.getFlowers().subscribe({
+      next: (res: any) => {
+        this.allFlowers = res.data || [];
+      },
+      error: (err: any) => {
+        console.error(err);
       }
     })
   }
@@ -158,11 +174,23 @@ export class EstimateComponent implements OnInit {
     }
   }
 
+  addFlower(id: any) {
+    this.selectedFlowerID = id;
+    console.log('from main', id);
+
+  }
+
   openFlowerModal() {
-    const buttonElement = document.activeElement as HTMLElement
+    const buttonElement = document.activeElement as HTMLElement;
     buttonElement.blur();
 
-    this.modalService.open(FlowersComponent, { size: 'lg', scrollable: true })
+    const modalRef = this.modalService.open(FlowersComponent, { size: 'lg', scrollable: true });
+
+    modalRef.result.then((result) => {
+      if (result && result.id) {
+        this.selectedFlowerID = this.allFlowers.find(f => f.flower_id === result.id)?.flower_id || null;
+      }
+    }).catch(() => { });
   }
 
 }
