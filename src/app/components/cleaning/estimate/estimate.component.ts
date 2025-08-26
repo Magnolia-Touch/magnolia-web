@@ -18,6 +18,7 @@ export class EstimateComponent implements OnInit {
   step: number = 1;
   estimateForm: FormGroup;
   allPlans!: any[];
+  selectedPlan: any = null;
 
   flowers = [
     { img: 'flower.png', name: 'Roses', count: '12', price: '$20' },
@@ -44,6 +45,7 @@ export class EstimateComponent implements OnInit {
       firstCleaningDate: [null, Validators.required],
       secondCleaningDate: [null, Validators.required],
       anniversaryFlowers: [null, Validators.required],
+      subscriptionYears: [1, [Validators.required, Validators.min(1)]],
 
       // Step 3
       anniversaryDate: [null, Validators.required],
@@ -55,6 +57,11 @@ export class EstimateComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPlans()
+
+    this.estimateForm.get('plan')?.valueChanges.subscribe(planId => {
+      this.selectedPlan = this.allPlans.find(p => p.Subscription_id === planId) || null;
+      this.updateDateValidators();
+    });
   }
 
   loadPlans() {
@@ -68,13 +75,39 @@ export class EstimateComponent implements OnInit {
     })
   }
 
+  private updateDateValidators() {
+    const firstCtrl = this.estimateForm.get('firstCleaningDate');
+    const secondCtrl = this.estimateForm.get('secondCleaningDate');
+
+    if (!this.selectedPlan) return;
+
+    if (this.selectedPlan.Frequency === 1) {
+      // Once yearly → only first date required
+      firstCtrl?.setValidators([Validators.required]);
+      secondCtrl?.clearValidators();
+      secondCtrl?.reset(); // clear value
+    } else if (this.selectedPlan.Frequency === 2) {
+      // Twice yearly → both required
+      firstCtrl?.setValidators([Validators.required]);
+      secondCtrl?.setValidators([Validators.required]);
+    } else {
+      // fallback (custom cleaning)
+      firstCtrl?.setValidators([Validators.required]);
+      secondCtrl?.clearValidators();
+      secondCtrl?.reset();
+    }
+
+    firstCtrl?.updateValueAndValidity();
+    secondCtrl?.updateValueAndValidity();
+  }
+
   watchValidation() {
     // auto-advance logic
     this.estimateForm.valueChanges.subscribe(() => {
       if (this.step === 1 && this.isGroupValid(['cemeteryNo', 'cemeteryName', 'memorialName', 'city', 'state', 'plan'])) {
         this.step = 2;
       }
-      if (this.step === 2 && this.isGroupValid(['firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers'])) {
+      if (this.step === 2 && this.isGroupValid(['firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers', 'subscriptionYears'])) {
         this.step = 3;
       }
     });

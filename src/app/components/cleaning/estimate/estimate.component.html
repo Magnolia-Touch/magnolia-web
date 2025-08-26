@@ -79,12 +79,22 @@
                         <small class="note">Recommended: March-May (Spring)</small>
                         <div class="error" *ngIf="hasError('firstCleaningDate','required')">Required</div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="selectedPlan?.Frequency === 2">
                         <label>Second Cleaning Date *</label>
                         <input class="form-control" ngbDatepicker #d2="ngbDatepicker" readonly (click)="d2.toggle()"
                             formControlName="secondCleaningDate" placeholder="YYYY-MM-DD">
                         <small class="note">Recommended: 6 months after first</small>
                         <div class="error" *ngIf="hasError('secondCleaningDate','required')">Required</div>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <label>Number of Years Subscribed *</label>
+                        <input type="number" min="1" class="form-control" formControlName="subscriptionYears"
+                            placeholder="Enter number of years">
+                        <div class="error" *ngIf="hasError('subscriptionYears','required')">Required</div>
+                        <div class="error" *ngIf="hasError('subscriptionYears','min')">Must be at least 1 year</div>
                     </div>
                 </div>
 
@@ -102,7 +112,7 @@
 
             <!-- STEP 3 (Visible only when Step 2 valid) -->
             <div *ngIf="step >= 3" class="step">
-                <label>Anniversary Date *</label>
+                <label class="mt-3">Anniversary Date *</label>
                 <input class="form-control mb-2" ngbDatepicker #ad="ngbDatepicker" readonly (click)="ad.toggle()"
                     formControlName="anniversaryDate" placeholder="YYYY-MM-DD">
                 <div class="error" *ngIf="hasError('anniversaryDate','required')">Required</div>
