@@ -8,6 +8,8 @@ import { FlowersComponent } from '../flowers/flowers.component';
 import { CleaningService } from '../service/cleaning.service';
 import { environment } from '../../../../environment/environment';
 import { AlertService } from '../../../shared/alert/service/alert.service';
+import { LoginComponent } from '../../login/login.component';
+import { AuthService } from '../../../core/interceptor/auth.service';
 
 @Component({
   selector: 'app-estimate',
@@ -36,7 +38,8 @@ export class EstimateComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal,
     private service: CleaningService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authService: AuthService
   ) {
     this.estimateForm = this.fb.group({
       // Step 1
@@ -225,6 +228,22 @@ export class EstimateComponent implements OnInit {
   }
 
   createService() {
+
+    if (!this.authService.isLoggedIn()) {
+      const buttonElement = document.activeElement as HTMLElement;
+      buttonElement.blur();
+
+      const modalRef = this.modalService.open(LoginComponent, { size: 'md', backdrop: 'static' });
+      modalRef.componentInstance.isModal = true;
+      modalRef.result.then((result) => {
+        if (result === 'success') {
+          this.createService();
+        }
+      }).catch(() => { });
+
+      return;
+    }
+
     if (!this.estimateForm.valid) {
       this.markTouched(Object.keys(this.estimateForm.controls));
       return;
@@ -247,8 +266,6 @@ export class EstimateComponent implements OnInit {
       flower_id: this.selectedFlowerID || null,
       note: formValue.note || null
     };
-
-    console.log("Final Payload:", payload);
 
     this.service.newService(payload).subscribe({
       next: (res: any) => {

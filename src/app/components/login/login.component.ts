@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/interceptor/auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../../shared/alert/service/alert.service';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +19,16 @@ export class LoginComponent {
   loginForm: FormGroup;
   signupForm: FormGroup;
   isLoadingLogin = false;
-isLoadingSignup = false;
+  isLoadingSignup = false;
+  @Input() isModal = false;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private modalRef: NgbModal,
+    private activeModal: NgbActiveModal,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -62,7 +66,14 @@ isLoadingSignup = false;
             autoDismiss: true,
             duration: 4000
           });
-          this.router.navigate(['/home']);
+
+          if (this.isModal) {
+            this.activeModal.close('success')
+          }
+
+          if (!this.isModal) {
+            this.router.navigate(['/home']);
+          }
         },
         error: (error: any) => {
           this.isLoadingLogin = false;
