@@ -111,7 +111,7 @@
             </div>
 
             <!-- STEP 3 (Visible only when Step 2 valid) -->
-            <div *ngIf="step >= 3" class="step">
+            <div *ngIf="step >= 3  && estimateForm.get('anniversaryFlowers')?.value === 'Yes'" class="step">
                 <label class="mt-3">Anniversary Date *</label>
                 <input class="form-control mb-2" ngbDatepicker #ad="ngbDatepicker" readonly (click)="ad.toggle()"
                     formControlName="anniversaryDate" placeholder="YYYY-MM-DD">

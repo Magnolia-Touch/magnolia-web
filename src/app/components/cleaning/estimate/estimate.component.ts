@@ -69,6 +69,19 @@ export class EstimateComponent implements OnInit {
       this.selectedPlan = this.allPlans.find(p => p.Subscription_id === planId) || null;
       this.updateDateValidators();
     });
+
+    this.estimateForm.get('anniversaryFlowers')?.valueChanges.subscribe(value => {
+      const anniversaryDateCtrl = this.estimateForm.get('anniversaryDate');
+
+      if (value === 'Yes') {
+        anniversaryDateCtrl?.setValidators([Validators.required]);
+      } else {
+        anniversaryDateCtrl?.clearValidators();
+        anniversaryDateCtrl?.reset();
+      }
+
+      anniversaryDateCtrl?.updateValueAndValidity();
+    });
   }
 
   loadPlans() {
@@ -126,7 +139,9 @@ export class EstimateComponent implements OnInit {
         this.step = 2;
       }
       if (this.step === 2 && this.isGroupValid(['firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers', 'subscriptionYears'])) {
-        this.step = 3;
+        if (this.estimateForm.get('anniversaryFlowers')?.value === 'Yes') {
+          this.step = 3;
+        }
       }
     });
   }
@@ -167,6 +182,17 @@ export class EstimateComponent implements OnInit {
   }
 
   goToSummary() {
+    if (this.estimateForm.get('anniversaryFlowers')?.value === 'No') {
+      if (this.isGroupValid([
+        'cemeteryNo', 'cemeteryName', 'memorialName', 'city', 'state', 'plan',
+        'firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers', 'subscriptionYears'
+      ])) {
+        this.step = 4;
+        this.scrollToTop();
+        return;
+      }
+    }
+
     if (this.estimateForm.valid) {
       this.step = 4;
       this.scrollToTop();
@@ -247,22 +273,21 @@ export class EstimateComponent implements OnInit {
     });
   }
 
-private formatDate(date: any): string | null {
-  if (!date) return null;
+  private formatDate(date: any): string | null {
+    if (!date) return null;
 
-  if (typeof date === 'object' && date.year && date.month && date.day) {
-    const year = date.year;
-    const month = String(date.month).padStart(2, '0');
-    const day = String(date.day).padStart(2, '0');
+    if (typeof date === 'object' && date.year && date.month && date.day) {
+      const year = date.year;
+      const month = String(date.month).padStart(2, '0');
+      const day = String(date.day).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-
-  const d = new Date(date);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
 
 }
