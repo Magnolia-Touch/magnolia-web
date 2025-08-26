@@ -28,7 +28,14 @@
                             placeholder="Enter Cemetery Name">
                         <div class="error" *ngIf="hasError('cemeteryName','required')">Required</div>
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Name on Memorial *</label>
+                        <input type="text" class="form-control" formControlName="memorialName"
+                            placeholder="Enter Name on Memorial">
+                        <div class="error" *ngIf="hasError('memorialName','required')">Required</div>
+                    </div>
                 </div>
+ 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label>City *</label>

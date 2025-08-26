@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../../../shared/header/header.component";
 import { FooterComponent } from "../../../shared/footer/footer.component";
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlowersComponent } from '../flowers/flowers.component';
+import { CleaningService } from '../service/cleaning.service';
 
 @Component({
   selector: 'app-estimate',
@@ -12,10 +13,11 @@ import { FlowersComponent } from '../flowers/flowers.component';
   templateUrl: './estimate.component.html',
   styleUrl: './estimate.component.css'
 })
-export class EstimateComponent {
+export class EstimateComponent implements OnInit {
 
   step: number = 1;
   estimateForm: FormGroup;
+  allPlans!: any[];
 
   plans = [
     { name: 'Half Yearly Plan', price: '$50', desc: 'Twice a year' },
@@ -32,12 +34,14 @@ export class EstimateComponent {
 
   constructor(
     private fb: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private service: CleaningService
   ) {
     this.estimateForm = this.fb.group({
       // Step 1
       cemeteryNo: ['', Validators.required],
       cemeteryName: ['', Validators.required],
+      memorialName: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
       plan: ['', Validators.required],
@@ -55,10 +59,25 @@ export class EstimateComponent {
     this.watchValidation();
   }
 
+  ngOnInit(): void {
+    this.loadPlans()
+  }
+
+  loadPlans() {
+    this.service.getAllPlans().subscribe({
+      next: (res: any) => {
+        this.allPlans = res.data || [];
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    })
+  }
+
   watchValidation() {
     // auto-advance logic
     this.estimateForm.valueChanges.subscribe(() => {
-      if (this.step === 1 && this.isGroupValid(['cemeteryNo', 'cemeteryName', 'city', 'state', 'plan'])) {
+      if (this.step === 1 && this.isGroupValid(['cemeteryNo', 'cemeteryName', 'memorialName', 'city', 'state', 'plan'])) {
         this.step = 2;
       }
       if (this.step === 2 && this.isGroupValid(['firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers'])) {
@@ -95,7 +114,7 @@ export class EstimateComponent {
   }
 
   goBackToForm() {
-    if (this.isGroupValid(['cemeteryNo', 'cemeteryName', 'city', 'state', 'plan']) &&
+    if (this.isGroupValid(['cemeteryNo', 'cemeteryName', 'memorialName', 'city', 'state', 'plan']) &&
       this.isGroupValid(['firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers']) &&
       this.isGroupValid(['anniversaryDate'])) {
       this.step = 3;
@@ -116,7 +135,7 @@ export class EstimateComponent {
     const buttonElement = document.activeElement as HTMLElement
     buttonElement.blur();
 
-    this.modalService.open(FlowersComponent, { size: 'lg', scrollable: true  })
+    this.modalService.open(FlowersComponent, { size: 'lg', scrollable: true })
   }
 
 }
