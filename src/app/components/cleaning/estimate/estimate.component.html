@@ -79,7 +79,7 @@
                         <small class="note">Recommended: March-May (Spring)</small>
                         <div class="error" *ngIf="hasError('firstCleaningDate','required')">Required</div>
                     </div>
-                    <div class="col-md-6" *ngIf="selectedPlan?.Frequency === 2">
+                    <div class="col-md-6" *ngIf="selectedPlan?.Frequency === 24">
                         <label>Second Cleaning Date *</label>
                         <input class="form-control" ngbDatepicker #d2="ngbDatepicker" readonly (click)="d2.toggle()"
                             formControlName="secondCleaningDate" placeholder="YYYY-MM-DD">
