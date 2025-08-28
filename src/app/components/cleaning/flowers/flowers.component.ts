@@ -45,7 +45,7 @@ export class FlowersComponent implements OnInit {
       next: (res: any) => {
         this.allFlowers = (res.data || []).map((flower: any) => ({
           id: flower.flower_id,
-          img: `${this.apiUrl}/${flower.image}`,
+          img: flower.image,
           name: flower.Name,
           price: flower.Price,
           description: flower.Description,

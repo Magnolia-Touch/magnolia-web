@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/interceptor/auth.service';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class LoginComponent {
     private router: Router,
     private alertService: AlertService,
     private modalRef: NgbModal,
-    private activeModal: NgbActiveModal,
+    @Optional() private activeModal: NgbActiveModal,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -124,5 +124,11 @@ export class LoginComponent {
       this.signupForm.markAllAsTouched();
     }
   }
+
+  closeModal() {
+  if (this.activeModal) {
+    this.activeModal.dismiss('closed');
+  }
+}
 
 }

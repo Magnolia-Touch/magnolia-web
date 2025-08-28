@@ -271,7 +271,7 @@ export class EstimateComponent implements OnInit {
       next: (res: any) => {
         console.log("Service booked successfully", res);
         this.alertService.showAlert({
-          message: 'Flower has been added;',
+          message: 'Booking Success',
           type: 'success',
           autoDismiss: true,
           duration: 4000

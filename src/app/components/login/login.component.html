@@ -5,6 +5,9 @@
     </div>
 
     <div class="right">
+            <button *ngIf="isModal" class="close-btn" (click)="closeModal()">
+        <i class="bi bi-x-lg"></i>
+    </button>
         <div class="headings">
             <h2><span>WELCOME</span> BACK</h2>
         </div>

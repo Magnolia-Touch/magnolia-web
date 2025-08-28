@@ -178,9 +178,25 @@ input {
 }
 
 .error {
-  color: red;
-  font-size: 12px;
-  margin: 2px 0 8px 0;
+    color: red;
+    font-size: 12px;
+    margin: 2px 0 8px 0;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    color: #333;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close-btn:hover {
+    color: #BDA577;
 }
 
 @media (max-width: 992px) {
