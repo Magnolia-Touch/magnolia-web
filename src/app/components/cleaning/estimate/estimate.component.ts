@@ -276,7 +276,7 @@ export class EstimateComponent implements OnInit {
           autoDismiss: true,
           duration: 4000
         });
-        this.step = 5;
+        // this.step = 5;
       },
       error: (err: any) => {
         console.error("Booking failed", err);
