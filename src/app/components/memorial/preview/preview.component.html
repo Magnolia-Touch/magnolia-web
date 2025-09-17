@@ -14,18 +14,18 @@
             </div>
             <div class="col-md-9">
                 <h4 class="mb-2">
-                    <i class="bi bi-person-circle me-2"></i>{{ data.firstName }} {{ data.lastName }}
+                    {{ data.firstName }} {{ data.lastName }}
                 </h4>
                 <div class="d-flex mb-2">
                     <p class="me-4 mb-0">
-                        <i class="bi bi-calendar3 me-1"></i> DOB: {{ getFormattedDate(data.dob) }}
+                        <i class="bi bi-calendar3 me-1 card-title"></i> DOB: {{ getFormattedDate(data.dob) }}
                     </p>
                     <p class="mb-0">
-                        <i class="bi bi-calendar2-x me-1"></i> DOP: {{ getFormattedDate(data.dop) }}
+                        <i class="bi bi-calendar2-x me-1 card-title"></i> DOP: {{ getFormattedDate(data.dop) }}
                     </p>
                 </div>
                 <p class="mb-0">
-                    <i class="bi bi-geo-alt me-1"></i>{{ data.location }}
+                    <i class="bi bi-geo-alt me-1 card-title"></i>{{ data.location }}
                 </p>
             </div>
         </div>
