@@ -8,19 +8,16 @@
     padding: 40px 20px;
 }
 
-/* Cards */
 .card {
     border-radius: 16px;
     border: 2px solid #ccc;
-    background: #fff;
+    background: #ffffff72;
 }
 
-/* Short card for first journey card */
 .short-card {
     max-width: 80%;
 }
 
-/* Profile Card */
 .profile-card {
     border: 2px solid #ccc;
     text-align: left;
@@ -46,13 +43,11 @@
     color: #555;
 }
 
-/* Card Titles */
 .card-title {
     font-weight: 600;
     color: #b59c6e;
 }
 
-/* Family List */
 .family-list {
     list-style: none;
     padding-left: 0;
@@ -64,7 +59,6 @@
     margin-bottom: 6px;
 }
 
-/* Timeline */
 .timeline {
     position: relative;
     padding: 0;
@@ -131,7 +125,6 @@
     font-weight: 600;
 }
 
-/* Gallery */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -152,13 +145,11 @@
     border-color: #b59c6e;
 }
 
-/* Logos */
 .logos img {
     max-height: 120px;
     object-fit: contain;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
 
     .timeline li,
