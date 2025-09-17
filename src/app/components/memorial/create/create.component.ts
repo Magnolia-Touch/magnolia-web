@@ -3,11 +3,12 @@ import { FormArray, FormBuilder, FormGroup, Validators, ReactiveFormsModule } fr
 import { CommonModule } from '@angular/common';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from "../../../shared/header/header.component";
+import { PreviewComponent } from "../preview/preview.component";
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgbDatepickerModule, HeaderComponent],
+  imports: [CommonModule, ReactiveFormsModule, NgbDatepickerModule, HeaderComponent, PreviewComponent],
   templateUrl: './create.component.html',
   styleUrl: './create.component.css'
 })
@@ -16,6 +17,7 @@ export class CreateComponent {
   memorialForm: FormGroup;
   profilePhoto: File | null = null;
   galleryPhotos: File[] = [];
+  galleryPreviews: string[] = [];
 
   years: number[] = Array.from({ length: 120 }, (_, i) => new Date().getFullYear() - i);
 
@@ -44,6 +46,51 @@ export class CreateComponent {
     return this.memorialForm.get('lifeEvents') as FormArray;
   }
 
+  nextStep() {
+    let valid = false;
+
+    switch (this.step) {
+      case 1:
+        valid =
+          !!this.memorialForm.get('firstName')?.valid &&
+          !!this.memorialForm.get('lastName')?.valid &&
+          !!this.memorialForm.get('dob')?.valid &&
+          !!this.memorialForm.get('dop')?.valid &&
+          !!this.memorialForm.get('location')?.valid;
+        break;
+
+      case 2:
+        valid = !!this.memorialForm.get('journey')?.valid;
+        break;
+
+      case 3:
+        valid = this.familyMembers.length > 0 && this.familyMembers.valid;
+        break;
+
+      case 4:
+        valid = this.lifeEvents.length > 0 && this.lifeEvents.valid;
+        break;
+
+      case 5:
+        valid = this.galleryPhotos.length > 0;
+        break;
+
+      default:
+        valid = true;
+    }
+
+    if (valid) {
+      if (this.step < 6) this.step++;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      Object.keys(this.memorialForm.controls).forEach(c =>
+        this.memorialForm.get(c)?.markAsTouched()
+      );
+      if (this.step === 3) this.familyMembers.controls.forEach(c => c.markAllAsTouched());
+      if (this.step === 4) this.lifeEvents.controls.forEach(c => c.markAllAsTouched());
+    }
+  }
+
   addFamilyMember() {
     this.familyMembers.push(this.fb.group({
       name: ['', Validators.required],
@@ -64,12 +111,15 @@ export class CreateComponent {
 
   onGallerySelected(event: any) {
     this.galleryPhotos = Array.from(event.target.files);
-    this.memorialForm.patchValue({ gallery: this.galleryPhotos });
-  }
 
-  nextStep() {
-    if (this.step < 6) this.step++;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.galleryPreviews = [];
+    this.galleryPhotos.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.galleryPreviews.push(e.target.result);
+      reader.readAsDataURL(file);
+    });
+
+    this.memorialForm.patchValue({ gallery: this.galleryPhotos });
   }
 
   prevStep() {
@@ -90,4 +140,13 @@ export class CreateComponent {
       Object.keys(this.memorialForm.controls).forEach(c => this.memorialForm.get(c)?.markAsTouched());
     }
   }
+
+  removeFamilyMember(i: number) {
+    this.familyMembers.removeAt(i);
+  }
+
+  removeLifeEvent(i: number) {
+    this.lifeEvents.removeAt(i);
+  }
+
 }

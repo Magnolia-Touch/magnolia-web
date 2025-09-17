@@ -1,0 +1,46 @@
+<div class="preview-wrapper" *ngIf="memorialForm">
+    <h5 class="preview-title">Memorial Preview</h5>
+
+    <!-- Basic Info -->
+    <div class="preview-section">
+        <h6>Basic Information</h6>
+        <p><strong>Name:</strong> {{ f['firstName'].value }} {{ f['lastName'].value }}</p>
+        <p><strong>Date of Birth:</strong> {{ getFormattedDate(f['dob'].value) }}</p>
+        <p><strong>Date of Passing:</strong> {{ getFormattedDate(f['dop'].value) }}</p>
+        <p><strong>Location:</strong> {{ f['location'].value }}</p>
+    </div>
+
+    <!-- Journey -->
+    <div class="preview-section" *ngIf="f['journey'].value">
+        <h6>Journey</h6>
+        <p>{{ f['journey'].value }}</p>
+    </div>
+
+    <!-- Family -->
+    <div class="preview-section" *ngIf="f['familyMembers'].value?.length">
+        <h6>Family Members</h6>
+        <ul>
+            <li *ngFor="let member of f['familyMembers'].value">
+                {{ member.name }} – {{ member.relation }}
+            </li>
+        </ul>
+    </div>
+
+    <!-- Life Events -->
+    <div class="preview-section" *ngIf="f['lifeEvents'].value?.length">
+        <h6>Major Life Events</h6>
+        <ul>
+            <li *ngFor="let ev of f['lifeEvents'].value">
+                {{ ev.year }}: {{ ev.event }}
+            </li>
+        </ul>
+    </div>
+
+    <!-- Gallery -->
+    <div class="preview-section" *ngIf="f['gallery']?.value?.length">
+        <h6>Gallery</h6>
+        <div class="gallery-grid">
+            <img *ngFor="let img of f['gallery'].value" [src]="img" alt="Gallery Image">
+        </div>
+    </div>
+</div>
