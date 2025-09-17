@@ -81,16 +81,18 @@
         <div *ngIf="step === 3" class="step step-family">
             <h4>Family Members</h4>
             <div formArrayName="familyMembers">
-                <div *ngFor="let member of familyMembers.controls; let i=index" [formGroupName]="i" class="row mb-2">
-                    <div class="col-md-6">
+                <div *ngFor="let member of familyMembers.controls; let i=index" [formGroupName]="i"
+                    class="row align-items-center mb-2">
+                    <div class="col-md-5">
                         <input class="form-control" formControlName="name" placeholder="Name">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <input class="form-control" formControlName="relation" placeholder="Relation">
                     </div>
                     <div class="col-md-2 text-end">
-                        <button type="button" class="btn btn-sm btn-danger"
-                            (click)="removeFamilyMember(i)">Remove</button>
+                        <button type="button" class="remove-btn" (click)="removeFamilyMember(i)">
+                            <i class="bi bi-x-circle"></i> Remove
+                        </button>
                     </div>
                 </div>
             </div>
@@ -112,11 +114,13 @@
                             <option *ngFor="let y of years" [value]="y">{{y}}</option>
                         </select>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <input class="form-control" formControlName="event" placeholder="Event description">
                     </div>
                     <div class="col-md-2 text-end">
-                        <button type="button" class="btn btn-sm btn-danger" (click)="removeLifeEvent(i)">Remove</button>
+                        <button type="button" class="remove-btn" (click)="removeLifeEvent(i)">
+                            <i class="bi bi-x-circle"></i> Remove
+                        </button>
                     </div>
                 </div>
             </div>
