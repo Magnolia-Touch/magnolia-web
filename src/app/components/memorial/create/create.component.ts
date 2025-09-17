@@ -34,7 +34,8 @@ export class CreateComponent {
       journey: ['', Validators.required],
       familyMembers: this.fb.array([this.createFamilyMember()]),
       lifeEvents: this.fb.array([this.createLifeEvent()]),
-      gallery: [[]]
+      gallery: [[]],
+      profilePhoto: [null]
     });
   }
 
@@ -120,7 +121,11 @@ export class CreateComponent {
   }
 
   onPhotoSelected(event: any) {
-    this.profilePhoto = event.target.files[0];
+    const file = event.target.files[0];
+    if (file) {
+      this.profilePhoto = file;
+      this.memorialForm.patchValue({ profilePhoto: file });
+    }
   }
 
   onGallerySelected(event: Event) {

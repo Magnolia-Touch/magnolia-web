@@ -1,46 +1,92 @@
-<div class="preview-wrapper" *ngIf="memorialForm">
-    <h5 class="preview-title">Memorial Preview</h5>
+<div class="container preview-wrapper" *ngIf="data">
 
-    <!-- Basic Info -->
-    <div class="preview-section">
-        <h6>Basic Information</h6>
-        <p><strong>Name:</strong> {{ f['firstName'].value }} {{ f['lastName'].value }}</p>
-        <p><strong>Date of Birth:</strong> {{ getFormattedDate(f['dob'].value) }}</p>
-        <p><strong>Date of Passing:</strong> {{ getFormattedDate(f['dop'].value) }}</p>
-        <p><strong>Location:</strong> {{ f['location'].value }}</p>
+    <!-- Logos -->
+    <div class="logos d-flex justify-content-between mt-3 mb-5">
+        <img src="/logo.png" alt="Logo 1" height="120">
+        <img src="/logo2.png" alt="Logo 2" height="120">
     </div>
 
-    <!-- Journey -->
-    <div class="preview-section" *ngIf="f['journey'].value">
-        <h6>Journey</h6>
-        <p>{{ f['journey'].value }}</p>
-    </div>
-
-    <!-- Family -->
-    <div class="preview-section" *ngIf="f['familyMembers'].value?.length">
-        <h6>Family Members</h6>
-        <ul>
-            <li *ngFor="let member of f['familyMembers'].value">
-                {{ member.name }} – {{ member.relation }}
-            </li>
-        </ul>
-    </div>
-
-    <!-- Life Events -->
-    <div class="preview-section" *ngIf="f['lifeEvents'].value?.length">
-        <h6>Major Life Events</h6>
-        <ul>
-            <li *ngFor="let ev of f['lifeEvents'].value">
-                {{ ev.year }}: {{ ev.event }}
-            </li>
-        </ul>
-    </div>
-
-    <!-- Gallery -->
-    <div class="preview-section" *ngIf="f['gallery']?.value?.length">
-        <h6>Gallery</h6>
-        <div class="gallery-grid">
-            <img *ngFor="let img of f['gallery'].value" [src]="img" alt="Gallery Image">
+    <!-- Profile Card -->
+    <div class="card mb-4 p-3">
+        <div class="row align-items-center">
+            <div class="col-md-3 text-center">
+                <img [src]="profilePhotoUrl" alt="Profile Photo" class="img-fluid rounded" style="max-width: 150px;">
+            </div>
+            <div class="col-md-9">
+                <h4 class="mb-2">
+                    <i class="bi bi-person-circle me-2"></i>{{ data.firstName }} {{ data.lastName }}
+                </h4>
+                <div class="d-flex mb-2">
+                    <p class="me-4 mb-0">
+                        <i class="bi bi-calendar3 me-1"></i> DOB: {{ getFormattedDate(data.dob) }}
+                    </p>
+                    <p class="mb-0">
+                        <i class="bi bi-calendar2-x me-1"></i> DOP: {{ getFormattedDate(data.dop) }}
+                    </p>
+                </div>
+                <p class="mb-0">
+                    <i class="bi bi-geo-alt me-1"></i>{{ data.location }}
+                </p>
+            </div>
         </div>
     </div>
+
+    <!-- Journey and Family Row -->
+    <div class="row mb-4">
+        <!-- Journey Card -->
+        <div class="col-md-6 mb-3">
+            <div class="card p-3 h-100">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-emoji-smile me-2"></i>Journey
+                </h5>
+                <p class="card-text">{{ data.journey }}</p>
+            </div>
+        </div>
+
+        <!-- Family Card -->
+        <div class="col-md-6 mb-3">
+            <div class="card p-3 h-100">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-people me-2"></i>Family Members
+                </h5>
+                <ul class="family-list mb-0">
+                    <li *ngFor="let member of data.familyMembers">
+                        {{ member.name }} ({{ member.relation }})
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Life Events and Gallery Row -->
+    <div class="row mb-4">
+        <!-- Life Events Card -->
+        <div class="col-md-6 mb-3">
+            <div class="card p-3 h-100">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-clock-history me-2"></i>Life Events
+                </h5>
+                <ul class="timeline mb-0">
+                    <li class="timeline-event" *ngFor="let event of data.lifeEvents">
+                        <span class="year">{{ event.year }}</span> - {{ event.event }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Gallery Card -->
+        <div class="col-md-6 mb-3">
+            <div class="card p-3 h-100">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-images me-2"></i>Gallery
+                </h5>
+                <div class="d-flex flex-wrap gallery-grid">
+                    <div *ngFor="let img of data.gallery" class="me-2 mb-2">
+                        <img [src]="img" alt="Gallery Image" class="img-thumbnail">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
