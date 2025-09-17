@@ -1,1 +1,146 @@
-<p>create works!</p>
+<app-header></app-header>
+
+<div class="container-fluid memorial-form">
+    <h2 class="form-title">Create Memorial</h2>
+
+    <!-- Progress Steps -->
+    <div class="progress-steps">
+        <div *ngFor="let s of [1,2,3,4,5,6]" [class.active]="s <= step">{{ s }}</div>
+    </div>
+
+    <form [formGroup]="memorialForm" class="form-wrapper">
+
+        <!-- STEP 1 -->
+        <div *ngIf="step === 1" class="step">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>First Name *</label>
+                    <input type="text" class="form-control" formControlName="firstName">
+                    <div class="error" *ngIf="hasError('firstName','required')">Required</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Last Name *</label>
+                    <input type="text" class="form-control" formControlName="lastName">
+                    <div class="error" *ngIf="hasError('lastName','required')">Required</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Date of Birth *</label>
+                    <input class="form-control" ngbDatepicker #dob="ngbDatepicker" readonly (click)="dob.toggle()"
+                        formControlName="dob" placeholder="YYYY-MM-DD">
+                    <div class="error" *ngIf="hasError('dob','required')">Required</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Date of Passing *</label>
+                    <input class="form-control" ngbDatepicker #dop="ngbDatepicker" readonly (click)="dop.toggle()"
+                        formControlName="dop" placeholder="YYYY-MM-DD">
+                    <div class="error" *ngIf="hasError('dop','required')">Required</div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>Location *</label>
+                    <input type="text" class="form-control" formControlName="location">
+                    <div class="error" *ngIf="hasError('location','required')">Required</div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label>Profile Photo</label>
+                    <input type="file" class="form-control" (change)="onPhotoSelected($event)">
+                </div>
+            </div>
+
+            <h5 class="section-heading">Social Media Links</h5>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <input type="text" class="form-control" formControlName="facebook" placeholder="Facebook URL">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <input type="text" class="form-control" formControlName="twitter" placeholder="Twitter URL">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <input type="text" class="form-control" formControlName="instagram" placeholder="Instagram URL">
+                </div>
+            </div>
+
+            <div class="text-end">
+                <button type="button" class="btn submit-btn" (click)="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- STEP 2: Journey -->
+        <div *ngIf="step === 2" class="step">
+            <label>Journey *</label>
+            <textarea class="form-control" rows="8" formControlName="journey"></textarea>
+            <div class="error" *ngIf="hasError('journey','required')">Required</div>
+
+            <div class="d-flex justify-content-between mt-3">
+                <button type="button" class="btn back-btn" (click)="prevStep()">Previous</button>
+                <button type="button" class="btn submit-btn" (click)="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- STEP 3: Family Members -->
+        <div *ngIf="step === 3" class="step">
+            <h4>Family Members</h4>
+            <div formArrayName="familyMembers">
+                <div *ngFor="let member of familyMembers.controls; let i=index" [formGroupName]="i" class="row mb-2">
+                    <div class="col-md-6">
+                        <input class="form-control" formControlName="name" placeholder="Name">
+                    </div>
+                    <div class="col-md-6">
+                        <input class="form-control" formControlName="relation" placeholder="Relation">
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn add-btn mt-2" (click)="addFamilyMember()">+ Add Member</button>
+
+            <div class="d-flex justify-content-between mt-3">
+                <button type="button" class="btn back-btn" (click)="prevStep()">Previous</button>
+                <button type="button" class="btn submit-btn" (click)="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- STEP 4: Life Events -->
+        <div *ngIf="step === 4" class="step">
+            <h4>Major Life Events</h4>
+            <div formArrayName="lifeEvents">
+                <div *ngFor="let event of lifeEvents.controls; let i=index" [formGroupName]="i" class="row mb-2">
+                    <div class="col-md-4">
+                        <select class="form-control" formControlName="year">
+                            <option *ngFor="let y of years" [value]="y">{{y}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <input class="form-control" formControlName="event" placeholder="Event description">
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn add-btn mt-2" (click)="addLifeEvent()">+ Add Event</button>
+
+            <div class="d-flex justify-content-between mt-3">
+                <button type="button" class="btn back-btn" (click)="prevStep()">Previous</button>
+                <button type="button" class="btn submit-btn" (click)="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- STEP 5: Gallery -->
+        <div *ngIf="step === 5" class="step">
+            <h4>Gallery Photos</h4>
+            <input type="file" class="form-control" (change)="onGallerySelected($event)" multiple>
+
+            <div class="d-flex justify-content-between mt-3">
+                <button type="button" class="btn back-btn" (click)="prevStep()">Previous</button>
+                <button type="button" class="btn submit-btn" (click)="nextStep()">Next</button>
+            </div>
+        </div>
+
+        <!-- STEP 6: Preview -->
+        <div *ngIf="step === 6" class="step">
+            <h4>Preview</h4>
+            <pre>{{ memorialForm.value | json }}</pre>
+
+            <div class="d-flex justify-content-between mt-3">
+                <button type="button" class="btn back-btn" (click)="prevStep()">Previous</button>
+                <button type="submit" class="btn submit-btn" (click)="submitForm()">Submit</button>
+            </div>
+        </div>
+
+    </form>
+</div>
