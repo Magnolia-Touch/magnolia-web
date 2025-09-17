@@ -153,9 +153,14 @@
             <h4>Gallery Photos</h4>
             <input type="file" class="form-control" (change)="onGallerySelected($event)" multiple>
 
-            <div *ngIf="galleryPreviews.length" class="gallery-preview mt-3">
-                <div class="preview-img" *ngFor="let img of galleryPreviews">
-                    <img [src]="img" alt="Gallery photo">
+            <div *ngIf="galleryPreviews.length" class="gallery-preview mt-3 d-flex flex-wrap">
+                <div class="position-relative me-2 mb-2" *ngFor="let img of galleryPreviews; let i = index">
+                    <img [src]="img" alt="Gallery photo" class="img-thumbnail"
+                        style="width: 120px; height: 120px; object-fit: cover;">
+                    <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0"
+                        (click)="removeGalleryImage(i)" style="border-radius:50%; padding:2px 6px;">
+                        &times;
+                    </button>
                 </div>
             </div>
 

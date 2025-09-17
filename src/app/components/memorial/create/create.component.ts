@@ -123,17 +123,26 @@ export class CreateComponent {
     this.profilePhoto = event.target.files[0];
   }
 
-  onGallerySelected(event: any) {
-    this.galleryPhotos = Array.from(event.target.files);
+  onGallerySelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+
+    const newFiles: File[] = Array.from(input.files);
+
+    this.galleryPhotos = [...this.galleryPhotos, ...newFiles];
 
     this.galleryPreviews = [];
     this.galleryPhotos.forEach(file => {
       const reader = new FileReader();
-      reader.onload = (e: any) => this.galleryPreviews.push(e.target.result);
+      reader.onload = (e: any) => {
+        this.galleryPreviews.push(e.target.result);
+      };
       reader.readAsDataURL(file);
     });
 
     this.memorialForm.patchValue({ gallery: this.galleryPhotos });
+
+    input.value = '';
   }
 
   prevStep() {
@@ -165,6 +174,13 @@ export class CreateComponent {
     if (this.lifeEvents.length > 1) {
       this.lifeEvents.removeAt(i);
     }
+  }
+
+  removeGalleryImage(index: number) {
+    this.galleryPhotos.splice(index, 1);
+    this.galleryPreviews.splice(index, 1);
+
+    this.memorialForm.patchValue({ gallery: this.galleryPhotos });
   }
 
 }
