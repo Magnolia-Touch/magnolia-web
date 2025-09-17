@@ -5,7 +5,7 @@
 
     <!-- Progress Steps -->
     <div class="progress-steps">
-        <div *ngFor="let s of [1,2,3,4,5]" [class.active]="s <= step">{{ s }}</div>
+        <div *ngFor="let s of [1,2,3,4]" [class.active]="s <= step">{{ s }}</div>
     </div>
 
     <div *ngIf="step < 4">
@@ -135,7 +135,8 @@
                                 </ng-template>
                                 <span class="price">${{flower.Price}}</span>
                             </div>
-                            <button class="btn add-btn" (click)="addFlower(flower.flower_id)" [disabled]="!flower.in_stock">Add</button>
+                            <button class="btn add-btn" (click)="addFlower(flower.flower_id)"
+                                [disabled]="!flower.in_stock">Add</button>
                         </div>
                     </div>
                 </div>
@@ -162,11 +163,11 @@
             <h4>Cost Summary</h4>
             <p class="subtitle">Your estimated Service Cost</p>
 
-            <div class="plan-card">
-                <h6>Twice Yearly Plan</h6>
+            <div class="plan-card" *ngIf="summary">
+                <h6>{{summary.planName}}</h6>
                 <div class="pre">
-                    <p>Complete Seasonal Grave Care (2x/Year)</p>
-                    <h5>$299</h5>
+                    <p>{{summary.planDesc}}</p>
+                    <h5>${{summary.planCost}}</h5>
                 </div>
             </div>
 
@@ -180,41 +181,31 @@
                 </ul>
             </div>
 
-            <div class="plan-card">
+            <div class="plan-card" *ngIf="summary.anniversaryFlowers === 'Yes'">
                 <h6>Anniversary Floral Tribute</h6>
                 <div class="pre">
-                    <p>Note: “You are remembered, always.”</p>
-                    <h5>$199</h5>
+                    <p>{{summary.flowerName}} – {{summary.flowerNote}}</p>
+                    <h5>${{summary.flowerCost}}</h5>
                 </div>
             </div>
 
             <div class="total">
                 <h2>Total Cost: </h2>
-                <h2>$498</h2>
-            </div>
-
-            <div class="method">
-                <label for="paymentMethod">Payment Method</label>
-                <select id="paymentMethod" class="form-control">
-                    <option value="">-- Select Payment Method --</option>
-                    <option value="card">Credit/Debit Card</option>
-                    <option value="upi">UPI</option>
-                    <option value="netbanking">Net Banking</option>
-                </select>
-            </div>
-
-            <div class="email mt-3">
-                <input type="text" class="form-control" placeholder="Enter Email">
+                <h2>${{summary.total | number:'1.2-2'}}</h2>
             </div>
 
             <div class="buttons">
                 <button type="button" class="btn back-btn mt-3" (click)="goBackToForm()">Back to Edit</button>
-                <button (click)="createService()" class="btn submit-btn mt-3">Send OTP</button>
+                <button (click)="createService()" class="btn submit-btn mt-3" [disabled]="isSubmitting">
+                    <span *ngIf="!isSubmitting">Submit</span>
+                    <span *ngIf="isSubmitting">
+                        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Processing...
+                    </span>
+                </button>
             </div>
         </div>
     </div>
-
-    <div class="step4" *ngIf="step === 5"></div>
 
 </div>
 

@@ -26,6 +26,9 @@ export class EstimateComponent implements OnInit {
   allFlowers!: any[];
   selectedFlowerID: any = null;
   url = environment.apiUrl
+  summary: any;
+  selectedFlowerName!: any;
+  isSubmitting = false;
 
   flowers = [
     { img: 'flower.png', name: 'Roses', count: '12', price: '$20' },
@@ -185,22 +188,41 @@ export class EstimateComponent implements OnInit {
   }
 
   goToSummary() {
-    if (this.estimateForm.get('anniversaryFlowers')?.value === 'No') {
-      if (this.isGroupValid([
-        'cemeteryNo', 'cemeteryName', 'memorialName', 'city', 'state', 'plan',
-        'firstCleaningDate', 'secondCleaningDate', 'anniversaryFlowers', 'subscriptionYears'
-      ])) {
-        this.step = 4;
-        this.scrollToTop();
-        return;
-      }
-    }
-
     if (this.estimateForm.valid) {
+      const formValue = this.estimateForm.value;
+
+      const selectedPlan = this.allPlans.find(p => p.Subscription_id === formValue.plan);
+      const planCost = selectedPlan ? Number(selectedPlan.Price) * formValue.subscriptionYears : 0;
+
+      let flowerCost = 0;
+      let flowerNote = '';
+      if (formValue.anniversaryFlowers === 'Yes') {
+        const addedFlower = this.allFlowers.find(f => f.flower_id === this.selectedFlowerID);
+        flowerCost = addedFlower ? Number(addedFlower.Price) : 0;
+        flowerNote = formValue.note || '';
+        this.selectedFlowerName = addedFlower.Name
+        console.log(addedFlower);
+      }
+
+      const total = planCost + flowerCost;
+
+      this.summary = {
+        planName: selectedPlan?.Subscription_name,
+        planDesc: selectedPlan?.discription,
+        planCost,
+        anniversaryFlowers: formValue.anniversaryFlowers,
+        flowerName: this.selectedFlowerName,
+        flowerCost,
+        flowerNote,
+        total
+      };
+
+      console.log(this.summary);
+
       this.step = 4;
       this.scrollToTop();
     } else {
-      this.markTouched(Object.keys(this.estimateForm.controls));
+      this.estimateForm.markAllAsTouched();
     }
   }
 
@@ -249,6 +271,7 @@ export class EstimateComponent implements OnInit {
       return;
     }
 
+    this.isSubmitting = true;
     const formValue = this.estimateForm.value;
 
     const payload = {
@@ -264,22 +287,20 @@ export class EstimateComponent implements OnInit {
       no_of_subsribe_years: formValue.subscriptionYears,
       status: "pending",
       flower_id: this.selectedFlowerID || null,
-      note: formValue.note || null
+      note: formValue.note || null,
+      successUrl: 'http://localhost:4200/success',
+      cancelUrl: 'http://localhost:4200/failed'
     };
 
     this.service.newService(payload).subscribe({
       next: (res: any) => {
-        console.log("Service booked successfully", res);
-        this.alertService.showAlert({
-          message: 'Booking Success',
-          type: 'success',
-          autoDismiss: true,
-          duration: 4000
-        });
-        // this.step = 5;
+        this.isSubmitting = false;
+        if (res.booking && res.booking.checkout_url) {
+          window.location.href = res.booking.checkout_url;
+        }
       },
       error: (err: any) => {
-        console.error("Booking failed", err);
+        this.isSubmitting = false;
         this.alertService.showAlert({
           message: err.error.message,
           type: 'error',
