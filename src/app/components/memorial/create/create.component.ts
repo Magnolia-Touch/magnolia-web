@@ -32,9 +32,23 @@ export class CreateComponent {
       twitter: [''],
       instagram: [''],
       journey: ['', Validators.required],
-      familyMembers: this.fb.array([]),
-      lifeEvents: this.fb.array([]),
+      familyMembers: this.fb.array([this.createFamilyMember()]),
+      lifeEvents: this.fb.array([this.createLifeEvent()]),
       gallery: [[]]
+    });
+  }
+
+  createFamilyMember(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      relation: ['', Validators.required]
+    });
+  }
+
+  createLifeEvent(): FormGroup {
+    return this.fb.group({
+      year: ['', Validators.required],
+      event: ['', Validators.required]
     });
   }
 
@@ -142,11 +156,15 @@ export class CreateComponent {
   }
 
   removeFamilyMember(i: number) {
-    this.familyMembers.removeAt(i);
+    if (this.familyMembers.length > 1) {
+      this.familyMembers.removeAt(i);
+    }
   }
 
   removeLifeEvent(i: number) {
-    this.lifeEvents.removeAt(i);
+    if (this.lifeEvents.length > 1) {
+      this.lifeEvents.removeAt(i);
+    }
   }
 
 }

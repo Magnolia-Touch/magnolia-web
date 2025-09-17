@@ -85,9 +85,17 @@
                     class="row align-items-center mb-2">
                     <div class="col-md-5">
                         <input class="form-control" formControlName="name" placeholder="Name">
+                        <div class="error"
+                            *ngIf="member.get('name')?.touched && member.get('name')?.hasError('required')">
+                            Name is required
+                        </div>
                     </div>
                     <div class="col-md-5">
                         <input class="form-control" formControlName="relation" placeholder="Relation">
+                        <div class="error"
+                            *ngIf="member.get('relation')?.touched && member.get('relation')?.hasError('required')">
+                            Relation is required
+                        </div>
                     </div>
                     <div class="col-md-2 text-end">
                         <button type="button" class="remove-btn" (click)="removeFamilyMember(i)">
@@ -113,9 +121,17 @@
                         <select class="form-control" formControlName="year">
                             <option *ngFor="let y of years" [value]="y">{{y}}</option>
                         </select>
+                        <div class="error"
+                            *ngIf="event.get('year')?.touched && event.get('year')?.hasError('required')">
+                            Year is required
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <input class="form-control" formControlName="event" placeholder="Event description">
+                        <div class="error"
+                            *ngIf="event.get('event')?.touched && event.get('event')?.hasError('required')">
+                            Event description is required
+                        </div>
                     </div>
                     <div class="col-md-2 text-end">
                         <button type="button" class="remove-btn" (click)="removeLifeEvent(i)">
