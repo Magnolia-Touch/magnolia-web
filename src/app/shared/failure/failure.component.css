@@ -1,0 +1,127 @@
+.failure-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: overlayFadeIn 0.5s ease forwards;
+}
+
+svg {
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 8px rgba(209, 0, 0, 0.5));
+    animation: svgBounce 0.6s ease-out 1s forwards;
+}
+
+.path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+}
+
+.path.circle {
+    animation: dash 0.9s ease-in-out;
+}
+
+.path.cross {
+    stroke-dashoffset: -100;
+    animation: dash-cross 0.9s 0.35s ease-in-out forwards;
+}
+
+.failure-text {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.4em;
+    font-weight: 600;
+    color: #d10000;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: textFadeUp 0.5s ease forwards;
+    animation-delay: 1.2s;
+}
+
+.go-home {
+    margin-top: 20px;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: buttonPop 0.4s ease forwards;
+    animation-delay: 1s;
+}
+
+.go-home button {
+    background-color: #d10000;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.go-home button:hover {
+    background-color: #a80000;
+    transform: scale(1.05);
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes dash-cross {
+    0% {
+        stroke-dashoffset: -100;
+    }
+
+    100% {
+        stroke-dashoffset: 900;
+    }
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes svgBounce {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes textFadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes buttonPop {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

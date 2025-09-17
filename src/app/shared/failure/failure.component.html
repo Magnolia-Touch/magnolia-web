@@ -1,0 +1,16 @@
+<div class="failure-overlay">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+        <circle class="path circle" fill="none" stroke="#d10000" stroke-width="6" stroke-miterlimit="10" cx="65.1"
+            cy="65.1" r="62.1" />
+        <line class="path cross" fill="none" stroke="#d10000" stroke-width="6" stroke-linecap="round"
+            stroke-miterlimit="10" x1="40" y1="40" x2="90" y2="90" />
+        <line class="path cross" fill="none" stroke="#d10000" stroke-width="6" stroke-linecap="round"
+            stroke-miterlimit="10" x1="90" y1="40" x2="40" y2="90" />
+    </svg>
+
+    <p class="failure-text">Booking Failed!</p>
+
+    <div *ngIf="showGoHomeBtn" class="go-home">
+        <button (click)="goBack()">Go Back</button>
+    </div>
+</div>
