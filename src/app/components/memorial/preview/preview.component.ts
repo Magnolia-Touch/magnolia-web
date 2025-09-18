@@ -12,9 +12,11 @@ export class PreviewComponent implements OnInit {
   @Input() memorialForm?: any;
   data: any;
   profilePhotoUrlValue: string | null = null;
+  galleryUrls: string[] = [];
 
   ngOnInit(): void {
     if (this.memorialForm) {
+
       this.data = {
         firstName: this.memorialForm.get('firstName')?.value,
         lastName: this.memorialForm.get('lastName')?.value,
@@ -31,13 +33,19 @@ export class PreviewComponent implements OnInit {
         profilePhoto: this.memorialForm.get('profilePhoto')?.value || null
       };
 
-      // Generate profile photo URL once
       const file = this.data.profilePhoto;
       if (file && typeof file !== 'string') {
         this.profilePhotoUrlValue = URL.createObjectURL(file);
       } else {
         this.profilePhotoUrlValue = file;
       }
+
+      this.galleryUrls = (this.data.gallery || []).map((img: any) => {
+        if (img && typeof img !== 'string') {
+          return URL.createObjectURL(img);
+        }
+        return img;
+      });
     }
   }
 

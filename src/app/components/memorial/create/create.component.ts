@@ -163,7 +163,6 @@ export class CreateComponent {
   submitForm() {
     if (this.memorialForm.valid) {
       console.log("Final Payload:", this.memorialForm.value, this.profilePhoto, this.galleryPhotos);
-      // Send to API
     } else {
       Object.keys(this.memorialForm.controls).forEach(c => this.memorialForm.get(c)?.markAsTouched());
     }

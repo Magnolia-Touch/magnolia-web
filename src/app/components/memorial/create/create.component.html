@@ -78,11 +78,14 @@
         </div>
 
         <!-- STEP 3: Family Members -->
+        <!-- STEP 3: Family Members -->
         <div *ngIf="step === 3" class="step step-family">
             <h4>Family Members</h4>
             <div formArrayName="familyMembers">
                 <div *ngFor="let member of familyMembers.controls; let i=index" [formGroupName]="i"
                     class="row align-items-center mb-2">
+
+                    <!-- Name -->
                     <div class="col-md-5">
                         <input class="form-control" formControlName="name" placeholder="Name">
                         <div class="error"
@@ -90,13 +93,25 @@
                             Name is required
                         </div>
                     </div>
+
+                    <!-- Relation (Dropdown) -->
                     <div class="col-md-5">
-                        <input class="form-control" formControlName="relation" placeholder="Relation">
+                        <select class="form-control" formControlName="relation">
+                            <option value="">Select Relation</option>
+                            <option value="father">Father</option>
+                            <option value="mother">Mother</option>
+                            <option value="brother">Brother</option>
+                            <option value="sister">Sister</option>
+                            <option value="son">Son</option>
+                            <option value="daughter">Daughter</option>
+                        </select>
                         <div class="error"
                             *ngIf="member.get('relation')?.touched && member.get('relation')?.hasError('required')">
                             Relation is required
                         </div>
                     </div>
+
+                    <!-- Remove Button -->
                     <div class="col-md-2 text-end">
                         <button type="button" class="remove-btn" (click)="removeFamilyMember(i)">
                             <i class="bi bi-x-circle"></i> Remove
@@ -104,6 +119,7 @@
                     </div>
                 </div>
             </div>
+
             <button type="button" class="btn add-btn mt-2" (click)="addFamilyMember()">+ Add Member</button>
 
             <div class="d-flex justify-content-between mt-3">
