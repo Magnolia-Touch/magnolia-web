@@ -48,7 +48,7 @@ export class CreateComponent {
 
   createLifeEvent(): FormGroup {
     return this.fb.group({
-      year: ['', Validators.required],
+      year: [new Date().getFullYear(), Validators.required],
       event: ['', Validators.required]
     });
   }

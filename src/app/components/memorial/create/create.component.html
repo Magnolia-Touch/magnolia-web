@@ -27,13 +27,13 @@
                 <div class="col-md-6 mb-3">
                     <label>Date of Birth *</label>
                     <input class="form-control" ngbDatepicker #dob="ngbDatepicker" readonly (click)="dob.toggle()"
-                        formControlName="dob" placeholder="YYYY-MM-DD">
+                        formControlName="dob" [minDate]="{year:1900, month:1, day:1}" placeholder="YYYY-MM-DD">
                     <div class="error" *ngIf="hasError('dob','required')">Required</div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label>Date of Passing *</label>
                     <input class="form-control" ngbDatepicker #dop="ngbDatepicker" readonly (click)="dop.toggle()"
-                        formControlName="dop" placeholder="YYYY-MM-DD">
+                        formControlName="dop" [minDate]="{year:1900, month:1, day:1}" placeholder="YYYY-MM-DD">
                     <div class="error" *ngIf="hasError('dop','required')">Required</div>
                 </div>
                 <div class="col-md-12 mb-3">
@@ -77,7 +77,6 @@
             </div>
         </div>
 
-        <!-- STEP 3: Family Members -->
         <!-- STEP 3: Family Members -->
         <div *ngIf="step === 3" class="step step-family">
             <h4>Family Members</h4>
