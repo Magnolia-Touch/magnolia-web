@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProfile()
+    this.loadActiveSubs()
   }
 
   loadProfile() {
@@ -29,12 +30,22 @@ export class ProfileComponent implements OnInit {
     this.service.getUserProfile().subscribe({
       next: (res: any) => {
         this.loading = false;
-        console.log(res);
         this.profile = res.data;
       },
       error: (err: any) => {
         this.loading = false;
         console.error(err)
+      }
+    })
+  }
+
+  loadActiveSubs(){
+    this.service.getActiveSubs().subscribe({
+      next: (res:any) =>{
+        console.log(res);
+      },
+      error: (err) =>{
+        console.log(err);
       }
     })
   }

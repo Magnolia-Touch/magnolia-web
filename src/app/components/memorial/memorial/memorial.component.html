@@ -8,7 +8,7 @@
             to come.</p>
         <div class="headings-buttons">
             <button class="primary-btn" (click)="goTo('/memorial-about')">Digitalise Memories</button>
-            <button class="secondary-btn">Schedule Booking</button>
+            <!-- <button class="secondary-btn">Schedule Booking</button> -->
         </div>
     </div>
 
@@ -54,7 +54,7 @@
                     and keep their legacy alive.</p>
             </div>
         </div>
-        <button>Create Memorial</button>
+        <button (click)="goTo('/memorial-about')">Create Memorial</button>
     </div>
 
     <div class="ready">
@@ -64,8 +64,8 @@
                 with dignity, beauty, and compassion.</p>
         </div>
         <div class="ready-buttons">
-            <button>Create Memorial</button>
-            <button>Book Cleaning</button>
+            <button (click)="goTo('/memorial-about')">Create Memorial</button>
+            <button (click)="goTo('/cleaning')">Book Cleaning</button>
         </div>
     </div>
 

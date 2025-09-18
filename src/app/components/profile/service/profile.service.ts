@@ -8,6 +8,7 @@ import { environment } from '../../../../environment/environment';
 export class ProfileService {
 
   private BaseUrl = `${environment.apiUrl}/auth`
+  private SubUrl = `${environment.apiUrl}/user`
 
   constructor(
     private http: HttpClient
@@ -15,5 +16,9 @@ export class ProfileService {
 
   getUserProfile() {
     return this.http.get(`${this.BaseUrl}/profile`)
+  }
+
+  getActiveSubs(){
+    return this.http.get(`${this.SubUrl}/get-active-subscriptions`)
   }
 }
