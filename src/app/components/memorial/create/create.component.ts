@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from "../../../shared/header/header.component";
 import { PreviewComponent } from "../preview/preview.component";
 import { AuthService } from '../../../core/interceptor/auth.service';
 import { MemorialService } from '../service/memorial.service';
 import { AlertService } from '../../../shared/alert/service/alert.service';
+import { LoginComponent } from '../../login/login.component';
 
 @Component({
   selector: 'app-create',
@@ -28,7 +29,8 @@ export class CreateComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private service: MemorialService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private modalService: NgbModal
   ) {
     this.memorialForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -169,6 +171,21 @@ export class CreateComponent {
   }
 
   submitForm() {
+    if (!this.authService.isLoggedIn()) {
+      const buttonElement = document.activeElement as HTMLElement;
+      buttonElement.blur();
+
+      const modalRef = this.modalService.open(LoginComponent, { size: 'md', backdrop: 'static' });
+      modalRef.componentInstance.isModal = true;
+      modalRef.result.then((result) => {
+        if (result === 'success') {
+          this.submitForm();
+        }
+      }).catch(() => { });
+
+      return;
+    }
+
     if (this.memorialForm.valid) {
       const formValue = this.memorialForm.value;
 
@@ -211,7 +228,6 @@ export class CreateComponent {
 
       this.service.createMemorial(payload, user.email).subscribe({
         next: (res: any) => {
-          console.log(res);
           this.alertService.showAlert({
             message: 'Memorial Created',
             type: 'success',
@@ -220,7 +236,6 @@ export class CreateComponent {
           });
         },
         error: (err) => {
-          console.error(err);
           this.alertService.showAlert({
             message: err.error.message,
             type: 'error',
