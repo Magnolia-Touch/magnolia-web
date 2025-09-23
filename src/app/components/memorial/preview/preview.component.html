@@ -60,15 +60,35 @@
         </div>
 
         <div class="col-md-6 mb-3">
-            <h5 class="card-title mb-4"><i class="bi bi-images me-2"></i>Gallery</h5>
-            <div class="card p-4 h-100 shadow-sm gallery-card border-card">
+            <h5 class="card-title">Gallery</h5>
+
+            <div class="gallery-grid">
+                <div *ngFor="let img of galleryUrls.slice(0, 6)" class="gallery-item">
+                    <img [src]="img" alt="gallery image" />
+                </div>
+            </div>
+
+            <div class="text-center mt-3" *ngIf="galleryUrls.length > 6">
+                <button class="btn btn-outline-primary" (click)="openGalleryModal(galleryModal)">
+                    View More
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal Template -->
+        <ng-template #galleryModal let-modal>
+            <div class="modal-header">
+                <h5 class="modal-title">Full Gallery</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+            </div>
+            <div class="modal-body">
                 <div class="gallery-grid">
                     <div *ngFor="let img of galleryUrls" class="gallery-item">
-                        <img [src]="img" alt="Gallery Image">
+                        <img [src]="img" alt="gallery image" />
                     </div>
                 </div>
             </div>
-        </div>
+        </ng-template>
     </div>
 
 </div>

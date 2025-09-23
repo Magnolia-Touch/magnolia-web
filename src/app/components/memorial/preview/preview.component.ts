@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-preview',
@@ -13,6 +14,8 @@ export class PreviewComponent implements OnInit {
   data: any;
   profilePhotoUrlValue: string | null = null;
   galleryUrls: string[] = [];
+
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
     if (this.memorialForm) {
@@ -57,5 +60,12 @@ export class PreviewComponent implements OnInit {
 
   get profilePhotoUrl(): string | null {
     return this.profilePhotoUrlValue;
+  }
+
+  openGalleryModal(content: TemplateRef<any>) {
+    const buttonElement = document.activeElement as HTMLElement;
+    buttonElement.blur();
+
+    this.modalService.open(content, { size: 'lg', centered: true });
   }
 }
