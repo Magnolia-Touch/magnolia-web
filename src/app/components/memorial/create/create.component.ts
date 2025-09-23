@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from "../../../shared/header/header.component";
 import { PreviewComponent } from "../preview/preview.component";
+import { AuthService } from '../../../core/interceptor/auth.service';
+import { MemorialService } from '../service/memorial.service';
+import { AlertService } from '../../../shared/alert/service/alert.service';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +24,12 @@ export class CreateComponent {
 
   years: number[] = Array.from({ length: 120 }, (_, i) => new Date().getFullYear() - i);
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private service: MemorialService,
+    private alertService: AlertService
+  ) {
     this.memorialForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -162,10 +170,77 @@ export class CreateComponent {
 
   submitForm() {
     if (this.memorialForm.valid) {
-      console.log("Final Payload:", this.memorialForm.value, this.profilePhoto, this.galleryPhotos);
+      const formValue = this.memorialForm.value;
+
+      const payload = {
+        firstName: formValue.firstName,
+        lastName: formValue.lastName,
+        born_date: this.formatDate(formValue.dob),
+        death_date: this.formatDate(formValue.dop),
+        memorial_place: formValue.location,
+        profile_image: this.profilePhoto ? URL.createObjectURL(this.profilePhoto) : null,
+        background_image: null,
+        is_paid: false,
+
+        biography: [
+          { discription: formValue.journey }
+        ],
+
+        gallery: this.galleryPhotos.map((file, i) => ({
+          link: this.galleryPreviews[i]
+        })),
+
+        family: formValue.familyMembers.map((member: any) => ({
+          relationship: member.relation,
+          name: member.name
+        })),
+
+        socialLinks: [
+          formValue.facebook ? { socialMediaName: "Facebook", link: formValue.facebook } : null,
+          formValue.twitter ? { socialMediaName: "Twitter", link: formValue.twitter } : null,
+          formValue.instagram ? { socialMediaName: "Instagram", link: formValue.instagram } : null
+        ].filter(x => x !== null),
+
+        events: formValue.lifeEvents.map((e: any) => ({
+          year: e.year,
+          event: e.event
+        }))
+      };
+
+      const user = this.authService.getUser()
+
+      this.service.createMemorial(payload, user.email).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.alertService.showAlert({
+            message: 'Memorial Created',
+            type: 'success',
+            autoDismiss: true,
+            duration: 4000
+          });
+        },
+        error: (err) => {
+          console.error(err);
+          this.alertService.showAlert({
+            message: err.error.message,
+            type: 'error',
+            autoDismiss: true,
+            duration: 4000
+          });
+        }
+      })
+
     } else {
       Object.keys(this.memorialForm.controls).forEach(c => this.memorialForm.get(c)?.markAsTouched());
     }
+  }
+
+  private formatDate(dateObj: any): string {
+    if (!dateObj) return '';
+    const y = dateObj.year;
+    const m = ('0' + dateObj.month).slice(-2);
+    const d = ('0' + dateObj.day).slice(-2);
+    return `${y}-${m}-${d}`;
   }
 
   removeFamilyMember(i: number) {
