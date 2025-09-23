@@ -12,6 +12,7 @@ import { SummaryComponent as MemorialSummaryComponent } from './components/memor
 import { ProfileComponent } from './components/profile/profile.component';
 import { SuccessComponent } from './shared/success/success.component';
 import { FailureComponent } from './shared/failure/failure.component';
+import { DisplayComponent } from './components/memorial/display/display.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,5 +29,6 @@ export const routes: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'success', component: SuccessComponent },
     { path: 'failed', component: FailureComponent },
+    { path: 'page/:id', component: DisplayComponent },
     { path: '**', component: HomeComponent }
 ];

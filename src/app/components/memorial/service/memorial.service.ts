@@ -16,4 +16,8 @@ export class MemorialService {
   createMemorial(itm: any, email: string) {
     return this.http.post(`${this.BaseUrl}/create-memorial-profile?email=${email}`, itm)
   }
+
+  getMemorial(code: string) {
+    return this.http.get(`${this.BaseUrl}?code=${code}`)
+  }
 }
