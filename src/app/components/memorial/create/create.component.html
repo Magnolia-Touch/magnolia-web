@@ -97,12 +97,28 @@
                     <div class="col-md-5">
                         <select class="form-control" formControlName="relation">
                             <option value="">Select Relation</option>
-                            <option value="father">Father</option>
-                            <option value="mother">Mother</option>
-                            <option value="brother">Brother</option>
-                            <option value="sister">Sister</option>
-                            <option value="son">Son</option>
-                            <option value="daughter">Daughter</option>
+                            <optgroup label="Spouse">
+                                <option value="husband">Husband</option>
+                                <option value="wife">Wife</option>
+                            </optgroup>
+                            <optgroup label="Parents">
+                                <option value="father">Father</option>
+                                <option value="mother">Mother</option>
+                            </optgroup>
+                            <optgroup label="Siblings">
+                                <option value="brother">Brother</option>
+                                <option value="sister">Sister</option>
+                            </optgroup>
+                            <optgroup label="Grandparents / Grandchildren">
+                                <option value="grandfather">Grandfather</option>
+                                <option value="grandmother">Grandmother</option>
+                                <option value="grandson">Grandson</option>
+                                <option value="granddaughter">Granddaughter</option>
+                            </optgroup>
+                            <optgroup label="Children">
+                                <option value="son">Son</option>
+                                <option value="daughter">Daughter</option>
+                            </optgroup>
                         </select>
                         <div class="error"
                             *ngIf="member.get('relation')?.touched && member.get('relation')?.hasError('required')">
