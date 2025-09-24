@@ -2,7 +2,6 @@
 
 <div class="container-fluid">
     <div class="details">
-
         <div *ngIf="loading" class="text-center my-5">
             <div class="spinner-border custom-spinner" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -43,4 +42,47 @@
             </div>
         </div>
     </div>
+
+    <div class="subs">
+        <div *ngIf="loading" class="text-center my-5">
+            <div class="spinner-border custom-spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div *ngIf="!loading && activeSubs?.length" class="active-subs">
+            <h4>Active Subscriptions</h4>
+            <div *ngFor="let sub of activeSubs" class="sub-card">
+                <p class="label full-width">Booking ID</p>
+                <p class="value full-width">{{ sub.booking_ids }}</p>
+
+                <p class="label">Name on Memorial</p>
+                <p class="value">{{ sub.name_on_memorial }}</p>
+
+                <p class="label">Plot Number</p>
+                <p class="value">{{ sub.plot_no }}</p>
+
+                <p class="label">Booking Date</p>
+                <p class="value">{{ sub.booking_date | date:'mediumDate' }}</p>
+
+                <p class="label">First Cleaning</p>
+                <p class="value">{{ sub.first_cleaning_date | date:'mediumDate' }}</p>
+
+                <p class="label">Second Cleaning</p>
+                <p class="value">{{ sub.second_cleaning_date ? (sub.second_cleaning_date | date:'mediumDate') : 'N/A' }}
+                </p>
+
+                <p class="label">Status</p>
+                <p class="value">{{ sub.status }}</p>
+
+                <p class="label">Amount</p>
+                <p class="value">{{ sub.amount }}</p>
+            </div>
+        </div>
+
+        <div *ngIf="!loading && !activeSubs?.length" class="text-center my-3">
+            No active subscriptions found.
+        </div>
+    </div>
+
 </div>

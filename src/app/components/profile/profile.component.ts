@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
 export class ProfileComponent implements OnInit {
 
   profile!: any;
-   loading: boolean = false;
+  loading: boolean = false;
+  activeSubs: any[] = [];
 
   constructor(
     private service: ProfileService,
@@ -39,15 +40,15 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  loadActiveSubs(){
+  loadActiveSubs() {
     this.service.getActiveSubs().subscribe({
-      next: (res:any) =>{
-        console.log(res);
+      next: (res: any) => {
+        this.activeSubs = res;
       },
-      error: (err) =>{
-        console.log(err);
+      error: (err: any) => {
+        console.error(err);
       }
-    })
+    });
   }
 
 }

@@ -13,8 +13,8 @@ export class MemorialService {
     private http: HttpClient
   ) { }
 
-  createMemorial(itm: any, email: string) {
-    return this.http.post(`${this.BaseUrl}/create-memorial-profile?email=${email}`, itm)
+  createMemorial(itm: any) {
+    return this.http.post(`${this.BaseUrl}/create-memorial-profile`, itm)
   }
 
   getMemorial(code: string) {

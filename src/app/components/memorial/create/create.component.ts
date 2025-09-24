@@ -23,7 +23,7 @@ export class CreateComponent {
   galleryPhotos: File[] = [];
   galleryPreviews: string[] = [];
 
-  years: number[] = Array.from({ length: 120 }, (_, i) => new Date().getFullYear() - i);
+  years: string[] = Array.from({ length: 120 }, (_, i) => (new Date().getFullYear() - i).toString());
 
   constructor(
     private fb: FormBuilder,
@@ -58,7 +58,7 @@ export class CreateComponent {
 
   createLifeEvent(): FormGroup {
     return this.fb.group({
-      year: [new Date().getFullYear(), Validators.required],
+      year: [new Date().getFullYear().toString(), Validators.required],
       event: ['', Validators.required]
     });
   }
@@ -224,9 +224,7 @@ export class CreateComponent {
         }))
       };
 
-      const user = this.authService.getUser()
-
-      this.service.createMemorial(payload, user.email).subscribe({
+      this.service.createMemorial(payload).subscribe({
         next: (res: any) => {
           this.alertService.showAlert({
             message: 'Memorial Created',
