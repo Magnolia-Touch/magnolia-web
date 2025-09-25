@@ -27,13 +27,14 @@
 
     <!-- Journey & Family -->
     <div class="row mb-5">
-        <div class="col-md-6 mb-4">
+        <div class="col-12 mb-4">
             <h5 class="section-title"><i class="bi bi-emoji-smile me-2"></i>Beautiful Life Journey</h5>
             <div class="card section-card shadow-sm p-4">
                 <p class="text-muted mb-0">{{ data.journey }}</p>
             </div>
         </div>
-        <div class="col-md-6 mb-4">
+
+        <div class="col-12 mb-4">
             <h5 class="section-title"><i class="bi bi-people me-2"></i>Family Members</h5>
             <div class="card section-card shadow-sm p-4">
                 <ul class="family-list mb-0">
@@ -48,24 +49,25 @@
 
     <!-- Life Events & Gallery -->
     <div class="row mb-5">
-        <div class="col-md-6 mb-4">
+        <div class="col-12 mb-4">
             <h5 class="section-title"><i class="bi bi-clock-history me-2"></i>Life Events</h5>
             <div class="card section-card shadow-sm p-4">
-                <ul class="timeline">
-                    <li *ngFor="let event of data.lifeEvents; let i = index" [class.timeline-inverted]="i % 2 !== 0">
-                        <div class="timeline-badge">{{ event.year }}</div>
-                        <div class="timeline-panel">
-                            <h6 class="fw-semibold mb-1">{{ event.event }}</h6>
+                <div class="timeline">
+                    <div *ngFor="let event of data.lifeEvents; let i = index"
+                        [ngClass]="{'timeline-container': true, 'left': i % 2 === 0, 'right': i % 2 !== 0}">
+                        <div class="timeline-content">
+                            <h6>{{ event.year }}</h6>
+                            <p>{{ event.event }}</p>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-6 mb-4">
+        <div class="col-12 mb-4">
             <h5 class="section-title"><i class="bi bi-images me-2"></i>Gallery</h5>
-            <div class="gallery-grid">
-                <div *ngFor="let img of galleryUrls.slice(0, 6)" class="gallery-item">
+            <div class="gallery-grid single-column">
+                <div *ngFor="let img of galleryUrls" class="gallery-item">
                     <img [src]="img" alt="gallery image" />
                 </div>
             </div>
