@@ -141,6 +141,15 @@
     background-color: white;
     position: relative;
     border-radius: 6px;
+    display: block;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.timeline-content h6,
+.timeline-content p {
+    margin: 0;
+    white-space: normal;
 }
 
 /* Gallery */
@@ -186,7 +195,6 @@
     object-fit: contain;
 }
 
-/* Mobile Adjustments */
 @media (max-width: 768px) {
     .gallery-grid.single-column {
         grid-template-columns: 1fr;

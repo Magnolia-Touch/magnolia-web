@@ -51,7 +51,6 @@
     <div class="row mb-5">
         <div class="col-12 mb-4">
             <h5 class="section-title"><i class="bi bi-clock-history me-2"></i>Life Events</h5>
-            <div class="card section-card shadow-sm p-4">
                 <div class="timeline">
                     <div *ngFor="let event of data.lifeEvents; let i = index"
                         [ngClass]="{'timeline-container': true, 'left': i % 2 === 0, 'right': i % 2 !== 0}">
@@ -61,7 +60,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
 
         <div class="col-12 mb-4">
