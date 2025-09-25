@@ -1,0 +1,52 @@
+/* Brand Color */
+.text-primary-custom {
+    color: #BDA577 !important;
+}
+
+.btn-primary-custom {
+    background-color: #BDA577;
+    border: none;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.btn-primary-custom:hover {
+    background-color: #a38f65;
+    color: #fff;
+}
+
+.memorial-card {
+    border-radius: 12px;
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+.memorial-photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 3px solid #BDA577;
+}
+
+.service-card {
+    border-radius: 12px;
+    border: 1px solid #eee;
+    background: #fff;
+}
+
+.btn-outline-dark.active {
+    background-color: #BDA577;
+    border-color: #BDA577;
+    color: #fff;
+}
+
+ul li {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.total-cost {
+    color: #BDA577;
+    font-size: 16px;
+}

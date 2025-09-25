@@ -1,22 +1,24 @@
 <div class="container preview-wrapper" *ngIf="data">
 
-    <!-- Background Logos -->
-    <div class="logos d-flex justify-content-between mt-3 mb-5">
-        <img src="/logo.png" alt="Logo 1">
-        <img src="/logo2.png" alt="Logo 2">
+    <!-- Top Logos -->
+    <div class="logos d-flex justify-content-between align-items-center mb-5">
+        <img src="/logo.png" alt="Logo 1" />
+        <img src="/logo2.png" alt="Logo 2" />
     </div>
 
     <!-- Profile Card -->
-    <div class="profile-card card mb-5 p-4">
+    <div class="profile-card card shadow-lg p-4 mb-5">
         <div class="row align-items-center">
-            <div class="col-md-3 text-center">
-                <img [src]="profilePhotoUrl" alt="Profile Photo" class="profile-photo">
+            <div class="col-md-3 text-center mb-3 mb-md-0">
+                <img [src]="profilePhotoUrl" alt="Profile Photo" class="profile-photo" />
             </div>
-            <div class="col-md-9">
-                <h2 class="profile-name">{{ data.firstName }} {{ data.lastName }}</h2>
-                <div class="d-flex flex-wrap profile-details mb-2">
-                    <p><i class="bi bi-calendar3 me-2"></i>DOB: {{ getFormattedDate(data.dob) }}</p>
-                    <p><i class="bi bi-calendar2-x me-2"></i>DOP: {{ getFormattedDate(data.dop) }}</p>
+            <div class="col-md-9 text-center text-md-start">
+                <h2 class="profile-name display-6 mb-3">
+                    {{ data.firstName }} {{ data.lastName }}
+                </h2>
+                <div class="d-flex flex-wrap justify-content-center justify-content-md-start profile-details">
+                    <p><i class="bi bi-calendar3 me-2"></i>{{ getFormattedDate(data.dob) }}</p>
+                    <p><i class="bi bi-calendar2-x me-2"></i>{{ getFormattedDate(data.dop) }}</p>
                     <p><i class="bi bi-geo-alt me-2"></i>{{ data.location }}</p>
                 </div>
             </div>
@@ -25,18 +27,19 @@
 
     <!-- Journey & Family -->
     <div class="row mb-5">
-        <div class="col-md-6 mb-3">
-            <h5 class="card-title mb-4"><i class="bi bi-emoji-smile me-2"></i>Beautiful Life Journey</h5>
-            <div class="card p-4 h-100 shadow-sm journey-card border-card short-card">
-                <p>{{ data.journey }}</p>
+        <div class="col-md-6 mb-4">
+            <h5 class="section-title"><i class="bi bi-emoji-smile me-2"></i>Beautiful Life Journey</h5>
+            <div class="card section-card shadow-sm p-4">
+                <p class="text-muted mb-0">{{ data.journey }}</p>
             </div>
         </div>
-        <div class="col-md-6 mb-3">
-            <h5 class="card-title mb-4"><i class="bi bi-people me-2"></i>Family Members</h5>
-            <div class="card p-4 h-100 shadow-sm family-card border-card">
-                <ul class="family-list">
+        <div class="col-md-6 mb-4">
+            <h5 class="section-title"><i class="bi bi-people me-2"></i>Family Members</h5>
+            <div class="card section-card shadow-sm p-4">
+                <ul class="family-list mb-0">
                     <li *ngFor="let member of data.familyMembers">
-                        {{ member.name }} ({{ member.relation }})
+                        <span class="fw-semibold">{{ member.name }}</span>
+                        <span class="text-muted">({{ member.relation }})</span>
                     </li>
                 </ul>
             </div>
@@ -45,32 +48,30 @@
 
     <!-- Life Events & Gallery -->
     <div class="row mb-5">
-        <div class="col-md-6 mb-3">
-            <h5 class="card-title mb-4"><i class="bi bi-clock-history me-2"></i>Life Events</h5>
-            <div class="card p-4 h-100 shadow-sm timeline-card border-card">
+        <div class="col-md-6 mb-4">
+            <h5 class="section-title"><i class="bi bi-clock-history me-2"></i>Life Events</h5>
+            <div class="card section-card shadow-sm p-4">
                 <ul class="timeline">
                     <li *ngFor="let event of data.lifeEvents; let i = index" [class.timeline-inverted]="i % 2 !== 0">
                         <div class="timeline-badge">{{ event.year }}</div>
                         <div class="timeline-panel">
-                            <h6 class="timeline-title">{{ event.event }}</h6>
+                            <h6 class="fw-semibold mb-1">{{ event.event }}</h6>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div class="col-md-6 mb-3">
-            <h5 class="card-title">Gallery</h5>
-
+        <div class="col-md-6 mb-4">
+            <h5 class="section-title"><i class="bi bi-images me-2"></i>Gallery</h5>
             <div class="gallery-grid">
                 <div *ngFor="let img of galleryUrls.slice(0, 6)" class="gallery-item">
                     <img [src]="img" alt="gallery image" />
                 </div>
             </div>
-
             <div class="text-center mt-3" *ngIf="galleryUrls.length > 6">
-                <button class="btn btn-outline-primary" (click)="openGalleryModal(galleryModal)">
-                    View More
+                <button class="btn btn-outline-dark premium-btn" (click)="openGalleryModal(galleryModal)">
+                    View Full Gallery
                 </button>
             </div>
         </div>
@@ -82,7 +83,7 @@
                 <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
             </div>
             <div class="modal-body">
-                <div class="gallery-grid">
+                <div class="gallery-grid modal-gallery">
                     <div *ngFor="let img of galleryUrls" class="gallery-item">
                         <img [src]="img" alt="gallery image" />
                     </div>

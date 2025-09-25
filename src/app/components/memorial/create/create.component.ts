@@ -8,6 +8,8 @@ import { AuthService } from '../../../core/interceptor/auth.service';
 import { MemorialService } from '../service/memorial.service';
 import { AlertService } from '../../../shared/alert/service/alert.service';
 import { LoginComponent } from '../../login/login.component';
+import { Router } from '@angular/router';
+import { ConfirmationService } from '../../../shared/confirmation-modal/service/confirmation.service';
 
 @Component({
   selector: 'app-create',
@@ -30,7 +32,9 @@ export class CreateComponent {
     private authService: AuthService,
     private service: MemorialService,
     private alertService: AlertService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router,
+    private confirmationService: ConfirmationService
   ) {
     this.memorialForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -170,7 +174,7 @@ export class CreateComponent {
     return !!(ctrl?.touched && ctrl?.hasError(error));
   }
 
-  submitForm() {
+  async submitForm() {
     if (!this.authService.isLoggedIn()) {
       const buttonElement = document.activeElement as HTMLElement;
       buttonElement.blur();
@@ -188,61 +192,83 @@ export class CreateComponent {
 
     if (this.memorialForm.valid) {
       const formValue = this.memorialForm.value;
+      const formData = new FormData();
 
-      const payload = {
-        firstName: formValue.firstName,
-        lastName: formValue.lastName,
-        born_date: this.formatDate(formValue.dob),
-        death_date: this.formatDate(formValue.dop),
-        memorial_place: formValue.location,
-        profile_image: this.profilePhoto ? URL.createObjectURL(this.profilePhoto) : null,
-        background_image: null,
-        is_paid: false,
+      formData.append('firstName', formValue.firstName.toString());
+      formData.append('lastName', formValue.lastName.toString());
+      formData.append('born_date', this.formatDate(formValue.dob));
+      formData.append('death_date', this.formatDate(formValue.dop));
+      formData.append('memorial_place', formValue.location.toString());
+      formData.append('is_paid', 'true');
 
-        biography: [
-          { discription: formValue.journey }
-        ],
+      if (this.profilePhoto) {
+        formData.append('profile_image', this.profilePhoto);
+      }
 
-        gallery: this.galleryPhotos.map((file, i) => ({
-          link: this.galleryPreviews[i]
-        })),
+      formData.append('biography', JSON.stringify([
+        { discription: formValue.journey }
+      ]));
 
-        family: formValue.familyMembers.map((member: any) => ({
-          relationship: member.relation,
-          name: member.name
-        })),
+      formData.append('family', JSON.stringify(
+        formValue.familyMembers.map((m: any) => ({
+          relationship: this.capitalizeRelation(m.relation),
+          name: m.name
+        }))
+      ));
 
-        socialLinks: [
-          formValue.facebook ? { socialMediaName: "Facebook", link: formValue.facebook } : null,
-          formValue.twitter ? { socialMediaName: "Twitter", link: formValue.twitter } : null,
-          formValue.instagram ? { socialMediaName: "Instagram", link: formValue.instagram } : null
-        ].filter(x => x !== null),
+      const socialLinks = [
+        formValue.facebook ? { socialMediaName: 'Facebook', link: formValue.facebook } : null,
+        formValue.twitter ? { socialMediaName: 'Twitter', link: formValue.twitter } : null,
+        formValue.instagram ? { socialMediaName: 'Instagram', link: formValue.instagram } : null
+      ].filter(x => x !== null);
+      formData.append('socialLinks', JSON.stringify(socialLinks));
 
-        events: formValue.lifeEvents.map((e: any) => ({
-          year: e.year,
+      formData.append('events', JSON.stringify(
+        formValue.lifeEvents.map((e: any) => ({
+          year: e.year.toString(),
           event: e.event
         }))
-      };
+      ));
 
-      this.service.createMemorial(payload).subscribe({
-        next: (res: any) => {
-          this.alertService.showAlert({
-            message: 'Memorial Created',
-            type: 'success',
-            autoDismiss: true,
-            duration: 4000
-          });
-        },
-        error: (err) => {
-          this.alertService.showAlert({
-            message: err.error.message,
-            type: 'error',
-            autoDismiss: true,
-            duration: 4000
-          });
-        }
-      })
+      this.galleryPhotos.forEach(file => formData.append('gallery', file));
 
+      const form = this.memorialForm.value
+
+      const payload = {
+        form: form,
+        profilePhoto: this.profilePhoto,
+        galleryPhotos: this.galleryPhotos
+      }
+
+      const confirmed = await this.confirmationService.confirm({
+        title: 'Proceed to Summary',
+        message: 'Do you want to continue to the memorial summary?',
+        confirmText: 'Yes',
+        cancelText: 'No'
+      });
+
+      if (confirmed) {
+        this.router.navigate(['/memorial-summary'], { state: payload });
+      }
+
+      // this.service.createMemorial(formData).subscribe({
+      //   next: (res: any) => {
+      //     this.alertService.showAlert({
+      //       message: 'Memorial Created',
+      //       type: 'success',
+      //       autoDismiss: true,
+      //       duration: 4000
+      //     });
+      //   },
+      //   error: (err) => {
+      //     this.alertService.showAlert({
+      //       message: err.error.message,
+      //       type: 'error',
+      //       autoDismiss: true,
+      //       duration: 4000
+      //     });
+      //   }
+      // });
     } else {
       Object.keys(this.memorialForm.controls).forEach(c => this.memorialForm.get(c)?.markAsTouched());
     }
@@ -273,6 +299,24 @@ export class CreateComponent {
     this.galleryPreviews.splice(index, 1);
 
     this.memorialForm.patchValue({ gallery: this.galleryPhotos });
+  }
+
+  private capitalizeRelation(relation: string): string {
+    switch (relation.toLowerCase()) {
+      case 'father': return 'Parents';
+      case 'mother': return 'Parents';
+      case 'husband': return 'Spouse';
+      case 'wife': return 'Spouse';
+      case 'brother': return 'Siblings';
+      case 'sister': return 'Siblings';
+      case 'son': return 'Children';
+      case 'daughter': return 'Children';
+      case 'grandfather': return 'Grandparents / Grandchildren';
+      case 'grandmother': return 'Grandparents / Grandchildren';
+      case 'grandson': return 'Grandparents / Grandchildren';
+      case 'granddaughter': return 'Grandparents / Grandchildren';
+      default: return relation;
+    }
   }
 
 }
