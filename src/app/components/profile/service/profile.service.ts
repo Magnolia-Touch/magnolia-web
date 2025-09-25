@@ -18,7 +18,11 @@ export class ProfileService {
     return this.http.get(`${this.BaseUrl}/profile`)
   }
 
-  getActiveSubs(){
+  updateUserProfile(itm: any) {
+    return this.http.put(`${this.BaseUrl}/profile`, itm)
+  }
+
+  getActiveSubs() {
     return this.http.get(`${this.SubUrl}/get-active-subscriptions`)
   }
 }
