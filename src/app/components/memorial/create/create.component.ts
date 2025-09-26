@@ -56,7 +56,7 @@ export class CreateComponent {
   createFamilyMember(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
-      relation: ['', Validators.required]
+      relationship: ['', Validators.required]
     });
   }
 
@@ -123,7 +123,7 @@ export class CreateComponent {
   addFamilyMember() {
     this.familyMembers.push(this.fb.group({
       name: ['', Validators.required],
-      relation: ['', Validators.required]
+      relationship: ['', Validators.required]
     }));
   }
 
@@ -211,7 +211,7 @@ export class CreateComponent {
 
       formData.append('family', JSON.stringify(
         formValue.familyMembers.map((m: any) => ({
-          relationship: this.capitalizeRelation(m.relation),
+          relationship: this.capitalizeRelation(m.relationship),
           name: m.name
         }))
       ));
