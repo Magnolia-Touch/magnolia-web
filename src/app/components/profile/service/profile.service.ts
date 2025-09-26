@@ -9,6 +9,7 @@ export class ProfileService {
 
   private BaseUrl = `${environment.apiUrl}/auth`
   private SubUrl = `${environment.apiUrl}/user`
+  private MemoUrl = `${environment.apiUrl}/memories`
 
   constructor(
     private http: HttpClient
@@ -24,5 +25,14 @@ export class ProfileService {
 
   getActiveSubs() {
     return this.http.get(`${this.SubUrl}/get-active-subscriptions`)
+  }
+
+  getMemorials(page: number, limit: number, search: string = '') {
+    let params: any = { page, limit };
+    if (search) {
+      params.search = search;
+    }
+
+    return this.http.get(`${this.MemoUrl}/profiles`, { params })
   }
 }

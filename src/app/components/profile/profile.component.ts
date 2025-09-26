@@ -3,11 +3,11 @@ import { HeaderComponent } from "../../shared/header/header.component";
 import { ProfileService } from './service/profile.service';
 import { AlertService } from '../../shared/alert/service/alert.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
-  imports: [HeaderComponent, CommonModule, ReactiveFormsModule],
+  imports: [HeaderComponent, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -18,6 +18,11 @@ export class ProfileComponent implements OnInit {
   activeSubs: any[] = [];
   editMode = false;
   profileForm!: FormGroup;
+  memorials: any[] = [];
+  total = 0;
+  page = 1;
+  limit = 5;
+  search = '';
 
   constructor(
     private service: ProfileService,
@@ -28,6 +33,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.loadProfile()
     this.loadActiveSubs()
+    this.loadMemorialProfiles()
   }
 
   loadProfile() {
@@ -56,6 +62,36 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  loadMemorialProfiles() {
+    this.service.getMemorials(this.page, this.limit, this.search).subscribe({
+      next: (res: any) => {
+        this.memorials = res.data;
+        this.total = res.meta.total;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+  }
+
+  onSearch() {
+    this.page = 1;
+    this.loadMemorialProfiles();
+  }
+
+  pageChange(pageNum: number) {
+    this.page = pageNum;
+    this.loadMemorialProfiles();
+  }
+
+  get totalPages(): number[] {
+    return Array.from({ length: Math.ceil(this.total / this.limit) }, (_, i) => i + 1);
+  }
+
+  get lastPage(): number {
+    return Math.ceil(this.total / this.limit);
+  }
+
   initForm() {
     this.profileForm = this.fb.group({
       name: [this.profile?.customer_name || '', Validators.required],
@@ -64,7 +100,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-    toggleEdit() {
+  toggleEdit() {
     this.editMode = !this.editMode;
   }
 
@@ -92,6 +128,5 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-
 
 }

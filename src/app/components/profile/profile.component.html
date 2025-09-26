@@ -111,4 +111,49 @@
         </div>
     </div>
 
+    <div class="memo">
+        <div class="d-flex justify-content-between mb-3">
+            <h4>Memorial Profiles</h4>
+            <input type="text" class="form-control w-25" placeholder="Search by name..." [(ngModel)]="search"
+                (keyup.enter)="onSearch()" />
+        </div>
+
+        <div class="row" *ngIf="memorials?.length; else noData">
+            <div class="col-md-4 mb-3" *ngFor="let mem of memorials">
+                <div class="card shadow-sm h-100">
+                    <img [src]="mem.profile_image || 'assets/default.jpg'" class="card-img-top" alt="Profile">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ mem.firstName }} {{ mem.lastName }}</h5>
+                        <p class="card-text">
+                            <strong>Born:</strong> {{ mem.born_date | date:'mediumDate' }} <br>
+                            <strong>Died:</strong> {{ mem.death_date | date:'mediumDate' }} <br>
+                            <strong>Place:</strong> {{ mem.memorial_place }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noData>
+            <div class="text-center text-muted">No memorial profiles found.</div>
+        </ng-template>
+
+        <!-- Pagination -->
+        <nav *ngIf="total > limit" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="page === 1">
+                    <button class="page-link" (click)="pageChange(page - 1)">Previous</button>
+                </li>
+
+                <li class="page-item" *ngFor="let p of totalPages" [class.active]="page === p">
+                    <button class="page-link" (click)="pageChange(p)">{{ p }}</button>
+                </li>
+
+                <li class="page-item" [class.disabled]="page === lastPage">
+                    <button class="page-link" (click)="pageChange(page + 1)">Next</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
 </div>
