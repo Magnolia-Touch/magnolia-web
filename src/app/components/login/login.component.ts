@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Optional } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/interceptor/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AlertService } from '../../shared/alert/service/alert.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileService } from '../profile/service/profile.service';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -28,6 +29,7 @@ export class LoginComponent {
     private router: Router,
     private alertService: AlertService,
     private modalRef: NgbModal,
+    private profileService: ProfileService,
     @Optional() private activeModal: NgbActiveModal,
   ) {
     this.loginForm = this.fb.group({

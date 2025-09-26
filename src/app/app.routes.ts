@@ -13,6 +13,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SuccessComponent } from './shared/success/success.component';
 import { FailureComponent } from './shared/failure/failure.component';
 import { DisplayComponent } from './components/memorial/display/display.component';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -30,5 +32,7 @@ export const routes: Routes = [
     { path: 'success', component: SuccessComponent },
     { path: 'failed', component: FailureComponent },
     { path: 'page/:id', component: DisplayComponent },
+    { path: 'forgotpassword', component: ForgotpasswordComponent },
+    { path: 'resetpassword', component: ResetpasswordComponent },
     { path: '**', component: HomeComponent }
 ];
