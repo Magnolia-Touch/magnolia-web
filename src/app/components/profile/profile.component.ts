@@ -74,10 +74,10 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  onSearch() {
-    this.page = 1;
-    this.loadMemorialProfiles();
-  }
+onSearchChange(value: string) {
+  this.page = 1;
+  this.loadMemorialProfiles();
+}
 
   pageChange(pageNum: number) {
     this.page = pageNum;
