@@ -1,5 +1,6 @@
 /* ===================== Global ===================== */
-body, .container-fluid {
+body,
+.container-fluid {
   margin: 0;
   padding: 0;
   font-family: 'Inter', 'Roboto', sans-serif;
@@ -7,7 +8,8 @@ body, .container-fluid {
   color: #333;
 }
 
-h4, h5 {
+h4,
+h5 {
   color: #333;
 }
 
@@ -35,7 +37,7 @@ h4, h5 {
   background: rgba(255, 255, 255, 0.95);
   padding: 25px 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .profile .left {
@@ -84,7 +86,7 @@ h4, h5 {
 }
 
 /* ===================== Form Card ===================== */
-.card {
+.details .card {
   max-width: 600px;
   margin: 20px auto;
   padding: 25px 30px;
@@ -92,28 +94,49 @@ h4, h5 {
   background: #fff;
   border: 1px solid #ddd;
   text-align: left;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.card .row {
+.details .card .row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin: 12px 0;
   align-items: center;
+  gap: 10px;
 }
 
-.card .label {
+.details .card .label {
   flex: 0 0 150px;
   font-weight: 500;
   color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.card .value {
+.details .card .value {
   flex: 1;
   color: #333;
+  word-break: break-word;
+  min-width: 0;
 }
 
-.card input.form-control {
+@media (max-width: 480px) {
+  .details .card .row {
+    flex-wrap: wrap;
+  }
+
+  .details .card .label {
+    flex: 0 0 100%;
+    margin-bottom: 4px;
+  }
+
+  .details .card .value {
+    flex: 0 0 100%;
+  }
+}
+
+.details .card input.form-control {
   flex: 1;
   padding: 6px 10px;
   border-radius: 6px;
@@ -153,13 +176,13 @@ h4, h5 {
   border-radius: 12px;
   background: #fff;
   border: 1px solid #ddd;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .sub-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
 .sub-card .label {
@@ -201,13 +224,13 @@ h4, h5 {
 .memo .card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .memo .card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
 .memo .card-img-top {
