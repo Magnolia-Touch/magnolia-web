@@ -23,6 +23,9 @@
                 <button class="edit-btn" (click)="toggleEdit()">
                     {{ editMode ? 'Cancel' : 'Edit' }}
                 </button>
+                <button class="edit-btn btn-secondary ms-2" (click)="openChangePasswordModal(changePasswordContent)">
+                    Change Password
+                </button>
             </div>
         </div>
 
@@ -157,3 +160,29 @@
     </div>
 
 </div>
+
+<ng-template #changePasswordContent let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Change Password</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="passwordForm" (ngSubmit)="changePassword(modal)">
+            <div class="mb-3">
+                <label for="oldPassword" class="form-label">Old Password</label>
+                <input type="password" id="oldPassword" formControlName="oldPassword" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="newPassword" class="form-label">New Password</label>
+                <input type="password" id="newPassword" formControlName="newPassword" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control">
+            </div>
+            <div class="text-end">
+                <button type="submit" class="edit-btn" [disabled]="passwordForm.invalid">Save</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

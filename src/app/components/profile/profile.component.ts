@@ -4,6 +4,7 @@ import { ProfileService } from './service/profile.service';
 import { AlertService } from '../../shared/alert/service/alert.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-profile',
@@ -23,17 +24,63 @@ export class ProfileComponent implements OnInit {
   page = 1;
   limit = 5;
   search = '';
+  passwordForm!: FormGroup;
 
   constructor(
     private service: ProfileService,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
     this.loadProfile()
     this.loadActiveSubs()
     this.loadMemorialProfiles()
+    this.initPasswordForm();
+  }
+
+  initPasswordForm() {
+    this.passwordForm = this.fb.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  passwordMatchValidator(form: FormGroup) {
+    const newPass = form.get('newPassword')?.value;
+    const confirmPass = form.get('confirmPassword')?.value;
+    return newPass === confirmPass ? null : { mismatch: true };
+  }
+
+  openChangePasswordModal(content: any) {
+    this.modalService.open(content, { centered: true });
+  }
+
+  changePassword(modal: any) {
+    if (this.passwordForm.invalid) return;
+
+    this.service.changePassword(this.passwordForm.value).subscribe({
+      next: (res: any) => {
+        this.alertService.showAlert({
+          message: 'Password changed successfully!',
+          type: 'success',
+          autoDismiss: true,
+          duration: 4000
+        });
+        modal.close();
+        this.passwordForm.reset();
+      },
+      error: (err: any) => {
+        this.alertService.showAlert({
+          message: err.error.message || 'Failed to change password',
+          type: 'error',
+          autoDismiss: true,
+          duration: 4000
+        });
+      }
+    });
   }
 
   loadProfile() {
@@ -74,10 +121,10 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-onSearchChange(value: string) {
-  this.page = 1;
-  this.loadMemorialProfiles();
-}
+  onSearchChange(value: string) {
+    this.page = 1;
+    this.loadMemorialProfiles();
+  }
 
   pageChange(pageNum: number) {
     this.page = pageNum;

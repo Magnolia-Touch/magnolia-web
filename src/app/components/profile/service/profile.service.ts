@@ -35,4 +35,8 @@ export class ProfileService {
 
     return this.http.get(`${this.MemoUrl}/profiles`, { params })
   }
+
+  changePassword(data: { oldPassword: string, newPassword: string, confirmPassword: string }) {
+    return this.http.post(`${this.BaseUrl}/change-password`, data);
+  }
 }
