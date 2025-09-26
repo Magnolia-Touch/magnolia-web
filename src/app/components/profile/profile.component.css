@@ -1,3 +1,21 @@
+/* ===================== Global ===================== */
+body, .container-fluid {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  background: #f8f9fc;
+  color: #333;
+}
+
+h4, h5 {
+  color: #333;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ===================== Profile Section ===================== */
 .details {
   background-image: url('../../../../public/bg.png');
   background-size: cover;
@@ -7,13 +25,17 @@
   color: #818181;
 }
 
-/* Profile Row */
 .profile {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 40px;
   margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .profile .left {
@@ -31,74 +53,93 @@
   align-items: center;
   justify-content: center;
   font-size: 28px;
-  color: #000;
+  color: #fff;
 }
 
 .profile .second h5 {
   margin: 0;
   font-weight: 600;
-  font-size: 16px;
-  color: #000;
+  font-size: 18px;
 }
 
 .profile .second p {
   margin: 0;
   font-size: 14px;
-  color: #888;
+  color: #666;
 }
 
 .edit-btn {
   background: #b8a262;
   border: none;
   padding: 8px 20px;
-  border-radius: 5px;
+  border-radius: 6px;
   color: #fff;
   cursor: pointer;
   font-weight: 500;
+  transition: background 0.2s;
 }
 
+.edit-btn:hover {
+  background: #a18f50;
+}
+
+/* ===================== Form Card ===================== */
 .card {
   max-width: 600px;
   margin: 20px auto;
   padding: 25px 30px;
-  border: 1px solid #ddd;
   border-radius: 12px;
-  background: transparent;
+  background: #fff;
+  border: 1px solid #ddd;
   text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .card .row {
   display: flex;
+  flex-wrap: wrap;
   margin: 12px 0;
+  align-items: center;
 }
 
 .card .label {
   flex: 0 0 150px;
-  /* fixed width for labels */
   font-weight: 500;
   color: #555;
 }
 
 .card .value {
   flex: 1;
-  color: #000;
+  color: #333;
 }
 
+.card input.form-control {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* ===================== Spinner ===================== */
 .custom-spinner {
   color: #b8a262 !important;
+  width: 3rem;
+  height: 3rem;
 }
 
+/* ===================== Subscriptions ===================== */
 .subs {
-  max-width: 800px;
-  margin: 30px auto;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 10px;
 }
 
 .active-subs h4 {
   margin-bottom: 20px;
-  color: #b8a262; /* golden accent */
+  color: #b8a262;
   font-size: 22px;
   font-weight: 700;
-  border-bottom: 2px solid #b8a262; /* underline for emphasis */
+  border-bottom: 2px solid #b8a262;
   display: inline-block;
   padding-bottom: 5px;
 }
@@ -111,7 +152,7 @@
   margin-bottom: 15px;
   border-radius: 12px;
   background: #fff;
-  border: 1px solid #ddd; /* subtle border added */
+  border: 1px solid #ddd;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -128,7 +169,7 @@
 }
 
 .sub-card .value {
-  color: #000;
+  color: #333;
   font-size: 14px;
   font-weight: 600;
 }
@@ -136,4 +177,71 @@
 .sub-card .full-width {
   grid-column: 1 / -1;
   margin-top: 5px;
+}
+
+/* ===================== Memorial Section ===================== */
+.memo {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 10px;
+}
+
+.memo h4 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.memo input.form-control {
+  max-width: 300px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+}
+
+.memo .card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.memo .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.memo .card-img-top {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  object-fit: cover;
+  height: 200px;
+}
+
+.memo .card-title {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.memo .card-text {
+  font-size: 14px;
+  color: #555;
+}
+
+/* ===================== Pagination ===================== */
+.pagination .page-link {
+  color: #333;
+  border-radius: 6px;
+  margin: 0 3px;
+}
+
+.pagination .page-item.active .page-link {
+  background: #b8a262;
+  border-color: #b8a262;
+  color: #fff;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
+  pointer-events: none;
 }
