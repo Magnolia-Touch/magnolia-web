@@ -33,7 +33,7 @@ export class ProfileService {
       params.search = search;
     }
 
-    return this.http.get(`${this.MemoUrl}/profiles`, { params })
+    return this.http.get(`${this.MemoUrl}/my-memorials`, { params })
   }
 
   changePassword(data: { oldPassword: string, newPassword: string, confirmPassword: string }) {

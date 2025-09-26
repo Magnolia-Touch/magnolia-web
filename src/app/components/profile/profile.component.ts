@@ -113,7 +113,7 @@ export class ProfileComponent implements OnInit {
     this.service.getMemorials(this.page, this.limit, this.search).subscribe({
       next: (res: any) => {
         this.memorials = res.data;
-        this.total = res.meta.total;
+        this.total = res.pagination.total;
       },
       error: (err) => {
         console.error(err);
@@ -127,16 +127,24 @@ export class ProfileComponent implements OnInit {
   }
 
   pageChange(pageNum: number) {
-    this.page = pageNum;
+    const last = this.lastPage;
+    if (pageNum < 1) {
+      this.page = 1;
+    } else if (pageNum > last) {
+      this.page = last;
+    } else {
+      this.page = pageNum;
+    }
     this.loadMemorialProfiles();
   }
 
   get totalPages(): number[] {
-    return Array.from({ length: Math.ceil(this.total / this.limit) }, (_, i) => i + 1);
+    const totalPages = Math.ceil(this.total / this.limit);
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
   get lastPage(): number {
-    return Math.ceil(this.total / this.limit);
+    return Math.ceil(this.total / this.limit) || 1;
   }
 
   initForm() {
