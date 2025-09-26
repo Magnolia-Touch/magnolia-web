@@ -5,6 +5,7 @@ import { AlertService } from '../../shared/alert/service/alert.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +31,8 @@ export class ProfileComponent implements OnInit {
     private service: ProfileService,
     private alertService: AlertService,
     private fb: FormBuilder,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -182,6 +184,10 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
+  }
+
+  goToMemorial(profileId: number) {
+    this.router.navigate(['/page', profileId]);
   }
 
 }

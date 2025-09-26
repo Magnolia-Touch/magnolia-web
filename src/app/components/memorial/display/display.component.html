@@ -1,5 +1,4 @@
-<div class="container preview-wrapper" *ngIf="data">
-
+<div class="container preview-wrapper" *ngIf="memorialData">
     <!-- Top Logos -->
     <div class="logos d-flex justify-content-between align-items-center mb-5">
         <img src="/logo.png" alt="Logo 1" />
@@ -14,12 +13,12 @@
             </div>
             <div class="col-md-9 text-center text-md-start">
                 <h2 class="profile-name display-6 mb-3">
-                    {{ data.firstName }} {{ data.lastName }}
+                    {{ memorialData.firstName }} {{ memorialData.lastName }}
                 </h2>
                 <div class="d-flex flex-wrap justify-content-center justify-content-md-start profile-details">
-                    <p><i class="bi bi-calendar3 me-2"></i>{{ getFormattedDate(data.dob) }}</p>
-                    <p><i class="bi bi-calendar2-x me-2"></i>{{ getFormattedDate(data.dop) }}</p>
-                    <p><i class="bi bi-geo-alt me-2"></i>{{ data.location }}</p>
+                    <p><i class="bi bi-calendar3 me-2"></i>{{ getFormattedDate(memorialData.born_date) }}</p>
+                    <p><i class="bi bi-calendar2-x me-2"></i>{{ getFormattedDate(memorialData.death_date) }}</p>
+                    <p><i class="bi bi-geo-alt me-2"></i>{{ memorialData.memorial_place }}</p>
                 </div>
             </div>
         </div>
@@ -30,7 +29,7 @@
         <div class="col-12 mb-4">
             <h5 class="section-title"><i class="bi bi-emoji-smile me-2"></i>Beautiful Life Journey</h5>
             <div class="card section-card shadow-sm p-4">
-                <p class="text-muted mb-0">{{ data.journey }}</p>
+                <p class="text-muted mb-0">{{ getBiography() }}</p>
             </div>
         </div>
 
@@ -38,9 +37,9 @@
             <h5 class="section-title"><i class="bi bi-people me-2"></i>Family Members</h5>
             <div class="card section-card shadow-sm p-4">
                 <ul class="family-list mb-0">
-                    <li *ngFor="let member of data.familyMembers">
+                    <li *ngFor="let member of memorialData.family">
                         <span class="fw-semibold">{{ member.name }}</span>
-                        <span class="text-muted">({{ member.relation }})</span>
+                        <span class="text-muted">({{ member.relationship | titlecase}})</span>
                     </li>
                 </ul>
             </div>
@@ -52,7 +51,7 @@
         <div class="col-12 mb-4">
             <h5 class="section-title"><i class="bi bi-clock-history me-2"></i>Life Events</h5>
             <div class="timeline">
-                <div *ngFor="let event of data.lifeEvents; let i = index"
+                <div *ngFor="let event of memorialData.Events; let i = index"
                     [ngClass]="{'timeline-container': true, 'left': i % 2 === 0, 'right': i % 2 !== 0}">
                     <div class="timeline-content">
                         <h6>{{ event.year }}</h6>

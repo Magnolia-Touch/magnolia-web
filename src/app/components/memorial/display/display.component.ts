@@ -16,9 +16,8 @@ export class DisplayComponent {
   loading = true;
   error: string | null = null;
 
-  profilePhotoUrlValue: string | null = null;
+  profilePhotoUrl: string | null = null;
   galleryUrls: string[] = [];
-  data: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,8 +37,15 @@ export class DisplayComponent {
   fetchMemorial(id: string): void {
     this.loading = true;
     this.memorialService.getMemorial(id).subscribe({
-      next: (res) => {
-        this.memorialData = res;
+      next: (res: any) => {
+        this.memorialData = res.data;
+
+        // Set profile photo
+        this.profilePhotoUrl = this.memorialData.profile_image;
+
+        // Map gallery URLs
+        this.galleryUrls = this.memorialData.gallery.map((g: any) => g.link);
+
         this.loading = false;
       },
       error: (err) => {
@@ -56,15 +62,14 @@ export class DisplayComponent {
     return `${date.day}-${date.month}-${date.year}`;
   }
 
-  get profilePhotoUrl(): string | null {
-    return this.profilePhotoUrlValue;
-  }
-
   openGalleryModal(content: TemplateRef<any>) {
     const buttonElement = document.activeElement as HTMLElement;
     buttonElement.blur();
-
     this.modalService.open(content, { size: 'lg', centered: true });
+  }
+
+  getBiography(): string {
+    return this.memorialData?.biography?.[0]?.discription || '';
   }
 
 }

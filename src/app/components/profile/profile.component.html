@@ -123,7 +123,7 @@
 
         <div class="row" *ngIf="memorials?.length; else noData">
             <div class="col-md-4 mb-3" *ngFor="let mem of memorials">
-                <div class="card shadow-sm h-100">
+                <div class="card shadow-sm h-100" (click)="goToMemorial(mem.slug)" style="cursor:pointer">
                     <img [src]="mem.profile_image || 'assets/default.jpg'" class="card-img-top" alt="Profile">
                     <div class="card-body">
                         <h5 class="card-title">{{ mem.firstName }} {{ mem.lastName }}</h5>
