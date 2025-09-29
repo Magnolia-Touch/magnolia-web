@@ -3,10 +3,14 @@ import { Component, TemplateRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MemorialService } from '../service/memorial.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AlertService } from '../../../shared/alert/service/alert.service';
+import { AuthService } from '../../../core/interceptor/auth.service';
+import { ConfirmationService } from '../../../shared/confirmation-modal/service/confirmation.service';
 
 @Component({
   selector: 'app-display',
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './display.component.html',
   styleUrl: './display.component.css'
 })
@@ -19,10 +23,19 @@ export class DisplayComponent {
   profilePhotoUrl: string | null = null;
   galleryUrls: string[] = [];
 
+  guestForm!: FormGroup;
+  unApprovedGb!: any[];
+  approvedGb!: any[];
+  user!: any;
+
   constructor(
     private route: ActivatedRoute,
     private memorialService: MemorialService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private fb: FormBuilder,
+    private alertService: AlertService,
+    private authService: AuthService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +45,20 @@ export class DisplayComponent {
         this.fetchMemorial(id);
       }
     });
+
+    this.guestForm = this.fb.group({
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      guestemail: ['', [Validators.required, Validators.email]],
+      phone: ['', Validators.required],
+      message: ['', Validators.required]
+    });
+
+    this.user = this.authService.getUser()
+    console.log(this.user);
+
+    this.loadUnApprovedGB()
+    this.loadApprovedGB()
   }
 
   fetchMemorial(id: string): void {
@@ -70,6 +97,100 @@ export class DisplayComponent {
 
   getBiography(): string {
     return this.memorialData?.biography?.[0]?.discription || '';
+  }
+
+  openGuestbookModal(content: TemplateRef<any>) {
+    this.modalService.open(content, { size: 'md', centered: true });
+  }
+
+  submitGuestBook(modal: any) {
+    if (this.guestForm.invalid) return;
+
+    const payload = this.guestForm.value;
+    const code = this.route.snapshot.paramMap.get('id');
+
+    this.memorialService.addGuestBook(payload, code).subscribe({
+      next: () => {
+        this.alertService.showAlert({
+          message: 'Message Added',
+          type: 'success',
+          autoDismiss: true,
+          duration: 4000
+        });
+        modal.close();
+        this.guestForm.reset();
+      },
+      error: (err) => {
+        this.alertService.showAlert({
+          message: err.error.message || 'Message failed to add. Try again.',
+          type: 'error',
+          autoDismiss: true,
+          duration: 4000
+        });
+      }
+    });
+  }
+
+  loadUnApprovedGB() {
+    const code = this.route.snapshot.paramMap.get('id');
+    this.memorialService.UnApproveGuestBook(code).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.unApprovedGb = res.data.guestBookItems;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+  }
+
+  loadApprovedGB() {
+    const code = this.route.snapshot.paramMap.get('id');
+    this.memorialService.approveGuestBook(code).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.approvedGb = res.data.guestBookItems;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+  }
+
+  async approveGuestBook(item: any) {
+    const code = this.route.snapshot.paramMap.get('id');
+    if (!code) return;
+
+    const confirmed = await this.confirmationService.confirm({
+      title: 'Proceed to Summary',
+      message: 'Do you want to continue to the memorial summary?',
+      confirmText: 'Yes',
+      cancelText: 'No'
+    });
+
+    if (confirmed) {
+      this.memorialService.updateGuestBookStatus(code, item.guestbookitems_id).subscribe({
+        next: () => {
+          this.alertService.showAlert({
+            message: 'Guestbook entry approved',
+            type: 'success',
+            autoDismiss: true,
+            duration: 3000
+          });
+          this.unApprovedGb = this.unApprovedGb.filter(gb => gb.guestbookitems_id !== item.guestbookitems_id);
+          this.loadApprovedGB();
+        },
+        error: (err) => {
+          this.alertService.showAlert({
+            message: err.error.message || 'Failed to approve entry',
+            type: 'error',
+            autoDismiss: true,
+            duration: 3000
+          });
+        }
+      });
+    }
+
   }
 
 }
