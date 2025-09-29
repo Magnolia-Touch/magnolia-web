@@ -194,6 +194,36 @@
     object-fit: contain;
 }
 
+.gbcontainer {
+    padding: 50px 25px;
+    font-family: 'Poppins', Arial, sans-serif;
+    color: #333;
+    background-color: #fafafa;
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+    border-radius: 14px;
+    border: 1px solid #e6e6e6;
+    background: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-card p {
+    margin-bottom: 6px;
+}
+
+.testimonial-card small {
+    display: block;
+    margin-top: 5px;
+    color: #888;
+}
+
 @media (max-width: 992px) {
     .profile-card .row {
         flex-direction: column;

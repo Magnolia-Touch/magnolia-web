@@ -190,7 +190,45 @@ export class DisplayComponent {
         }
       });
     }
+  }
 
+  async deleteGuestBook(item: any, type: 'approved' | 'unapproved') {
+    const code = this.route.snapshot.paramMap.get('id');
+    if (!code) return;
+
+    const confirmed = await this.confirmationService.confirm({
+      title: 'Delete Entry',
+      message: 'Are you sure you want to delete this guestbook entry?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    });
+
+    if (confirmed) {
+      this.memorialService.deleteGuestBook(code, item.guestbookitems_id).subscribe({
+        next: () => {
+          this.alertService.showAlert({
+            message: 'Guestbook entry deleted',
+            type: 'success',
+            autoDismiss: true,
+            duration: 3000
+          });
+
+          if (type === 'approved') {
+            this.approvedGb = this.approvedGb.filter(gb => gb.guestbookitems_id !== item.guestbookitems_id);
+          } else {
+            this.unApprovedGb = this.unApprovedGb.filter(gb => gb.guestbookitems_id !== item.guestbookitems_id);
+          }
+        },
+        error: (err) => {
+          this.alertService.showAlert({
+            message: err.error.message || 'Failed to delete entry',
+            type: 'error',
+            autoDismiss: true,
+            duration: 3000
+          });
+        }
+      });
+    }
   }
 
 }
