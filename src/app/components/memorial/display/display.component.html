@@ -120,6 +120,20 @@
     </div>
 </div>
 
+<div class="approved mt-5" *ngIf="approvedGb?.length">
+    <h5 class="section-title">
+        <i class="bi bi-check-circle me-2"></i>Approved Guestbook Entries
+    </h5>
+    <div class="card section-card shadow-sm p-4 mb-3" *ngFor="let gb of approvedGb">
+        <div>
+            <p class="fw-semibold mb-1">{{ gb.first_name }} {{ gb.last_name }}</p>
+            <p class="text-muted small mb-1">{{ gb.email }} | {{ gb.phone }}</p>
+            <p class="mb-0">{{ gb.message }}</p>
+            <small class="text-muted">{{ gb.date | date:'medium' }}</small>
+        </div>
+    </div>
+</div>
+
 <!-- Guestbook Modal -->
 <ng-template #guestbookModal let-modal>
     <div class="modal-header">
