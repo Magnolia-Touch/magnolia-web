@@ -162,8 +162,8 @@ export class DisplayComponent {
     if (!code) return;
 
     const confirmed = await this.confirmationService.confirm({
-      title: 'Proceed to Summary',
-      message: 'Do you want to continue to the memorial summary?',
+      title: 'Approve Guestbook',
+      message: 'Do you want to approve this entry?',
       confirmText: 'Yes',
       cancelText: 'No'
     });
