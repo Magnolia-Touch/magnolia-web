@@ -17,7 +17,6 @@ import { ConfirmationService } from '../../../shared/confirmation-modal/service/
 export class DisplayComponent {
 
   memorialData: any;
-  loading = true;
   error: string | null = null;
 
   profilePhotoUrl: string | null = null;
@@ -36,6 +35,11 @@ export class DisplayComponent {
 
   user!: any;
   memorialOwner!: any;
+
+  loadingMemorial = false;
+  loadingApproved = false;
+  loadingUnApproved = false;
+  loadingGallery = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -68,7 +72,7 @@ export class DisplayComponent {
   }
 
   fetchMemorial(id: string): void {
-    this.loading = true;
+    this.loadingMemorial = true;
     this.memorialService.getMemorial(id).subscribe({
       next: (res: any) => {
         this.memorialData = res.data;
@@ -80,11 +84,11 @@ export class DisplayComponent {
         this.profilePhotoUrl = this.memorialData.profile_image;
         this.galleryUrls = this.memorialData.gallery.map((g: any) => g.link);
 
-        this.loading = false;
+        this.loadingMemorial = false;
       },
       error: (err) => {
         this.error = 'Failed to load memorial data';
-        this.loading = false;
+        this.loadingMemorial = false;
         console.error(err);
       }
     });
@@ -139,29 +143,35 @@ export class DisplayComponent {
   }
 
   loadUnApprovedGB(page: number = 1) {
+    this.loadingUnApproved = true;
     const code = this.route.snapshot.paramMap.get('id');
-    this.memorialService.UnApproveGuestBook(code,page, this.limit).subscribe({
+    this.memorialService.UnApproveGuestBook(code, page, this.limit).subscribe({
       next: (res: any) => {
         this.unApprovedGb = res.data.guestBookItems;
         this.unApprovedPagination = res.data.pagination;
         this.unApprovedPage = page;
+        this.loadingUnApproved = false;
       },
       error: (err) => {
         console.error(err);
+        this.loadingUnApproved = false;
       }
     })
   }
 
   loadApprovedGB(page: number = 1) {
+    this.loadingApproved = true;
     const code = this.route.snapshot.paramMap.get('id');
-    this.memorialService.approveGuestBook(code,page, this.limit).subscribe({
+    this.memorialService.approveGuestBook(code, page, this.limit).subscribe({
       next: (res: any) => {
         this.approvedGb = res.data.guestBookItems;
         this.approvedPagination = res.data.pagination;
         this.approvedPage = page;
+        this.loadingApproved = false;
       },
       error: (err) => {
         console.error(err);
+        this.loadingApproved = false;
       }
     })
   }
