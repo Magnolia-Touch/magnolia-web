@@ -27,6 +27,7 @@ export class DisplayComponent {
   unApprovedGb!: any[];
   approvedGb!: any[];
   user!: any;
+  memorialOwner!: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,7 +56,6 @@ export class DisplayComponent {
     });
 
     this.user = this.authService.getUser()
-    this.loadUnApprovedGB()
     this.loadApprovedGB()
   }
 
@@ -64,11 +64,12 @@ export class DisplayComponent {
     this.memorialService.getMemorial(id).subscribe({
       next: (res: any) => {
         this.memorialData = res.data;
+        this.memorialOwner = res.data.owner_id
+        if (this.memorialOwner === this.user.email) {
+          this.loadUnApprovedGB()
+        }
 
-        // Set profile photo
         this.profilePhotoUrl = this.memorialData.profile_image;
-
-        // Map gallery URLs
         this.galleryUrls = this.memorialData.gallery.map((g: any) => g.link);
 
         this.loading = false;
