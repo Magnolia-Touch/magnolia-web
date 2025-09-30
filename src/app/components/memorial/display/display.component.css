@@ -8,12 +8,11 @@
 }
 
 .memorial-loader {
-  color: #BDA577;
-  width: 3rem;
-  height: 3rem;
+    color: #BDA577;
+    width: 3rem;
+    height: 3rem;
 }
 
-/* Card Styles */
 .card {
     border-radius: 18px;
     border: none;
@@ -25,7 +24,6 @@
     min-height: 180px;
 }
 
-/* Profile */
 .profile-card {
     border: none;
     background: linear-gradient(135deg, #fdfcfb, #f8f6f0);
@@ -52,7 +50,6 @@
     color: #555;
 }
 
-/* Section Titles */
 .section-title {
     font-weight: 600;
     color: #b59c6e;
@@ -61,7 +58,6 @@
     margin-bottom: 1rem;
 }
 
-/* Family List */
 .family-list {
     list-style: none;
     padding: 0;
@@ -72,7 +68,6 @@
     font-size: 1rem;
 }
 
-/* Timeline */
 .timeline {
     position: relative;
     max-width: 1200px;
@@ -84,7 +79,6 @@
     position: absolute;
     width: 6px;
     background-color: #b59c6e;
-    /* line color */
     top: 0;
     bottom: 0;
     left: 50%;
@@ -158,7 +152,6 @@
     white-space: normal;
 }
 
-/* Gallery */
 .gallery-grid.single-column {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -183,7 +176,6 @@
     height: 300px;
 }
 
-/* Premium Button */
 .premium-btn {
     border-color: #b59c6e;
     color: #b59c6e;
@@ -194,13 +186,11 @@
     color: #fff;
 }
 
-/* Logos */
 .logos img {
     max-height: 100px;
     object-fit: contain;
 }
 
-/* Guestbook Sections */
 .gbcontainer {
     padding: 40px 25px;
     font-family: 'Poppins', Arial, sans-serif;
@@ -208,7 +198,6 @@
     background-color: #fafafa;
 }
 
-/* Section Title (reuse premium style) */
 .gbcontainer .section-title {
     font-weight: 600;
     color: #b59c6e;
@@ -217,7 +206,6 @@
     margin-bottom: 1.5rem;
 }
 
-/* Testimonial / Guestbook Cards */
 .testimonial-card {
     border-radius: 16px;
     border: none;
@@ -234,7 +222,6 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* Author Name */
 .testimonial-card p.fw-semibold {
     color: #b59c6e;
     font-size: 1.05rem;
@@ -260,7 +247,6 @@
     margin-left: 4px;
 }
 
-/* Date */
 .testimonial-card small {
     display: block;
     margin-top: 10px;
@@ -268,7 +254,6 @@
     font-size: 0.85rem;
 }
 
-/* Action Buttons */
 .testimonial-card .btn-group .btn {
     border-radius: 20px;
     padding: 4px 12px;
@@ -293,6 +278,28 @@
 
 .testimonial-card .btn-danger:hover {
     background: #c0392b;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #BDA577;
+    border-color: #BDA577;
+    color: #fff;
+}
+
+.pagination .page-link {
+    color: #BDA577;
+    border: 1px solid #BDA577;
+}
+
+.pagination .page-link:hover {
+    background-color: #BDA577;
+    color: #fff;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #ccc;
+    border-color: #ccc;
+    background-color: #f8f9fa;
 }
 
 @media (max-width: 992px) {
