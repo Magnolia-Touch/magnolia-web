@@ -55,8 +55,6 @@ export class DisplayComponent {
     });
 
     this.user = this.authService.getUser()
-    console.log(this.user);
-
     this.loadUnApprovedGB()
     this.loadApprovedGB()
   }
@@ -135,7 +133,6 @@ export class DisplayComponent {
     const code = this.route.snapshot.paramMap.get('id');
     this.memorialService.UnApproveGuestBook(code).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.unApprovedGb = res.data.guestBookItems;
       },
       error: (err) => {
@@ -148,7 +145,6 @@ export class DisplayComponent {
     const code = this.route.snapshot.paramMap.get('id');
     this.memorialService.approveGuestBook(code).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.approvedGb = res.data.guestBookItems;
       },
       error: (err) => {

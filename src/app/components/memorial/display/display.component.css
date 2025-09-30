@@ -234,41 +234,24 @@
     font-size: 1.05rem;
 }
 
-/* Meta Info (email + phone) */
 .testimonial-card .text-muted.small {
     font-size: 0.85rem;
     margin-bottom: 10px;
 }
 
-/* Message Style - premium quotes */
 .testimonial-card .message {
     font-style: italic;
     font-size: 1rem;
     line-height: 1.6;
-    position: relative;
-    padding-left: 18px;
-    width: max-content;
     color: #444;
-}
+    width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 
-.testimonial-card .message::before,
-.testimonial-card .message::after {
-    font-family: Georgia, serif;
-    font-size: 1.4rem;
-    color: #b59c6e;
-    position: absolute;
-}
-
-.testimonial-card .message::before {
-    content: "“";
-    left: 0;
-    top: -5px;
-}
-
-.testimonial-card .message::after {
-    content: "”";
-    right: -12px;
-    bottom: -8px;
+    border-left: 4px solid #b59c6e;
+    padding-left: 16px;
+    margin-left: 4px;
 }
 
 /* Date */
@@ -300,7 +283,6 @@
     background: #e74c3c;
     border: none;
     margin: 0.5rem;
-
 }
 
 .testimonial-card .btn-danger:hover {
@@ -448,11 +430,7 @@
     }
 
     .testimonial-card .btn-group {
-        flex-direction: column;
-        align-items: stretch;
+        align-items: center;
     }
 
-    .testimonial-card .btn-group .btn {
-        width: 100%;
-    }
 }
