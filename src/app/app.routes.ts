@@ -15,6 +15,7 @@ import { FailureComponent } from './shared/failure/failure.component';
 import { DisplayComponent } from './components/memorial/display/display.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
+import { authGuard } from './core/guard/auth.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,7 +29,7 @@ export const routes: Routes = [
     { path: 'memorial-about', component: JourneyComponent },
     { path: 'memorial-create', component: CreateComponent },
     { path: 'memorial-summary', component: MemorialSummaryComponent },
-    { path: 'profile', component: ProfileComponent },
+    { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
     { path: 'success', component: SuccessComponent },
     { path: 'failed', component: FailureComponent },
     { path: 'page/:id', component: DisplayComponent },
