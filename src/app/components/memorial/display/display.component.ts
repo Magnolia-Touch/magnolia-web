@@ -26,6 +26,14 @@ export class DisplayComponent {
   guestForm!: FormGroup;
   unApprovedGb!: any[];
   approvedGb!: any[];
+
+  approvedPage = 1;
+  unApprovedPage = 1;
+  limit = 5;
+
+  approvedPagination: any;
+  unApprovedPagination: any;
+
   user!: any;
   memorialOwner!: any;
 
@@ -130,11 +138,13 @@ export class DisplayComponent {
     });
   }
 
-  loadUnApprovedGB() {
+  loadUnApprovedGB(page: number = 1) {
     const code = this.route.snapshot.paramMap.get('id');
-    this.memorialService.UnApproveGuestBook(code).subscribe({
+    this.memorialService.UnApproveGuestBook(code,page, this.limit).subscribe({
       next: (res: any) => {
         this.unApprovedGb = res.data.guestBookItems;
+        this.unApprovedPagination = res.data.pagination;
+        this.unApprovedPage = page;
       },
       error: (err) => {
         console.error(err);
@@ -142,11 +152,13 @@ export class DisplayComponent {
     })
   }
 
-  loadApprovedGB() {
+  loadApprovedGB(page: number = 1) {
     const code = this.route.snapshot.paramMap.get('id');
-    this.memorialService.approveGuestBook(code).subscribe({
+    this.memorialService.approveGuestBook(code,page, this.limit).subscribe({
       next: (res: any) => {
         this.approvedGb = res.data.guestBookItems;
+        this.approvedPagination = res.data.pagination;
+        this.approvedPage = page;
       },
       error: (err) => {
         console.error(err);
@@ -174,8 +186,8 @@ export class DisplayComponent {
             autoDismiss: true,
             duration: 3000
           });
-          this.unApprovedGb = this.unApprovedGb.filter(gb => gb.guestbookitems_id !== item.guestbookitems_id);
           this.loadApprovedGB();
+          this.loadUnApprovedGB();
         },
         error: (err) => {
           this.alertService.showAlert({

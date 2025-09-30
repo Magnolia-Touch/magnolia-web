@@ -118,6 +118,22 @@
             </div>
         </div>
     </div>
+    <nav *ngIf="unApprovedPagination?.totalPages > 1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="unApprovedPage === 1">
+                <a class="page-link" (click)="loadUnApprovedGB(unApprovedPage - 1)">Previous</a>
+            </li>
+
+            <li class="page-item" *ngFor="let page of [].constructor(unApprovedPagination.totalPages); let i = index"
+                [class.active]="(i+1) === unApprovedPage">
+                <a class="page-link" (click)="loadUnApprovedGB(i+1)">{{ i+1 }}</a>
+            </li>
+
+            <li class="page-item" [class.disabled]="unApprovedPage === unApprovedPagination.totalPages">
+                <a class="page-link" (click)="loadUnApprovedGB(unApprovedPage + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <div class="approved mt-5 gbcontainer" *ngIf="approvedGb?.length">
@@ -137,6 +153,22 @@
             </div>
         </div>
     </div>
+    <nav *ngIf="approvedPagination?.totalPages > 1">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="approvedPage === 1">
+                <a class="page-link" (click)="loadApprovedGB(approvedPage - 1)">Previous</a>
+            </li>
+
+            <li class="page-item" *ngFor="let page of [].constructor(approvedPagination.totalPages); let i = index"
+                [class.active]="(i+1) === approvedPage">
+                <a class="page-link" (click)="loadApprovedGB(i+1)">{{ i+1 }}</a>
+            </li>
+
+            <li class="page-item" [class.disabled]="approvedPage === approvedPagination.totalPages">
+                <a class="page-link" (click)="loadApprovedGB(approvedPage + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <!-- Guestbook Modal -->

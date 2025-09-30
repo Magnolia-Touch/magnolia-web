@@ -33,11 +33,11 @@ export class MemorialService {
     return this.http.patch(`${this.BaseUrl}/approve-guestmessages?code=${code}&id=${id}`, {})
   }
 
-  approveGuestBook(code: any) {
-    return this.http.get(`${this.BaseUrl}/guestmessages?code=${code}`)
+  approveGuestBook(code: any, page: number, limit: number) {
+    return this.http.get(`${this.BaseUrl}/guestmessages?code=${code}&page=${page}&limit=${limit}`)
   }
 
-  UnApproveGuestBook(code: any) {
-    return this.http.get(`${this.BaseUrl}/unapproved-guestmessages?code=${code}`)
+  UnApproveGuestBook(code: any, page: number, limit: number) {
+    return this.http.get(`${this.BaseUrl}/unapproved-guestmessages?code=${code}&page=${page}&limit=${limit}`)
   }
 }
