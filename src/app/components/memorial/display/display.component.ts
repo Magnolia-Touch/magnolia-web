@@ -77,7 +77,7 @@ export class DisplayComponent {
       next: (res: any) => {
         this.memorialData = res.data;
         this.memorialOwner = res.data.owner_id
-        if (this.memorialOwner === this.user.email) {
+        if (this.user && this.memorialOwner === this.user.email) {
           this.loadUnApprovedGB()
         }
 

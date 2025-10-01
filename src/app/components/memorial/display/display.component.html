@@ -166,7 +166,7 @@
                 <p class="message">{{ gb.message }}</p>
                 <small class="text-muted">{{ gb.date | date:'medium' }}</small>
             </div>
-            <div class="btn-group ms-3" *ngIf="user.email === memorialOwner">
+            <div class="btn-group ms-3" *ngIf="user && user.email === memorialOwner">
                 <button class="btn btn-danger btn-sm" (click)="deleteGuestBook(gb, 'approved')">Delete</button>
             </div>
         </div>
