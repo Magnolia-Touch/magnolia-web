@@ -10,6 +10,7 @@ export class ProfileService {
   private BaseUrl = `${environment.apiUrl}/auth`
   private SubUrl = `${environment.apiUrl}/user`
   private MemoUrl = `${environment.apiUrl}/memories`
+  private OrdersUrl = `${environment.apiUrl}/orders`
 
   constructor(
     private http: HttpClient
@@ -46,6 +47,11 @@ export class ProfileService {
 
   resetPassword(data: { email: string; otp: string; newPassword: string }) {
     return this.http.post(`${this.BaseUrl}/reset-password`, data);
+  }
+
+  getOrders(page: number, limit: number) {
+    let params: any = { page, limit };
+    return this.http.get(`${this.OrdersUrl}/my-orders`, { params })
   }
 
 }

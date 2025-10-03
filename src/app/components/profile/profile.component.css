@@ -85,6 +85,10 @@ h5 {
   background: #a18f50;
 }
 
+.addresses{
+  padding: 60px 20px;
+}
+
 /* ===================== Form Card ===================== */
 .details .card {
   max-width: 600px;
@@ -267,4 +271,37 @@ h5 {
 .pagination .page-item.disabled .page-link {
   color: #ccc;
   pointer-events: none;
+}
+
+.orders {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 10px;
+}
+
+.orders h4 {
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #b8a262;
+  border-bottom: 2px solid #b8a262;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.order-card {
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.order-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.order-card p {
+  font-size: 14px;
+  margin-bottom: 6px;
 }

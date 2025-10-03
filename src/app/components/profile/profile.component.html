@@ -69,7 +69,35 @@
                 <p *ngIf="profile.Phone" class="value">: {{profile?.Phone || ''}}</p>
             </div>
         </div>
+    </div>
 
+    <div class="addresses mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4>Addresses</h4>
+            <button class="edit-btn" (click)="openAddressModal(addressModal)">+ Add Address</button>
+        </div>
+
+        <div *ngIf="addresses?.length; else noAddress">
+            <div class="card shadow-sm p-3 mb-2" *ngFor="let addr of addresses">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">
+                        {{ addr.Name }}, {{ addr.street }}, {{ addr.town_or_city }},
+                        {{ addr.country }} - {{ addr.postcode }},
+                        {{ addr.phone }}, {{ addr.email }}
+                    </p>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary me-2  mb-2"
+                            (click)="openAddressModal(addressModal, addr)">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger mb-2"
+                            (click)="deleteAddress(addr.deli_address_id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noAddress>
+            <div class="text-muted">No addresses added yet.</div>
+        </ng-template>
     </div>
 
     <div class="subs">
@@ -143,7 +171,7 @@
 
         <!-- Pagination -->
         <!-- Pagination -->
-        <nav  class="mt-4">
+        <nav class="mt-4">
             <ul class="pagination justify-content-center">
                 <li class="page-item" [class.disabled]="page === 1">
                     <button class="page-link" (click)="pageChange(page - 1)" [disabled]="page === 1">Previous</button>
@@ -159,7 +187,64 @@
                 </li>
             </ul>
         </nav>
+    </div>
 
+    <div class="orders mt-5">
+        <div *ngIf="loading" class="text-center my-5">
+            <div class="spinner-border custom-spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <div *ngIf="!loading && orders?.length" class="orders-list">
+            <h4 class="mb-3">Orders</h4>
+            <div class="row">
+                <div class="col-md-4 mb-3" *ngFor="let order of orders">
+                    <div class="card shadow-sm order-card h-100">
+                        <div class="card-body">
+                            <p><strong>Order #:</strong> {{ order.orderNumber }}</p>
+                            <p><strong>Date:</strong> {{ order.createdAt | date:'mediumDate' }}</p>
+                            <p><strong>Status:</strong>
+                                <span [ngClass]="{
+                'text-success': order.status === 'delivered',
+                'text-warning': order.status === 'pending',
+                'text-danger': order.status === 'cancelled'
+              }">
+                                    {{ order.status | titlecase }}
+                                </span>
+                            </p>
+                            <p><strong>Total:</strong> {{ order.totalAmount | currency:'USD' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!loading && !orders?.length" class="text-center my-3">
+            No orders found.
+        </div>
+
+        <!-- Pagination -->
+        <nav class="mt-4" *ngIf="orders?.length">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="orderPage === 1">
+                    <button class="page-link" (click)="orderPageChange(orderPage - 1)" [disabled]="orderPage === 1">
+                        Previous
+                    </button>
+                </li>
+
+                <li class="page-item" *ngFor="let p of totalOrderPages" [class.active]="orderPage === p">
+                    <button class="page-link" (click)="orderPageChange(p)">{{ p }}</button>
+                </li>
+
+                <li class="page-item" [class.disabled]="orderPage === lastOrderPage">
+                    <button class="page-link" (click)="orderPageChange(orderPage + 1)"
+                        [disabled]="orderPage === lastOrderPage">
+                        Next
+                    </button>
+                </li>
+            </ul>
+        </nav>
     </div>
 
 </div>
@@ -185,6 +270,48 @@
             </div>
             <div class="text-end">
                 <button type="submit" class="edit-btn" [disabled]="passwordForm.invalid">Save</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #addressModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">{{ editAddress ? 'Edit Address' : 'Add Address' }}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addressForm" (ngSubmit)="saveAddress(modal)">
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" formControlName="Name" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Street</label>
+                <input type="text" formControlName="street" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Town/City</label>
+                <input type="text" formControlName="town_or_city" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Country</label>
+                <input type="text" formControlName="country" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Postcode</label>
+                <input type="text" formControlName="postcode" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="text" formControlName="phone" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" formControlName="email" class="form-control">
+            </div>
+            <div class="text-end">
+                <button type="submit" class="edit-btn" [disabled]="addressForm.invalid">Save</button>
             </div>
         </form>
     </div>

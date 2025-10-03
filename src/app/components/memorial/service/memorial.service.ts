@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 export class MemorialService {
 
   private BaseUrl = `${environment.apiUrl}/memories`
+  private UserUrl = `${environment.apiUrl}/user`
+  private StripeUrl = `${environment.apiUrl}/stripe`
 
   constructor(
     private http: HttpClient
@@ -39,5 +41,25 @@ export class MemorialService {
 
   UnApproveGuestBook(code: any, page: number, limit: number) {
     return this.http.get(`${this.BaseUrl}/unapproved-guestmessages?code=${code}&page=${page}&limit=${limit}`)
+  }
+
+  getAddress() {
+    return this.http.get(`${this.UserUrl}/get-user-address`)
+  }
+
+  addAddress(itm: any) {
+    return this.http.post(`${this.UserUrl}/create-user-address`, itm)
+  }
+
+  updateAddress(id: any, itm: any){
+    return this.http.patch(`${this.UserUrl}/update-user-address/${id}`, itm)
+  }
+
+  deleteAddress(id:any){
+    return this.http.delete(`${this.UserUrl}/get-user-address/${id}`)
+  }
+
+  createPayment(itm: any){
+    return this.http.post(`${this.StripeUrl}/create-payment-intent`, itm)
   }
 }

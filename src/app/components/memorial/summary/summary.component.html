@@ -30,31 +30,27 @@
         <div class="col-md-6">
             <h6 class="fw-bold mb-3 text-primary-custom">Your Estimated Service Cost</h6>
             <div class="card shadow-sm p-4 service-card">
-                <!-- Service Method -->
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Service Method:</label>
-                    <div>
-                        <button class="btn btn-outline-dark btn-sm me-2" [class.active]="serviceMethod==='online'"
-                            (click)="serviceMethod='online'">Online Service</button>
-                        <button class="btn btn-outline-dark btn-sm" [class.active]="serviceMethod==='offline'"
-                            (click)="serviceMethod='offline'">Offline Service</button>
-                    </div>
-                </div>
 
-                <!-- Offline Fields -->
-                <div *ngIf="serviceMethod==='offline'" class="offline-fields">
-                    <div class="mb-2">
-                        <label class="form-label">Cemetery no*</label>
-                        <input type="text" class="form-control" [(ngModel)]="cemetery.no">
+                <div class="col-12 mb-4">
+                    <h5 class="fw-bold text-primary-custom">Your Address</h5>
+
+                    <div *ngFor="let addr of addresses; let i = index"
+                        class="card shadow-sm p-3 mb-2 d-flex align-items-start">
+                        <div class="form-check w-100">
+                            <input class="form-check-input" type="radio" name="selectedAddress" [value]="addr"
+                                [(ngModel)]="selectedAddress" id="addr{{i}}">
+                            <label class="form-check-label w-100" for="addr{{i}}">
+                                <p class="mb-0">
+                                    {{ addr.Name }}, {{ addr.street }}, {{ addr.town_or_city }},
+                                    {{ addr.country }} - {{ addr.postcode }},
+                                    {{ addr.phone }}, {{ addr.email }}
+                                </p>
+                            </label>
+                        </div>
                     </div>
-                    <div class="mb-2">
-                        <label class="form-label">Cemetery name*</label>
-                        <input type="text" class="form-control" [(ngModel)]="cemetery.name">
-                    </div>
-                    <div class="mb-2">
-                        <label class="form-label">City & State*</label>
-                        <input type="text" class="form-control" [(ngModel)]="cemetery.cityState">
-                    </div>
+
+                    <button class="btn btn-primary-custom mt-2" (click)="openAddressModal(addressModal)">Add
+                        Address</button>
                 </div>
 
                 <!-- Features -->
@@ -64,8 +60,7 @@
                     <li><i class="bi bi-check2-circle text-primary-custom"></i> Easy to Install, Timeless to Share</li>
                 </ul>
 
-                <!-- Payment Breakdown -->
-                <div class="border-top pt-3">
+                <!-- <div class="border-top pt-3">
                     <p class="mb-1"><strong>Badge Cost</strong> <span class="float-end">$299</span></p>
                     <p class="mb-1" *ngIf="serviceMethod==='online'"><strong>Shipping Cost</strong> <span
                             class="float-end">$20</span></p>
@@ -73,22 +68,34 @@
                             class="float-end">$29</span></p>
                     <hr>
                     <p class="fw-bold total-cost">Total Cost: <span class="float-end">$498</span></p>
-                </div>
-
-                <!-- Payment Method -->
-                <div class="mb-3">
-                    <label class="form-label">Payment Method:</label>
-                    <select class="form-select">
-                        <option value="">Select</option>
-                        <option value="upi">UPI</option>
-                        <option value="card">Credit/Debit Card</option>
-                        <option value="paypal">PayPal</option>
-                    </select>
-                </div>
+                </div> -->
 
                 <!-- Generate QR -->
-                <button class="btn btn-primary-custom w-100 fw-bold" (click)="generateQR()">Generate QR</button>
+                <button class="btn btn-primary-custom w-100 fw-bold" [disabled]="selectedAddress === null"
+                    (click)="generateQR()">Order</button>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #addressModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Add Address</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
+        <div class="modal-body">
+            <div class="mb-2"><input formControlName="Name" class="form-control" placeholder="Name"></div>
+            <div class="mb-2"><input formControlName="street" class="form-control" placeholder="Street"></div>
+            <div class="mb-2"><input formControlName="town_or_city" class="form-control" placeholder="City"></div>
+            <div class="mb-2"><input formControlName="country" class="form-control" placeholder="Country"></div>
+            <div class="mb-2"><input formControlName="postcode" class="form-control" placeholder="Postcode"></div>
+            <div class="mb-2"><input formControlName="phone" class="form-control" placeholder="Phone"></div>
+            <div class="mb-2"><input formControlName="email" class="form-control" placeholder="Email"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+            <button type="submit" class="btn btn-primary-custom" [disabled]="addressForm.invalid">Save</button>
+        </div>
+    </form>
+</ng-template>

@@ -25,7 +25,7 @@ export class CleaningService {
   }
 
   getAllPlans(){
-    return this.http.get(`${this.SubUrl}/get-subscription-plans`)
+    return this.http.get(`${this.SubUrl}`)
   }
 
   getFlowers(){

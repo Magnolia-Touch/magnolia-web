@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MemorialService } from '../service/memorial.service';
 import { AlertService } from '../../../shared/alert/service/alert.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-summary-mem',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.css'
 })
@@ -17,15 +18,29 @@ export class SummaryComponent implements OnInit {
   serviceMethod: string = 'online';
   cemetery = { no: '', name: '', cityState: '' };
   profilePhotoUrl: string = '';
+  addresses: any[] = [];
+  addressForm: FormGroup;
+  selectedAddress: any = null;
 
   constructor(
     private router: Router,
     private service: MemorialService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private modalService: NgbModal,
+    private fb: FormBuilder,
   ) {
     const nav = this.router.getCurrentNavigation();
     this.payload = nav?.extras.state;
-    console.log("Received data:", this.payload);
+
+    this.addressForm = this.fb.group({
+      Name: ['', Validators.required],
+      street: ['', Validators.required],
+      town_or_city: ['', Validators.required],
+      country: ['', Validators.required],
+      postcode: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
   ngOnInit(): void {
@@ -45,12 +60,24 @@ export class SummaryComponent implements OnInit {
       apiData.append('gallery', file);
     });
 
+    this.loadAddress()
   }
 
   ngOnDestroy(): void {
     if (this.profilePhotoUrl.startsWith('blob:')) {
       URL.revokeObjectURL(this.profilePhotoUrl);
     }
+  }
+
+  loadAddress() {
+    this.service.getAddress().subscribe({
+      next: (res: any) => {
+        this.addresses = res;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
   }
 
   generateQR(): void {
@@ -81,8 +108,6 @@ export class SummaryComponent implements OnInit {
       events: form.lifeEvents || []
     };
 
-    console.log(memorialData);
-
     const apiData = new FormData();
 
     // Append primitive fields
@@ -111,14 +136,14 @@ export class SummaryComponent implements OnInit {
 
     this.service.createMemorial(apiData).subscribe({
       next: (res) => {
-        console.log('Memorial created successfully:', res);
         this.alertService.showAlert({
           message: 'Memorial created successfully',
           type: 'success',
           autoDismiss: true,
           duration: 4000
         });
-        this.router.navigate(['/success'])
+        // this.router.navigate(['/success'])
+        this.payment(res)
       },
       error: (err) => {
         console.error('Error creating memorial:', err);
@@ -129,6 +154,45 @@ export class SummaryComponent implements OnInit {
           duration: 4000
         });
       }
+    });
+  }
+
+  payment(itm: any) {
+    const pay = {
+      shippingaddressId: this.selectedAddress.deli_address_id,
+      currency: "INR",
+      billingaddressId: this.selectedAddress.deli_address_id,
+      memoryProfileId: itm.slug
+    }
+    this.service.createPayment(pay).subscribe({
+      next: (res: any) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+
+  }
+
+  openAddressModal(modalTemplate: TemplateRef<any>) {
+    const buttonElement = document.activeElement as HTMLElement;
+    buttonElement.blur();
+
+    this.modalService.open(modalTemplate, { centered: true, backdrop: 'static' });
+  }
+
+  saveAddress() {
+    if (!this.addressForm.valid) return;
+
+    this.service.addAddress(this.addressForm.value).subscribe({
+      next: () => {
+        this.alertService.showAlert({ message: 'Address saved successfully', type: 'success', autoDismiss: true });
+        this.loadAddress()
+        this.modalService.dismissAll()
+        this.addressForm.reset();
+      },
+      error: (err) => this.alertService.showAlert({ message: err.error.message, type: 'error', autoDismiss: true })
     });
   }
 
