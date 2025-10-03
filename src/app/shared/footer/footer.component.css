@@ -27,6 +27,16 @@ footer ul li {
     cursor: pointer;
 }
 
+footer ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer ul li a:hover {
+    color: #f0d9a3;
+}
+
 footer .top {
     display: flex;
     flex-wrap: wrap;

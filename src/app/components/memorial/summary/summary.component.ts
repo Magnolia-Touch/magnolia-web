@@ -142,7 +142,6 @@ export class SummaryComponent implements OnInit {
           autoDismiss: true,
           duration: 4000
         });
-        // this.router.navigate(['/success'])
         this.payment(res)
       },
       error: (err) => {
@@ -161,18 +160,25 @@ export class SummaryComponent implements OnInit {
     const pay = {
       shippingaddressId: this.selectedAddress.deli_address_id,
       currency: "INR",
-      billingaddressId: this.selectedAddress.deli_address_id,
       memoryProfileId: itm.slug
     }
     this.service.createPayment(pay).subscribe({
       next: (res: any) => {
-        console.log(res);
+        if (res && res.checkout_url) {
+          window.location.href = res.checkout_url;
+        } else {
+          this.alertService.showAlert({
+            message: 'Checkout URL Not Present in the response',
+            type: 'error',
+            autoDismiss: true,
+            duration: 4000
+          });
+        }
       },
       error: (err) => {
         console.error(err);
       }
     })
-
   }
 
   openAddressModal(modalTemplate: TemplateRef<any>) {

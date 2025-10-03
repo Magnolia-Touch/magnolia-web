@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div class="container-fluid">
-    <div class="headings">
+    <div class="headings" #headingSection>
         <h1>Preserving Legacies with <br> Grace and Respect</h1>
         <p>Offering expert grave care, timeless floral tributes, and modern
             digital memorials to honor your loved ones with lasting dignity</p>
@@ -127,8 +127,8 @@
                 with dignity, beauty, and compassion.</p>
         </div>
         <div class="ready-buttons">
-            <button>Get Started</button>
-            <button>Contact Us</button>
+            <button (click)="scrollToHeading()">Get Started</button>
+            <!-- <button>Contact Us</button> -->
         </div>
     </div>
 
