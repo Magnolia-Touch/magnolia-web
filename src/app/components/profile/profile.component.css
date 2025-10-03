@@ -85,7 +85,7 @@ h5 {
   background: #a18f50;
 }
 
-.addresses{
+.addresses {
   padding: 60px 20px;
 }
 
@@ -214,8 +214,13 @@ h5 {
 }
 
 .memo h4 {
-  font-weight: 700;
   margin-bottom: 20px;
+  color: #b8a262;
+  font-size: 22px;
+  font-weight: 700;
+  border-bottom: 2px solid #b8a262;
+  display: inline-block;
+  padding-bottom: 5px;
 }
 
 .memo input.form-control {
@@ -304,4 +309,14 @@ h5 {
 .order-card p {
   font-size: 14px;
   margin-bottom: 6px;
+}
+
+.addresses h4 {
+  margin-bottom: 20px;
+  color: #b8a262;
+  font-size: 22px;
+  font-weight: 700;
+  border-bottom: 2px solid #b8a262;
+  display: inline-block;
+  padding-bottom: 5px;
 }
