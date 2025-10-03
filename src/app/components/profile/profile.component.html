@@ -169,16 +169,17 @@
             <div class="text-center text-muted">No memorial profiles found.</div>
         </ng-template>
 
-        <!-- Pagination -->
-        <!-- Pagination -->
-        <nav class="mt-4">
+        <!-- Memorial Pagination -->
+        <nav class="mt-4" *ngIf="lastPage > 1">
             <ul class="pagination justify-content-center">
                 <li class="page-item" [class.disabled]="page === 1">
                     <button class="page-link" (click)="pageChange(page - 1)" [disabled]="page === 1">Previous</button>
                 </li>
 
-                <li class="page-item" *ngFor="let p of totalPages" [class.active]="page === p">
-                    <button class="page-link" (click)="pageChange(p)">{{ p }}</button>
+                <li class="page-item" *ngFor="let p of getDisplayedPages(page, lastPage)" [class.active]="page === p"
+                    [class.disabled]="p < 0">
+                    <button class="page-link" (click)="pageChange(p)" *ngIf="p > 0">{{ p }}</button>
+                    <span class="page-link disabled" *ngIf="p < 0">...</span>
                 </li>
 
                 <li class="page-item" [class.disabled]="page === lastPage">
@@ -224,27 +225,27 @@
             No orders found.
         </div>
 
-        <!-- Pagination -->
-        <nav class="mt-4" *ngIf="orders?.length">
+        <!-- Orders Pagination -->
+        <nav class="mt-4" *ngIf="lastOrderPage > 1">
             <ul class="pagination justify-content-center">
                 <li class="page-item" [class.disabled]="orderPage === 1">
-                    <button class="page-link" (click)="orderPageChange(orderPage - 1)" [disabled]="orderPage === 1">
-                        Previous
-                    </button>
+                    <button class="page-link" (click)="orderPageChange(orderPage - 1)"
+                        [disabled]="orderPage === 1">Previous</button>
                 </li>
 
-                <li class="page-item" *ngFor="let p of totalOrderPages" [class.active]="orderPage === p">
-                    <button class="page-link" (click)="orderPageChange(p)">{{ p }}</button>
+                <li class="page-item" *ngFor="let p of getDisplayedPages(orderPage, lastOrderPage)"
+                    [class.active]="orderPage === p" [class.disabled]="p < 0">
+                    <button class="page-link" (click)="orderPageChange(p)" *ngIf="p > 0">{{ p }}</button>
+                    <span class="page-link disabled" *ngIf="p < 0">...</span>
                 </li>
 
                 <li class="page-item" [class.disabled]="orderPage === lastOrderPage">
                     <button class="page-link" (click)="orderPageChange(orderPage + 1)"
-                        [disabled]="orderPage === lastOrderPage">
-                        Next
-                    </button>
+                        [disabled]="orderPage === lastOrderPage">Next</button>
                 </li>
             </ul>
         </nav>
+
     </div>
 
 </div>
