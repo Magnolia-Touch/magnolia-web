@@ -16,6 +16,7 @@ import { DisplayComponent } from './components/memorial/display/display.componen
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { authGuard } from './core/guard/auth.guard';
+import { ContactComponent } from './components/contact/contact.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -35,5 +36,6 @@ export const routes: Routes = [
     { path: 'page/:id', component: DisplayComponent },
     { path: 'forgotpassword', component: ForgotpasswordComponent },
     { path: 'resetpassword', component: ResetpasswordComponent },
+    { path: 'contact', component: ContactComponent },
     { path: '**', component: HomeComponent }
 ];

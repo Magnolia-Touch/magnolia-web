@@ -1,0 +1,78 @@
+<app-header></app-header>
+
+<div class="container-fluid contact-container">
+    <div class="form-wrapper">
+        <h2 class="form-title">Get in Touch</h2>
+        <p class="form-subtitle">We'd love to hear from you. Please fill out the form below.</p>
+
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row">
+                <!-- Name -->
+                <div class="col-md-6 form-group">
+                    <label for="name">Full Name</label>
+                    <input id="name" type="text" formControlName="name" class="form-control"
+                        [class.is-invalid]="contactForm.get('name')?.touched && contactForm.get('name')?.invalid" />
+                    <div class="error-msg" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+                        <small *ngIf="contactForm.get('name')?.errors?.['required']">Name is required.</small>
+                        <small *ngIf="contactForm.get('name')?.errors?.['minlength']">At least 2 characters.</small>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6 form-group">
+                    <label for="email">Email Address</label>
+                    <input id="email" type="email" formControlName="email" class="form-control"
+                        [class.is-invalid]="contactForm.get('email')?.touched && contactForm.get('email')?.invalid" />
+                    <div class="error-msg"
+                        *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+                        <small *ngIf="contactForm.get('email')?.errors?.['required']">Email is required.</small>
+                        <small *ngIf="contactForm.get('email')?.errors?.['email']">Invalid email address.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Phone -->
+                <div class="col-md-6 form-group">
+                    <label for="phone">Phone Number</label>
+                    <input id="phone" type="text" formControlName="phoneNumber" class="form-control"
+                        [class.is-invalid]="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.invalid" />
+                    <div class="error-msg"
+                        *ngIf="contactForm.get('phoneNumber')?.touched && contactForm.get('phoneNumber')?.invalid">
+                        <small *ngIf="contactForm.get('phoneNumber')?.errors?.['required']">Phone number is
+                            required.</small>
+                        <small *ngIf="contactForm.get('phoneNumber')?.errors?.['pattern']">Enter a valid 10-digit
+                            number.</small>
+                    </div>
+                </div>
+
+                <!-- Subject -->
+                <div class="col-md-6 form-group">
+                    <label for="subject">Subject</label>
+                    <input id="subject" type="text" formControlName="subject" class="form-control"
+                        [class.is-invalid]="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid" />
+                    <div class="error-msg"
+                        *ngIf="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid">
+                        <small *ngIf="contactForm.get('subject')?.errors?.['required']">Subject is required.</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message -->
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5" formControlName="message" class="form-control"
+                    [class.is-invalid]="contactForm.get('message')?.touched && contactForm.get('message')?.invalid"></textarea>
+                <div class="error-msg"
+                    *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.invalid">
+                    <small *ngIf="contactForm.get('message')?.errors?.['required']">Message is required.</small>
+                    <small *ngIf="contactForm.get('message')?.errors?.['minlength']">At least 10 characters.</small>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit" [disabled]="contactForm.invalid">Send Message</button>
+        </form>
+    </div>
+</div>
+
+<app-footer></app-footer>

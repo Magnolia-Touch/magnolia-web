@@ -23,8 +23,8 @@
                         <li><a class="dropdown-item" routerLink="/memorial">Memorial</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link custom-link" href="#">About</a></li>
-                <li class="nav-item"><a class="nav-link custom-link" href="#">Contact Us</a></li>
+                <!-- <li class="nav-item"><a class="nav-link custom-link" href="#">About</a></li> -->
+                <li class="nav-item"><a class="nav-link custom-link" routerLink="/contact">Contact Us</a></li>
                 <li class="nav-item d-none d-lg-block">
                     <ng-container *ngIf="authService.isLoggedIn(); else showLogin">
                         <div class="dropdown">
