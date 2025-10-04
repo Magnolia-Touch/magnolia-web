@@ -122,6 +122,8 @@ export class SummaryComponent implements OnInit {
     apiData.append('family', JSON.stringify(memorialData.family));
     apiData.append('socialLinks', JSON.stringify(memorialData.socialLinks));
     apiData.append('events', JSON.stringify(memorialData.events));
+    apiData.append('shippingaddressId', this.selectedAddress.deli_address_id);
+    apiData.append('currency', 'INR')
 
     // Append files
     if (profilePhoto) {
@@ -135,14 +137,16 @@ export class SummaryComponent implements OnInit {
     }
 
     this.service.createMemorial(apiData).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.alertService.showAlert({
           message: 'Memorial created successfully',
           type: 'success',
           autoDismiss: true,
           duration: 4000
         });
-        this.payment(res)
+        if (res.booking && res.booking.checkout_url) {
+          window.location.href = res.booking.checkout_url;
+        }
       },
       error: (err) => {
         console.error('Error creating memorial:', err);
@@ -154,31 +158,6 @@ export class SummaryComponent implements OnInit {
         });
       }
     });
-  }
-
-  payment(itm: any) {
-    const pay = {
-      shippingaddressId: this.selectedAddress.deli_address_id,
-      currency: "INR",
-      memoryProfileId: itm.slug
-    }
-    this.service.createPayment(pay).subscribe({
-      next: (res: any) => {
-        if (res && res.checkout_url) {
-          window.location.href = res.checkout_url;
-        } else {
-          this.alertService.showAlert({
-            message: 'Checkout URL Not Present in the response',
-            type: 'error',
-            autoDismiss: true,
-            duration: 4000
-          });
-        }
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    })
   }
 
   openAddressModal(modalTemplate: TemplateRef<any>) {
