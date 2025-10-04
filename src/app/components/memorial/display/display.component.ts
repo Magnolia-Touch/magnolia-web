@@ -103,7 +103,7 @@ export class DisplayComponent {
   openGalleryModal(content: TemplateRef<any>) {
     const buttonElement = document.activeElement as HTMLElement;
     buttonElement.blur();
-    this.modalService.open(content, { size: 'lg', centered: true });
+    this.modalService.open(content, { size: 'lg', centered: true, scrollable: true });
   }
 
   getBiography(): string {
