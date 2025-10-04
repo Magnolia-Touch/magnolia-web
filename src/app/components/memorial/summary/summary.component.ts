@@ -124,7 +124,9 @@ export class SummaryComponent implements OnInit {
     apiData.append('socialLinks', JSON.stringify(memorialData.socialLinks));
     apiData.append('events', JSON.stringify(memorialData.events));
     apiData.append('shippingaddressId', this.selectedAddress.deli_address_id);
-    apiData.append('currency', 'INR')
+    apiData.append('currency', 'INR');
+    apiData.append('sucessUrl', 'https://magnolia-touch.netlify.app/success')
+    apiData.append('cancelUrl', 'https://magnolia-touch.netlify.app/failed')
 
     // Append files
     if (profilePhoto) {
@@ -139,12 +141,12 @@ export class SummaryComponent implements OnInit {
 
     this.service.createMemorial(apiData).subscribe({
       next: (res: any) => {
-        this.alertService.showAlert({
-          message: 'Memorial created successfully',
-          type: 'success',
-          autoDismiss: true,
-          duration: 4000
-        });
+        // this.alertService.showAlert({
+        //   message: 'Memorial created successfully',
+        //   type: 'success',
+        //   autoDismiss: true,
+        //   duration: 4000
+        // });
         if (res.booking && res.booking.checkout_url) {
           window.location.href = res.booking.checkout_url;
         }
