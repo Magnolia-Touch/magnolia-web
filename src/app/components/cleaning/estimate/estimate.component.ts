@@ -288,8 +288,8 @@ export class EstimateComponent implements OnInit {
       status: "pending",
       flower_id: this.selectedFlowerID || null,
       note: formValue.note || null,
-      successUrl: 'http://localhost:4200/success',
-      cancelUrl: 'http://localhost:4200/failed'
+      successUrl: 'https://magnoliatouch.com/success',
+      cancelUrl: 'https://magnoliatouch.com/failed'
     };
 
     this.service.newService(payload).subscribe({
