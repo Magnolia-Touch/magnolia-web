@@ -50,3 +50,8 @@ ul li {
     color: #BDA577;
     font-size: 16px;
 }
+
+button .spinner-border {
+  width: 1rem;
+  height: 1rem;
+}

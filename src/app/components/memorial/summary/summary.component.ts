@@ -21,6 +21,7 @@ export class SummaryComponent implements OnInit {
   addresses: any[] = [];
   addressForm: FormGroup;
   selectedAddress: any = null;
+  loading = false;
 
   constructor(
     private router: Router,
@@ -82,7 +83,7 @@ export class SummaryComponent implements OnInit {
 
   generateQR(): void {
     if (!this.payload) return;
-
+    this.loading = true;
     const { form, profilePhoto, galleryPhotos } = this.payload;
 
     const socialLinks = [];
@@ -156,6 +157,7 @@ export class SummaryComponent implements OnInit {
           autoDismiss: true,
           duration: 4000
         });
+        this.loading = false;
       }
     });
   }

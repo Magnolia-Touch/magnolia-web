@@ -71,8 +71,13 @@
                 </div> -->
 
                 <!-- Generate QR -->
-                <button class="btn btn-primary-custom w-100 fw-bold" [disabled]="selectedAddress === null"
-                    (click)="generateQR()">Order</button>
+                <button class="btn btn-primary-custom w-100 fw-bold d-flex justify-content-center align-items-center"
+                    [disabled]="selectedAddress === null || loading" (click)="generateQR()">
+                    <span *ngIf="!loading">Order</span>
+                    <div *ngIf="loading" class="spinner-border spinner-border-sm text-light ms-2" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </button>
             </div>
         </div>
     </div>
