@@ -201,7 +201,6 @@ export class EstimateComponent implements OnInit {
         flowerCost = addedFlower ? Number(addedFlower.Price) : 0;
         flowerNote = formValue.note || '';
         this.selectedFlowerName = addedFlower.Name
-        console.log(addedFlower);
       }
 
       const total = planCost + flowerCost;
@@ -216,8 +215,6 @@ export class EstimateComponent implements OnInit {
         flowerNote,
         total
       };
-
-      console.log(this.summary);
 
       this.step = 4;
       this.scrollToTop();
