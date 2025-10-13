@@ -36,6 +36,8 @@ export class PreviewComponent implements OnInit {
         profilePhoto: this.memorialForm.get('profilePhoto')?.value || null
       };
 
+      this.data.lifeEvents.sort((a: any, b: any) => Number(a.year) - Number(b.year));
+
       const file = this.data.profilePhoto;
       if (file && typeof file !== 'string') {
         this.profilePhotoUrlValue = URL.createObjectURL(file);
