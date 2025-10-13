@@ -47,7 +47,7 @@
                 </div>
 
                 <!-- Subject -->
-                <div class="col-md-6 form-group">
+                <!-- <div class="col-md-6 form-group">
                     <label for="subject">Subject</label>
                     <input id="subject" type="text" formControlName="subject" class="form-control"
                         [class.is-invalid]="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid" />
@@ -55,7 +55,7 @@
                         *ngIf="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid">
                         <small *ngIf="contactForm.get('subject')?.errors?.['required']">Subject is required.</small>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Message -->
@@ -70,7 +70,9 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit" [disabled]="contactForm.invalid">Send Message</button>
+            <button type="submit" class="btn-submit" [disabled]="isSubmitting && contactForm.invalid">
+                {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+            </button>
         </form>
     </div>
 </div>
