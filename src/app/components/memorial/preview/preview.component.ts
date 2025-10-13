@@ -51,8 +51,6 @@ export class PreviewComponent implements OnInit {
         }
         return img;
       });
-
-      console.log(this.memorialForm);
       
     }
   }
