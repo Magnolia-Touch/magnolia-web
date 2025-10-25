@@ -5,6 +5,7 @@
 .navbar-logo {
     height: 90px;
     width: auto;
+    cursor: pointer;
 }
 
 .nav-center {

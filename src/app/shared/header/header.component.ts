@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/interceptor/auth.service';
 import { CommonModule } from '@angular/common';
 import { ConfirmationService } from '../confirmation-modal/service/confirmation.service';
@@ -14,7 +14,8 @@ export class HeaderComponent {
 
   constructor(
     public authService: AuthService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router
   ) { }
 
   async logOut() {
@@ -28,6 +29,10 @@ export class HeaderComponent {
     if (confirmed) {
       this.authService.logout();
     }
+  }
+
+  goTo() {
+    this.router.navigate(["/home"])
   }
 
 }
