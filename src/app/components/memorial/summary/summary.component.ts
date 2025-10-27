@@ -74,9 +74,9 @@ export class SummaryComponent implements OnInit {
     this.service.getAddress().subscribe({
       next: (res: any) => {
         this.addresses = res;
-        // if (this.addresses.length === 1) {
-        //   this.selectedAddress = this.addresses[0];
-        // }
+        if (this.addresses.length === 1) {
+          this.selectedAddress = this.addresses[0];
+        }
       },
       error: (err) => {
         console.error(err);
