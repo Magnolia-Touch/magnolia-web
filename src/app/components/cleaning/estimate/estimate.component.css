@@ -199,8 +199,24 @@ label {
     transition: background 0.2s ease;
 }
 
+.remove-btn {
+    background: #c0a36e;
+    color: #fff;
+    margin-top: 8px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.remove-btn:hover {
+    background: #a8844c;
+    color: rgb(0, 0, 0);
+}
+
 .add-btn:hover {
     background: #a8844c;
+    color: black
 }
 
 /* Buttons */

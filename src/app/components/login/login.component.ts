@@ -103,12 +103,19 @@ export class LoginComponent {
       this.authService.signup(payload).subscribe({
         next: (response: any) => {
           this.isLoadingSignup = false;
+
           this.alertService.showAlert({
             message: 'Signup Successful! Please login.',
             type: 'success',
             autoDismiss: true,
             duration: 4000
           });
+
+          this.loginForm.patchValue({
+            email: email,
+            password: password
+          });
+
           this.isLogin = true; // switch to login tab
           this.signupForm.reset();
         },

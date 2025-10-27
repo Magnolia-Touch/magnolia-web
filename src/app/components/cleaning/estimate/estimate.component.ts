@@ -224,14 +224,26 @@ export class EstimateComponent implements OnInit {
   }
 
   addFlower(id: any) {
+  // If same flower clicked again, remove it (toggle off)
+  if (this.selectedFlowerID === id) {
+    this.selectedFlowerID = null;
+    this.alertService.showAlert({
+      message: 'Flower has been removed.',
+      type: 'info',
+      autoDismiss: true,
+      duration: 3000
+    });
+  } else {
+    // New flower selected 
     this.selectedFlowerID = id;
     this.alertService.showAlert({
-      message: 'Flower has been added;',
+      message: 'Flower has been added.',
       type: 'success',
       autoDismiss: true,
-      duration: 4000
+      duration: 3000
     });
   }
+}
 
   openFlowerModal() {
     const buttonElement = document.activeElement as HTMLElement;
