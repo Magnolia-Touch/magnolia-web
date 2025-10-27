@@ -56,7 +56,7 @@ export class MemorialService {
   }
 
   deleteAddress(id:any){
-    return this.http.delete(`${this.UserUrl}/get-user-address/${id}`)
+    return this.http.delete(`${this.UserUrl}/delete-user-address/${id}`)
   }
 
   createPayment(itm: any){

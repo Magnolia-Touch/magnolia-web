@@ -38,7 +38,7 @@ export class ProfileService {
   }
 
   changePassword(data: { oldPassword: string, newPassword: string, confirmPassword: string }) {
-    return this.http.post(`${this.BaseUrl}/change-password`, data);
+    return this.http.patch(`${this.BaseUrl}/change-password`, data);
   }
 
   forgotPassword(email: string) {
