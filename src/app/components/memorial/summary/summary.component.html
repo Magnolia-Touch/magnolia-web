@@ -51,6 +51,9 @@
 
                     <button class="btn btn-primary-custom mt-2" (click)="openAddressModal(addressModal)">Add
                         Address</button>
+                    <p *ngIf="addresses.length > 0 && !selectedAddress" class="text-danger mt-2 small">
+                        Please select an address to proceed with your order.
+                    </p>
                 </div>
 
                 <!-- Features -->
