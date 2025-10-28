@@ -56,4 +56,9 @@ export class ForgotpasswordComponent {
       this.forgotForm.markAllAsTouched();
     }
   }
+
+  goBack() {
+    window.history.back();
+  }
+
 }

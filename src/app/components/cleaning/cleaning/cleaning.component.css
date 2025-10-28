@@ -137,6 +137,7 @@
 }
 
 .two-card-list ul {
+    margin-left: 25px;
     list-style: none;
     padding: 0;
     text-align: left;
@@ -219,6 +220,7 @@
 }
 
 .one-card-list ul {
+    margin-left: 25px;
     list-style: none;
     padding: 0;
     text-align: left;

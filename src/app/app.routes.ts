@@ -17,6 +17,8 @@ import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassw
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { authGuard } from './core/guard/auth.guard';
 import { ContactComponent } from './components/contact/contact.component';
+import { PrivacypolicyComponent } from './shared/privacypolicy/privacypolicy.component';
+import { TermsAndConditionsComponent } from './shared/terms-and-conditions/terms-and-conditions.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -37,5 +39,7 @@ export const routes: Routes = [
     { path: 'forgotpassword', component: ForgotpasswordComponent },
     { path: 'resetpassword', component: ResetpasswordComponent },
     { path: 'contact', component: ContactComponent },
+    { path: 'privacypolicy', component: PrivacypolicyComponent},
+    { path: 'termsandconditions', component: TermsAndConditionsComponent },
     { path: '**', component: HomeComponent }
 ];

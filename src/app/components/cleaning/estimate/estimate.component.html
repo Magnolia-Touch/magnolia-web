@@ -135,8 +135,13 @@
                                 </ng-template>
                                 <span class="price">${{flower.Price}}</span>
                             </div>
-                            <button class="btn add-btn" (click)="addFlower(flower.flower_id)"
-                                [disabled]="!flower.in_stock">Add</button>
+                            <button class="btn" [ngClass]="{
+                                    'add-btn': selectedFlowerID !== flower.flower_id,
+                                    'remove-btn': selectedFlowerID === flower.flower_id
+                                    }" (click)="addFlower(flower.flower_id)" [disabled]="!flower.in_stock">
+
+                                {{ selectedFlowerID === flower.flower_id ? 'Remove' : 'Add' }}
+                            </button>
                         </div>
                     </div>
                 </div>
